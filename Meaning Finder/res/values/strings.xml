@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">나만의 의미찾기</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_join">JoinActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_confirm">ConfirmActivity</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_setup">SetupActivity</string>
+    <string name="title_activity_star">StarActivity</string>
+    <string name="url_join">http://mean1.cloudapp.net/api/api_userJoinProc.php</string>
+    <string name="url_login">http://mean1.cloudapp.net/api/api_userLogin.php</string>
+    <string name="url_get_question">http://mean1.cloudapp.net/api/api_requestionInfo.php</string>
+    <string name="url_get_questions">http://mean1.cloudapp.net/api/api_requestionList.php</string>
+
+    <string name="join_success">회원 등록 성공!</string>
+    <string name="join_longname">이름의 글자수가 다릅니다. 32자 이하</string>
+    <string name="join_wrong_email">이메일 정규식이 틀렸습니다.</string>
+    <string name="join_email_dup">이메일 중복.</string>
+    <string name="join_query_error">회원가입 insert query 에러.</string>
+</resources>

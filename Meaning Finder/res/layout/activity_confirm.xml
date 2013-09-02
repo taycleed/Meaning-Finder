@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ConfirmActivity">
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목록"
+                android:id="@+id/button_c_list"
+                android:singleLine="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true" />
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="편집"
+                android:id="@+id/button_c_modify"
+                android:singleLine="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="질문/답 확인"
+                android:textSize="30dp"
+                android:layout_alignParentTop="false"
+                android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="질문 1. 10년 이상 된 친구가 있는가? 어떤 친구인가?"
+                android:textSize="20dp"
+                android:id="@+id/textview_c_question"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 친구는 어쩌고저쩌고..."
+                android:textSize="20dp"
+                android:id="@+id/textview_c_answer"
+                android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
