@@ -16,7 +16,23 @@
     <string name="url_login">http://mean1.cloudapp.net/api/api_userLogin.php</string>
     <string name="url_get_question">http://mean1.cloudapp.net/api/api_requestionInfo.php</string>
     <string name="url_get_questions">http://mean1.cloudapp.net/api/api_requestionList.php</string>
-
+	
+    <!-- 처음 로고화면의 타이틀 -->
+    <string name="loading_title1">내 마음을 봄&#8230;</string>
+    <string name="loading_title2">스스로에게 물어 봄&#8230;</string>
+    <string name="loading_title3">세상을 바라 봄&#8230;</string>
+    
+    
+    <!-- 로그인 화면 -->    
+    <string name="ok">확인</string>
+    <string name="emailStr">이메일</string>
+    <string name="passwordStr">비밀번호</string>
+    <string name="join">안녕? 처음 만나 :)</string>
+    <string name="login">로그인</string>
+    <string name="login_wait">로그인 중입니다. 잠시만 기다려주십시오.</string>
+    <string name="login_fail_msg">아이디와 패스워드 오류입니다. 다시 한 번 확인해주세요.</string>
+    
+    
     <string name="join_success">회원 등록 성공!</string>
     <string name="join_longname">이름의 글자수가 다릅니다. 32자 이하</string>
     <string name="join_wrong_email">이메일 정규식이 틀렸습니다.</string>

@@ -1,46 +1,146 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_intro"
-    tools:context=".LogoActivity">
+    tools:context=".LogoActivity" >
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
     <ImageView
-            android:layout_width="wrap_content"
+        android:id="@+id/imageView_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/logo" />
+
+    <RelativeLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView
+            android:id="@+id/loadingTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="180dp"
+            android:gravity="center"
+            android:text="@string/loading_title1" />
+    </RelativeLayout>
+
+    <!-- Login form -->
+
+    <LinearLayout
+        android:id="@+id/loginFormLayout"
+        style="@style/LoginFormContainer"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="95dip"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <!-- 아이디 입력창 -->
+
+        <FrameLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView_logo"
-            android:background="@drawable/logo"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"/>
+            android:layout_weight="1" >
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_gravity="center_horizontal|top">
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/emailStr"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="13sp" />
 
-        <LinearLayout android:id="@+id/fullscreen_content_controls"
-            style="?buttonBarStyle"
+            <ImageView
+                android:id="@+id/user_id_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/btn_edittext_clear"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/passwordStr"
+                android:imeActionId="@+id/login"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="qwerasdf"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/user_pw_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dip"
+                android:src="@drawable/btn_edittext_clear"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            android:orientation="horizontal" >
 
-            <Button android:id="@+id/dummy_button"
-                style="?buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/button_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="left"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:text="@string/dummy_button"
-                android:onClick="goNext"/>
+                android:background="@drawable/border"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/join"
+                android:textSize="12sp" />
 
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/login"
+                android:textSize="12sp" />
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fullscreen_content_controls"
+        style="?buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/black_overlay"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent" >
+    </LinearLayout>
 
 </FrameLayout>

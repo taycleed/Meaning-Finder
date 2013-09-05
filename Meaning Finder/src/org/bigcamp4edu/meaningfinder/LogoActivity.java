@@ -1,165 +1,471 @@
 package org.bigcamp4edu.meaningfinder;
 
-import org.bigcamp4edu.meaningfinder.util.SystemUiHider;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EncodingUtils;
 
-import android.annotation.TargetApi;
+import android.R.array;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
-public class LogoActivity extends Activity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.bigcamp4edu.meaningfinder.LoginActivity.UserLoginTask;
+import org.bigcamp4edu.meaningfinder.util.SystemUiHider;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+import org.bigcamp4edu.meaningfinder.LogoActivity;
 
-    /**
-     * If set, will toggle the system UI visibility upon interaction. Otherwise,
-     * will show the system UI visibility upon interaction.
-     */
-    private static final boolean TOGGLE_ON_CLICK = true;
+import org.bigcamp4edu.meaningfinder.R;
 
-    /**
-     * The flags to pass to {@link SystemUiHider#getInstance}.
-     */
-    private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
+import org.bigcamp4edu.meaningfinder.Var;
 
-    /**
-     * The instance of the {@link SystemUiHider} for this activity.
-     */
-    private SystemUiHider mSystemUiHider;
+import org.bigcamp4edu.meaningfinder.DB;
+import org.bigcamp4edu.meaningfinder.UrlPost;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.opengl.Visibility;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Xml;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-        setContentView(R.layout.activity_logo);
+public class LogoActivity extends Activity implements OnClickListener,OnTouchListener {
+	LogoActivity LogoActivity;
+	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.imageView_logo);
+	Thread x; 								// 쓰레드
+	Handler mHandler;						// 핸들러
 
-        // Set up an instance of SystemUiHider to control the system UI for
-        // this activity.
-        mSystemUiHider = SystemUiHider.getInstance(this, contentView, HIDER_FLAGS);
-        mSystemUiHider.setup();
-        mSystemUiHider
-                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-                    // Cached values.
-                    int mControlsHeight;
-                    int mShortAnimTime;
+	EditText email; 						// 이메일, 아이디 입력창
+	EditText password; 						// 비밀번호 입력창
+	ImageView user_id_del; 					// 아이디 삭제 버튼
+	ImageView user_pw_del; 					// 패스워드 삭제 버튼
+	Button loginButton;						// 로그인 버튼
+	Button joinButton; 						// 회원가입 버튼
 
-                    @Override
-                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-                    public void onVisibilityChange(boolean visible) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                            // If the ViewPropertyAnimator API is available
-                            // (Honeycomb MR2 and later), use it to animate the
-                            // in-layout UI controls at the bottom of the
-                            // screen.
-                            if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
-                            }
-                            if (mShortAnimTime == 0) {
-                                mShortAnimTime = getResources().getInteger(
-                                        android.R.integer.config_shortAnimTime);
-                            }
-                            controlsView.animate()
-                                    .translationY(visible ? 0 : mControlsHeight)
-                                    .setDuration(mShortAnimTime);
-                        } else {
-                            // If the ViewPropertyAnimator APIs aren't
-                            // available, simply show or hide the in-layout UI
-                            // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
-                        }
+	TextView loadingTitle;					// 로딩중 문자
+	int	titleNo	= 0;						// 로딩 문자번호
+	ArrayList<String> titleArr;				// 로딩 문자 담는 배열
+	
+	LinearLayout loginFormLayout; 			// 로그인 폼
+	Timer			timer;					// 타이머
+	
+	private ProgressDialog progressDialog;
 
-                        if (visible && AUTO_HIDE) {
-                            // Schedule a hide().
-                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                        }
-                    }
-                });
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);								// 액션바 제거
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);						// 상태바 제거
+		
+		setContentView(R.layout.activity_logo);
+		
+		LogoActivity	= this;
+		
+		loadingTitle	= (TextView) findViewById(R.id.loadingTitle);				// 로딩중 문자
+		loginFormLayout	= (LinearLayout) findViewById(R.id.loginFormLayout);		// 로그인 폼
+		user_id_del		= (ImageView) findViewById(R.id.user_id_del);				// 아이디 삭제 버튼
+		user_pw_del		= (ImageView) findViewById(R.id.user_pw_del);				// 패스워드 삭제 버튼
+		
+		findViewById(R.id.loading_layout).setOnTouchListener(LogoActivity);
+		
+		user_id_del.setOnClickListener(LogoActivity);								// 아이디 삭제 버튼 리스너
+		user_pw_del.setOnClickListener(LogoActivity);								// 패스워드 삭제 버튼 리스너
+		
+		mHandler		 = new Handler();
+		
+		// 로그인이 안되있을경우
+		if(!Var.LOGIN_STATE)
+		{
+			loadingTitle.setVisibility(View.VISIBLE);
+			loginFormLayout.setVisibility(View.GONE);
+			
+			progressDialog = new ProgressDialog(LogoActivity);
+			
+			email	= (EditText) findViewById(R.id.email);
+			email.setOnTouchListener(new OnTouchListener() {
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if(event.getAction() == KeyEvent.ACTION_DOWN){					// 아이디 입력 창 터치 시
+						user_pw_del.setVisibility(View.INVISIBLE);					// 패스워드 글자 삭제 버튼 숨기기
+						
+						if(email.getText().length() > 0){						// 글자 수가 0보다 클 때
+							user_id_del.setVisibility(View.VISIBLE);				// 삭제 버튼 보이기
+						}else{														// 아니면
+							user_id_del.setVisibility(View.INVISIBLE);				// 삭제 버튼 숨기기
+						}
+					}
+					return false;
+				}
+			});
+			
+			email.addTextChangedListener(new TextWatcher() {
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					if(s.length() > 0){												// 글자 수가 0보다 클 때
+						user_id_del.setVisibility(View.VISIBLE);					// 삭제 버튼 보이기
+					}else{															// 아니면
+						user_id_del.setVisibility(View.INVISIBLE);					// 삭제 버튼 숨기기
+					}
+				}
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+				}
+				@Override
+				public void afterTextChanged(Editable s) {
+				}
+			});
+			
+			
+			password		= (EditText) findViewById(R.id.password);				// 패스워드 입력 창
+			password.setOnTouchListener(new OnTouchListener() {
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if(event.getAction() == KeyEvent.ACTION_DOWN){					// 입력창을 터치했을 때
+						user_id_del.setVisibility(View.INVISIBLE);					// 아이디 글자 삭제버튼 숨기기
+						
+						if(password.getText().length() > 0){						// 글자 수가 0보다 클 때
+							user_pw_del.setVisibility(View.VISIBLE);				// 삭제 버튼 보이기
+						}else{														// 아니면
+							user_pw_del.setVisibility(View.INVISIBLE);				// 삭제 버튼 숨기기
+						}
+					}
+					return false;
+				}
+			});
+			password.addTextChangedListener(new TextWatcher() {
+				@Override
+				public void onTextChanged(CharSequence s, int start, int before, int count) {
+					if(s.length() > 0){												// 글자 수가 0보다 클 때
+						user_pw_del.setVisibility(View.VISIBLE);					// 삭제 버튼 보이기
+					}else{															// 아니면
+						user_pw_del.setVisibility(View.INVISIBLE);					// 삭제 버튼 숨기기
+					}
+				}
+				@Override
+				public void beforeTextChanged(CharSequence s, int start, int count,	int after) {
+				}
+				@Override
+				public void afterTextChanged(Editable s) {
+				}
+			});
+			
+			password.setOnEditorActionListener(new OnEditorActionListener() {
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					if(actionId == EditorInfo.IME_ACTION_DONE){						// 가상 키보드에서 확인 누를 때
+						loginButton.performClick();									// 로그인 실행하기
+						return true;
+					}
+					return false;
+				}
+			});
+			
+			
+			
+			
+			
+			
+			x = new Thread(new Runnable()
+			{
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					mHandler.post(new Runnable() {
 
-        // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
-            }
-        });
+						@Override
+						public void run() {
+							try {
+								changeTitle();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					});
+				}
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-    }
+				private void changeTitle() throws InterruptedException 
+				{
+					titleArr = new ArrayList<String>();
+					
+					String strFormat1 = getResources().getString(R.string.loading_title1);
+					String strFormat2 = getResources().getString(R.string.loading_title2);
+					String strFormat3 = getResources().getString(R.string.loading_title3);
+					
+					titleArr.add(strFormat1);
+					titleArr.add(strFormat2);
+					titleArr.add(strFormat3);
+					
+					new CountDownTimer(4000, 1000)
+					{
+						public void onTick(long millisUntilFinished)
+						{
+							final String strFormat = (String) titleArr.get(titleNo++);
+							loadingTitle.setText(strFormat);
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
+							if (titleNo == titleArr.size())
+							{
+								titleNo = 0;
+							}
+						}
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
-    }
+						public void onFinish()
+						{
+							// mTextField.setText("done!");
+							loginFormLayout.setVisibility(View.VISIBLE);
+							loadingTitle.setVisibility(View.GONE);
+							x = null;
+						}
+						
+					}.start();
 
+				}
+			});
+			x.start();
+			
+		}
+		
+	}
+	
+	
+	/*******************************************************************************
+	 * 
+	 *	로그인 성공 시 프로그레스 다이얼로그를 없애고 로그인 성공 다이얼로그를 띄움
+	 *
+	 ******************************************************************************/
+	public Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			int id = msg.what;
+			
+			if(progressDialog.isShowing()){											// 프로그레스 다이얼로그가 보이는가?
+				progressDialog.cancel();											// 프로그레스 다이얼로그 멈춤
+				progressDialog = null;												// 프로그레스 다이얼로그 null
+			}
 
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
+			if(id == 0){
+				Var.LOGIN_STATE = false;
+				onCreateDialog(DB.LOGIN_ERROR).show();								// 로그인 에러 다이얼로그 띄우기
+			}else if(id == 1){
+				timer.cancel();														// 타이머 종료
+				timer = null;
+				Var.LOGIN_STATE = true;
+				finish();															// 로그인 액티비티 닫기
+			}
+		};
+	};
+	
+	/*******************************************************************************
+	 * 
+	 * 	로그 인 시 확인 다이얼로그
+	 * 
+	 ******************************************************************************/
+	protected Dialog onCreateDialog(final int id){
+    	Dialog				dialog	= null;
+		AlertDialog.Builder builder	= null;
+		builder = new AlertDialog.Builder(LogoActivity);
+		builder.setCancelable(true);
+		
+		if(id == DB.LOGIN_ERROR){													// 로그인 에러일 때
+			builder.setMessage(getString(R.string.login_fail_msg))
+				.setNeutralButton(getString(R.string.ok), new DialogInterface.OnClickListener() {	// ok버튼&리스너
+					public void onClick(DialogInterface dialog, int dialogid) {
+						dialog.dismiss();
+					}
+			});
+		}
+		
+		dialog = builder.create();													// 얼럿창 생성
+		return dialog;																// 얼럿창 리턴
+	}
+	
+	
+	/*******************************************************************************
+	 * 
+	 * 	로그인 성공 시 url 보내기
+	 * 
+	 ******************************************************************************/
+	private void loginSuccess(Context context){
+		Var.LOGIN_STATE = true;														// 로그인 상태 참
+	}
+	
+	
+	/*******************************************************************************
+	 * 
+	 *	로그인 동작
+	 *
+	 ******************************************************************************/
+	boolean postLoginCheck(Context context){
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();	// 파라메터 값 보내기 위한 배열
+    	postParameters.add(new BasicNameValuePair("email",	Var.userId));
+    	postParameters.add(new BasicNameValuePair("pass",	Var.userPw));
 
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mSystemUiHider.hide();
-        }
-    };
+    	try {
+    	    String response			= UrlPost.executeHttpPost(DB.loginChkUrl, postParameters);
+    	    String res				= response.toString();
+    	    String resultStart		= "<result>";
+    	    String resultEnd		= "</result>";
+    	    String errorCodeStart	= "<code>";
+    	    String errorCodeEnd		= "</code>";
+    	    String result			= null;
+    	    
+    	    res = res.replaceAll("\\s+", "");
+//    	    Log.i("TOKEN", res);
+    	    try{
+    	    	result = res.substring(res.indexOf(resultStart)+resultStart.length(), res.indexOf(resultEnd));
+//    	    	Log.i("TOKEN", Var.token);
+    	    }catch(Exception e){
+    	    	e.printStackTrace();
+    	    }
+    	    
+    	    if(result.equals("true")){												// 성공 메시지일 경우
+    	    	loginSuccess(context);
+    	    	return true;
+    	    }else{																	// 성공이 아닐 경우
+    			Var.LOGIN_PAGE = false;
+    	    	return false;
+    	    }
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+	}
+	
+	
+	
+	/*******************************************************************************
+	 * 
+	 * 	로그인 프로세스 (로그인 버튼 눌렀을 때만 실행해야 함)
+	 * 
+	 ******************************************************************************/
+	void loginProcess(String str){
+    	Var.userId = email.getText().toString();								// 아이디 텍스트창에서 아이디값 받기
+    	Var.userPw = password.getText().toString();								// 비밀번호 텍스트창에서 비밀번호값 받기
+		Var.LOGIN_PAGE = true;
+		
+		if(str != DB.AUTOLOGIN){													// 자동로그인이 아닐 때
+			progressDialog = ProgressDialog.show(LogoActivity, null, getString(R.string.login_wait));
+		}
+		
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if(postLoginCheck(LogoActivity)){										// 로그인 체크
+					TimerTask task = new TimerTask(){								// c2dm 핸들러 체크를 하기 위해
+						public void run(){
+							mHandler.sendEmptyMessage(1);							// 핸들러에 1번 메시지 보내기
+						}
+					};
+					timer = new Timer();
+					timer.schedule(task, 100, 1000);
+				}else{																// 로그인 성공이 아니면
+					mHandler.sendEmptyMessage(0);									// 핸들러에 0번 메시지 보내기
+				}
+			}
+		});
+		thread.start();
+		thread = null;
+	}
+	
+	
+	
 
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
+	@Override
+	public boolean onTouch(View arg0, MotionEvent arg1) {
+		InputMethodManager imm = (InputMethodManager) LogoActivity.getSystemService(Context.INPUT_METHOD_SERVICE);	// 가상키보드 설정
+		imm.hideSoftInputFromWindow(email.getWindowToken(), 0);											// 가상키보드 숨기기
+		Var.FINISH = false;
+		return false;
+	}
 
-    public void goNext(View view){
-        Intent intent = new Intent(LogoActivity.this, LoginActivity.class);
-        startActivity(intent);
-    }
+	/*******************************************************************************
+	 * 
+	 *	버튼 클릭 시
+	 *
+	 ******************************************************************************/
+	@Override
+	public void onClick(View v) {
+		int id = v.getId();
+		
+		if(id == R.id.button_login){													// 로그인 버튼
+			//loginProcess(null);
+			//customWebViewActivity.customWebView.goBackOrForward(-2);
+		}else if(id == R.id.user_id_del){											// 아이디 글자 삭제 버튼
+			email.setText("");
+			user_id_del.setVisibility(View.GONE);
+		}else if(id == R.id.user_pw_del){											// 패스워드 글자 삭제 버튼
+			password.setText("");
+			user_pw_del.setVisibility(View.GONE);
+		}else if(id == R.id.button_sign_up){												// 회원가입 버튼
+			//Var.URL = DB.joinUrl;
+			//startActivity(new Intent(mContext, Setting_WebPage.class));
+		}
+	}
+
 }

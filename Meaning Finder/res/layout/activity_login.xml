@@ -1,6 +1,9 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".LoginActivity">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_intro"
+    tools:context=".LoginActivity" >
 
     <!-- Login progress -->
     <LinearLayout android:id="@+id/login_status"
@@ -40,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="@string/prompt_email" />
+                android:hint="@string/emailStr"/>
 
             <EditText
                 android:id="@+id/password"
@@ -48,7 +51,7 @@
                 android:maxLines="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
+                android:hint="@string/passwordStr"
                 android:inputType="textPassword"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeActionId="@+id/login"
@@ -75,7 +78,7 @@
             <Button android:id="@+id/button_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="50dip"
                     android:text="(temp) Login"
                     android:paddingLeft="32dp"
                     android:paddingRight="32dp"
@@ -84,4 +87,4 @@
         </LinearLayout>
 
     </ScrollView>
-</merge>
+</FrameLayout>

@@ -332,4 +332,11 @@ public class LoginActivity extends Activity {
             showProgress(false);
         }
     }
+    @Override
+    public void onBackPressed() {
+    	
+    	super.onBackPressed();
+    	Var.end_page = true;
+    }
+    
 }
