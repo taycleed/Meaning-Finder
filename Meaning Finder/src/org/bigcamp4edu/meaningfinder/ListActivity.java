@@ -39,6 +39,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * ListActivity shows completed questions.
+ */
 public class ListActivity extends Activity {
 
     @Override
@@ -126,10 +129,10 @@ public class ListActivity extends Activity {
 
     public class QuestionGetterAsync extends AsyncTask<String, Void, List<VOMQuestion> >{
 
-//        ic         페이지당 질문갯수
-//        pg        선택할 페이지
-//        type                all = 모든질문, star = 별자리
-//        starNo        type == star 일때 별자리 number 값
+//        ic         �섏씠吏�떦 吏덈Ц媛�닔
+//        pg        �좏깮���섏씠吏�
+//        type                all = 紐⑤뱺吏덈Ц, star = 蹂꾩옄由�
+//        starNo        type == star �쇰븣 蹂꾩옄由�number 媛�
         @Override
         protected List<VOMQuestion> doInBackground(String... params) {
             String ic = params[0];
