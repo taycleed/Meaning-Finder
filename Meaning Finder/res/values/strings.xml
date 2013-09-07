@@ -22,4 +22,5 @@
     <string name="join_wrong_email">이메일 정규식이 틀렸습니다.</string>
     <string name="join_email_dup">이메일 중복.</string>
     <string name="join_query_error">회원가입 insert query 에러.</string>
+    <string name="teststring">github push용 test string 추가.</string>
 </resources>
