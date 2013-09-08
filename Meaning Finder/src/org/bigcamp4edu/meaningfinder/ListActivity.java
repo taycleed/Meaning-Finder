@@ -39,6 +39,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * ListActivity shows completed questions.
+ */
 public class ListActivity extends Activity {
 
     @Override
