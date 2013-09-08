@@ -1,147 +1,210 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".JoinActivity"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_general"
+    android:orientation="vertical"
+    tools:context=".JoinActivity" >
 
+    <LinearLayout
+        android:id="@+id/join_layout_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <RelativeLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="50dp">
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/navi_bg"
+            android:padding="10dp" >
 
-        <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Join us!"
-                android:textSize="30dp"
-                android:id="@+id/textView5"
-                android:layout_centerInParent="true"/>
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:text="@string/hello"
+                android:textColor="#7aebf6"
+                android:textSize="30dp" />
 
-        <Button
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="등록 완료!"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:text="@string/nicetomeetyou"
+                android:textColor="#454545"
+                android:textSize="15dp" />
+
+            <Button
                 android:id="@+id/button_join_submit"
-                android:singleLine="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="false"/>
-    </RelativeLayout>
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/navi_btn_normal"
+                android:singleLine="false"
+                android:text="@string/next" />
+        </RelativeLayout>
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="30dp"
-            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp" >
 
-        <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_title1"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_title2"
+                    android:textColor="#5eb4d7" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_title3"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_title4"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_normal"
+                android:hint="@string/name_title4"
+                android:padding="8dp"
+                android:text="김웅"
+                android:textColorHint="#aaaaaa" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="이름 : "
-                android:id="@+id/textView"/>
+                android:text="@string/birth_title1"
+                android:textColor="#ffffff" />
 
-        <EditText
+            <EditText
+                android:id="@+id/birthday"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_normal"
+                android:hint="@string/birth_title1"
+                android:inputType="number"
+                android:maxLength="8"
+                android:padding="8dp"
+                android:text="19900301"
+                android:textColorHint="#aaaaaa" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp" >
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText_name"/>
-    </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout"
-            >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_title1"
+                    android:textColor="#ffffff" />
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="생일 : "
-                android:id="@+id/textView2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_title2"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:ems="10"
-                android:id="@+id/editText_birthday"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout2">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="이메일 : "
-                android:id="@+id/textView3"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_normal"
+                android:hint="@string/email_title2"
                 android:inputType="textEmailAddress"
-                android:ems="10"
-                android:id="@+id/editText_email"/>
-    </LinearLayout>
+                android:padding="8dp"
+                android:text="a1@gmail.com"
+                android:textColorHint="#aaaaaa" />
+        </LinearLayout>
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout3">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp" >
 
-        <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="패스워드 : "
-                android:id="@+id/textView4"/>
+                android:text="@string/password_title1"
+                android:textColor="#ffffff" />
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_normal"
+                android:hint="@string/password_title2"
                 android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/editText_password"/>
+                android:maxLength="16"
+                android:padding="8dp"
+                android:text="1234"
+                android:textColorHint="#aaaaaa" />
 
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/linearLayout4">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="패스워드 확인 : "
-                android:id="@+id/textView6"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/pwd_confirm"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/input_normal"
+                android:hint="@string/password_title3"
                 android:inputType="textPassword"
-                android:ems="10"
-                android:id="@+id/editText_passwordagain"/>
+                android:maxLength="16"
+                android:padding="8dp"
+                android:text="1234"
+                android:textColorHint="#aaaaaa" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

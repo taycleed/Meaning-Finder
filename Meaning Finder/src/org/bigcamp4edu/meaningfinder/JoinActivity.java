@@ -1,17 +1,30 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.ArrayList;
+
+import android.R.string;
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Xml;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,189 +57,130 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JoinActivity extends Activity {
-
-    public class JoinAsyncTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String myurl = params[0];
-
-            HttpClient httpclient = HttpClientManager.getInstance().getHttpClient();
-            HttpPost httppost = new HttpPost(myurl);
-
-            try {
-                // Add your data
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-                nameValuePairs.add(new BasicNameValuePair("name", params[1]));
-                nameValuePairs.add(new BasicNameValuePair("birthday", params[2]));
-                nameValuePairs.add(new BasicNameValuePair("email", params[3]));
-                nameValuePairs.add(new BasicNameValuePair("pass", params[4]));
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                // Execute HTTP Post Request
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-
-                HttpResponse response = httpclient.execute(httppost);
-                Log.d("bigcamp4edu", "The response is: " + response);
-
-                HttpEntity httpEntity = response.getEntity();
-                String contentAsString = "";
-                if(httpEntity != null){
-                    contentAsString = EntityUtils.toString(httpEntity);
-                }
-                return contentAsString;
-
-                // Makes sure that the InputStream is closed after the app is
-                // finished using it.
-            } catch (ClientProtocolException e) {
-                // TODO Auto-generated catch block
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-            }
-
-            return null;
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            Log.d("bigcamp4edu", "The real response is: " + s);
-            InputStream is = null;
-            try {
-                XmlPullParser parser = Xml.newPullParser();
-                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-                is = new ByteArrayInputStream(s.getBytes("UTF-8"));
-                parser.setInput(is, null);
-                parser.nextTag();
-                while(!parser.getName().equals("result"))
-                    parser.nextTag();
-                String result = parser.nextText();
-                if(result.equals("true")){
-                    Toast.makeText(JoinActivity.this, getResources().getText(R.string.join_success), Toast.LENGTH_LONG).show();
-
-                    Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                    startActivity(intent);
-
-                    finish();
-
-                }else{
-                    String errorCode = parser.nextText();
-
-                    if(errorCode.equals("name length")){
-                        Toast.makeText(JoinActivity.this, getResources().getText(R.string.join_longname), Toast.LENGTH_LONG).show();
-                    }else if(errorCode.equals("email pattern")){
-                        Toast.makeText(JoinActivity.this, getResources().getText(R.string.join_wrong_email), Toast.LENGTH_LONG).show();
-                    }else if(errorCode.equals("exist email")){
-                        Toast.makeText(JoinActivity.this, getResources().getText(R.string.join_email_dup), Toast.LENGTH_LONG).show();
-                    }else if(errorCode.equals("query error")){
-                        Toast.makeText(JoinActivity.this, getResources().getText(R.string.join_query_error), Toast.LENGTH_LONG).show();
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
+	JoinActivity JoinActivity;
+	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	
     private boolean isSubmittable;
+    
+    Thread x; 								// 쓰레드
+	Handler mHandler;						// 핸들러
+	
+
+	Button		button_join_submit;			// 회원가입 버튼
+	
+	EditText 	name;						// 이름 입력창
+	EditText 	birthday;					// 생일 입력창
+	EditText 	email;						// 이메일 입력창
+	EditText 	pwd;						// 비밀번호 입력창
+	EditText 	pwdconfirm;					// 비밀번호 확인 입력창
+	
+	String tmp_name, tmp_birthday, tmp_email, tmp_pwd; 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+		requestWindowFeature(Window.FEATURE_NO_TITLE);								// 액션바 제거
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);						// 상태바 제거
+        
         setContentView(R.layout.activity_join);
+        
+        JoinActivity	= this;
+        
 
-        isSubmittable = false;
-
-        Button button = (Button) this.findViewById(R.id.button_join_submit);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: implement joining process.
-
-                if(!JoinActivity.this.isSubmittable){
-                    Toast.makeText(JoinActivity.this, "뭔가 틀렸어요!", Toast.LENGTH_LONG);
-                    return ;
-                }
-
-                String name, birthday, email, password;
-                EditText temp;
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_name);
-                name = temp.getText().toString();
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_birthday);
-                birthday = temp.getText().toString();
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_email);
-                email = temp.getText().toString();
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_password);
-                password = temp.getText().toString();
-
-                Log.d("bigcamp4edu", name + "/" + birthday + "/" + email + "/" + password);
-
-                (new JoinAsyncTask()).execute(getResources().getString(R.string.url_join),
-                        name, birthday, email, password);
-
-            }
-        });
-
-        TextWatcher tw = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Button button = (Button) JoinActivity.this.findViewById(R.id.button_join_submit);
-
-                String name, birthday, email, password, passwordagain;
-                EditText temp;
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_name);
-                name = temp.getText().toString();
-
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_birthday);
-                birthday = temp.getText().toString();
-
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_email);
-                email = temp.getText().toString();
-
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_password);
-                password = temp.getText().toString();
-
-                temp = (EditText) JoinActivity.this.findViewById(R.id.editText_passwordagain);
-                passwordagain = temp.getText().toString();
-
-                if(name.equals("") || birthday.equals("") || email.equals("") || password.equals("") || passwordagain.equals("")
-                    || !password.equals(passwordagain) || !email.contains("@") ){
-                    if(Build.VERSION.SDK_INT >= 11)
-                        button.setAlpha(0.4f);
-                    JoinActivity.this.isSubmittable = false;
-                }else{
-                    if(Build.VERSION.SDK_INT >= 11)
-                        button.setAlpha(1f);
-                    JoinActivity.this.isSubmittable = true;
-                }
-            }
-        };
-        EditText editText_name = (EditText) this.findViewById(R.id.editText_name);
-        editText_name.addTextChangedListener(tw);
-        editText_name = (EditText) this.findViewById(R.id.editText_email);
-        editText_name.addTextChangedListener(tw);
-        editText_name = (EditText) this.findViewById(R.id.editText_birthday);
-        editText_name.addTextChangedListener(tw);
-        editText_name = (EditText) this.findViewById(R.id.editText_password);
-        editText_name.addTextChangedListener(tw);
-        editText_name = (EditText) this.findViewById(R.id.editText_passwordagain);
-        editText_name.addTextChangedListener(tw);
+    	button_join_submit	= (Button) findViewById(R.id.button_join_submit);			// 회원가입 버튼
+    	name				= (EditText) findViewById(R.id.name);						// 이름 입력 뷰
+    	birthday			= (EditText) findViewById(R.id.birthday);					// 생일 입력 뷰
+    	email				= (EditText) findViewById(R.id.email);						// 이메일 입력 뷰
+    	pwd					= (EditText) findViewById(R.id.pwd);						// 비밀번호 입력 뷰
+    	pwdconfirm			= (EditText) findViewById(R.id.pwd_confirm);				// 비밀번호 확인 입력 뷰
+    	
+    	
+    	button_join_submit.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				
+				
+				tmp_name		= name.getText().toString();
+				tmp_birthday	= birthday.getText().toString();
+				tmp_email		= email.getText().toString();
+				tmp_pwd			= pwd.getText().toString();
+				
+//				 Log.d("bigcamp4edu", tmp_name + "/" + tmp_birthday + "/" + tmp_email + "/" + tmp_pwd);
+				
+				Thread thread = new Thread(new Runnable() {
+					public void run() {
+						 if(postJoinCheck(JoinActivity))
+						 {
+							 
+						 }
+					}
+				});
+				thread.start();
+				thread = null;
+				
+			}
+		});
 
     }
+    
+    
+    
+    /*******************************************************************************
+	 * 
+	 *	회원가입 동작
+	 *
+	 ******************************************************************************/
+	boolean postJoinCheck(Context context){
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();	// 파라메터 값 보내기 위한 배열
+    	postParameters.add(new BasicNameValuePair("name",		tmp_name));
+    	postParameters.add(new BasicNameValuePair("birthday",	tmp_birthday));
+    	postParameters.add(new BasicNameValuePair("email",		tmp_email));
+    	postParameters.add(new BasicNameValuePair("pass",		tmp_pwd));
+    	
+    	
+    	try {
 
+    	    String response			= UrlPost.executeHttpPost(DB.joinChkUrl, postParameters);
+    	    Log.i("test", response);
+    	    String res				= response.toString();
+    	    String resultStart		= "<result>";
+    	    String resultEnd		= "</result>";
+    	    String errorCodeStart	= "<code>";
+    	    String errorCodeEnd		= "</code>";
+    	    String result			= null;
+    	    
+    	    res = res.replaceAll("\\s+", "");
+    	    try{
+    	    	result = res.substring(res.indexOf(resultStart)+resultStart.length(), res.indexOf(resultEnd));
+//    	    	Log.i("TOKEN", result);
+    	    }catch(Exception e){
+    	    	e.printStackTrace();
+    	    }
+    	    
+    	    if(result.equals("true")){												// 성공 메시지일 경우
+    	    	return true;
+    	    }else{																	// 성공이 아닐 경우
+    			
+    	    	return false;
+    	    }
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		return false;
+    	}
+	}
+    
+    
+    
+    
+    public boolean onTouch(View arg0, MotionEvent arg1) {
+		InputMethodManager imm = (InputMethodManager) JoinActivity.getSystemService(Context.INPUT_METHOD_SERVICE);	// 가상키보드 설정
+		imm.hideSoftInputFromWindow(email.getWindowToken(), 0);											// 가상키보드 숨기기
+		
+		
+		Var.FINISH = false;
+		return false;
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

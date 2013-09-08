@@ -132,11 +132,15 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 		loginFormLayout	= (LinearLayout) findViewById(R.id.loginFormLayout);		// 로그인 폼
 		user_id_del		= (ImageView) findViewById(R.id.user_id_del);				// 아이디 삭제 버튼
 		user_pw_del		= (ImageView) findViewById(R.id.user_pw_del);				// 패스워드 삭제 버튼
+		loginButton		= (Button) findViewById(R.id.button_login);					// 로그인 버튼
+		joinButton		= (Button) findViewById(R.id.button_sign_up);				// 회원가입 버튼
 		
 		findViewById(R.id.loading_layout).setOnTouchListener(LogoActivity);
 		
 		user_id_del.setOnClickListener(LogoActivity);								// 아이디 삭제 버튼 리스너
 		user_pw_del.setOnClickListener(LogoActivity);								// 패스워드 삭제 버튼 리스너
+		loginButton.setOnClickListener(LogoActivity);								// 로그인 버튼 리스너
+		joinButton.setOnClickListener(LogoActivity);								// 회원가입 버튼 리스너
 		
 		mHandler		 = new Handler();
 		
@@ -154,6 +158,14 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				public boolean onTouch(View v, MotionEvent event) {
 					if(event.getAction() == KeyEvent.ACTION_DOWN){					// 아이디 입력 창 터치 시
 						user_pw_del.setVisibility(View.INVISIBLE);					// 패스워드 글자 삭제 버튼 숨기기
+						
+						password.setBackgroundResource(R.drawable.input_normal);
+						
+
+						email.setCursorVisible(true);
+						email.setBackgroundResource(R.drawable.input_focus);
+						email.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
+						
 						
 						if(email.getText().length() > 0){						// 글자 수가 0보다 클 때
 							user_id_del.setVisibility(View.VISIBLE);				// 삭제 버튼 보이기
@@ -189,6 +201,13 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				public boolean onTouch(View v, MotionEvent event) {
 					if(event.getAction() == KeyEvent.ACTION_DOWN){					// 입력창을 터치했을 때
 						user_id_del.setVisibility(View.INVISIBLE);					// 아이디 글자 삭제버튼 숨기기
+						
+						email.setBackgroundResource(R.drawable.input_normal);
+						
+
+						password.setCursorVisible(true);
+						password.setBackgroundResource(R.drawable.input_focus);
+						password.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
 						
 						if(password.getText().length() > 0){						// 글자 수가 0보다 클 때
 							user_pw_del.setVisibility(View.VISIBLE);				// 삭제 버튼 보이기
@@ -316,6 +335,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				timer.cancel();														// 타이머 종료
 				timer = null;
 				Var.LOGIN_STATE = true;
+				Intent intent = new Intent(LogoActivity.this, QuestionActivity.class);
+                startActivity(intent);
 				finish();															// 로그인 액티비티 닫기
 			}
 		};
@@ -379,7 +400,7 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 //    	    Log.i("TOKEN", res);
     	    try{
     	    	result = res.substring(res.indexOf(resultStart)+resultStart.length(), res.indexOf(resultEnd));
-//    	    	Log.i("TOKEN", Var.token);
+//    	    	Log.i("TOKEN", result);
     	    }catch(Exception e){
     	    	e.printStackTrace();
     	    }
@@ -419,13 +440,13 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				if(postLoginCheck(LogoActivity)){										// 로그인 체크
 					TimerTask task = new TimerTask(){								// c2dm 핸들러 체크를 하기 위해
 						public void run(){
-							mHandler.sendEmptyMessage(1);							// 핸들러에 1번 메시지 보내기
+							handler.sendEmptyMessage(1);							// 핸들러에 1번 메시지 보내기
 						}
 					};
 					timer = new Timer();
 					timer.schedule(task, 100, 1000);
 				}else{																// 로그인 성공이 아니면
-					mHandler.sendEmptyMessage(0);									// 핸들러에 0번 메시지 보내기
+					handler.sendEmptyMessage(0);									// 핸들러에 0번 메시지 보내기
 				}
 			}
 		});
@@ -440,6 +461,21 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	public boolean onTouch(View arg0, MotionEvent arg1) {
 		InputMethodManager imm = (InputMethodManager) LogoActivity.getSystemService(Context.INPUT_METHOD_SERVICE);	// 가상키보드 설정
 		imm.hideSoftInputFromWindow(email.getWindowToken(), 0);											// 가상키보드 숨기기
+		
+		user_id_del.setVisibility(View.INVISIBLE);					// 아이디 글자 삭제버튼 숨기기
+		user_pw_del.setVisibility(View.INVISIBLE);					// 아이디 글자 삭제버튼 숨기기
+		
+		email.setCursorVisible(false);
+		password.setCursorVisible(false);
+		
+		email.setBackgroundResource(R.drawable.input_normal);
+		email.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
+		email.clearFocus();
+		
+		password.setBackgroundResource(R.drawable.input_normal);
+		password.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
+		password.clearFocus();
+		
 		Var.FINISH = false;
 		return false;
 	}
@@ -454,7 +490,7 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 		int id = v.getId();
 		
 		if(id == R.id.button_login){													// 로그인 버튼
-			//loginProcess(null);
+			loginProcess(null);
 			//customWebViewActivity.customWebView.goBackOrForward(-2);
 		}else if(id == R.id.user_id_del){											// 아이디 글자 삭제 버튼
 			email.setText("");
@@ -463,8 +499,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			password.setText("");
 			user_pw_del.setVisibility(View.GONE);
 		}else if(id == R.id.button_sign_up){												// 회원가입 버튼
-			//Var.URL = DB.joinUrl;
-			//startActivity(new Intent(mContext, Setting_WebPage.class));
+			Intent intent = new Intent(LogoActivity.this, JoinActivity.class);
+            startActivity(intent);
 		}
 	}
 

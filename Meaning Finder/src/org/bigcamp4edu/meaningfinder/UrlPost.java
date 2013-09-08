@@ -43,7 +43,7 @@ public class UrlPost {
     public static String executeHttpPost(String url, ArrayList<NameValuePair> postParameters) throws Exception {
         BufferedReader in = null;
         try {
-            UrlEncodedFormEntity	formEntity	= new UrlEncodedFormEntity(postParameters);	// url-encoded pair 리스트를 구성하는 개체
+            UrlEncodedFormEntity	formEntity	= new UrlEncodedFormEntity(postParameters, "UTF_8");	// url-encoded pair 리스트를 구성하는 개체
         	DefaultHttpClient		client		= getHttpClient();
             HttpPost				request		= new HttpPost(url);						// 요청
             request.setEntity(formEntity);
