@@ -23,7 +23,7 @@ public class DB {
 	// 앱 공통 주소
 	public final static String loginChkUrl	= "http://mean1.cloudapp.net/api/api_userLogin.php";						// 로그인 체크
 	public final static String joinChkUrl	= "http://mean1.cloudapp.net/api/api_userJoinProc.php";						// 회원가입
-	
+	public final static String listUrl		= "http://mean1.cloudapp.net/api/api_requestionList.php";		
 	
 
 

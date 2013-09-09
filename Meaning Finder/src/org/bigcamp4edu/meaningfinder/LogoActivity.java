@@ -97,22 +97,24 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	LogoActivity LogoActivity;
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
-	Thread x; 								// 쓰레드
-	Handler mHandler;						// 핸들러
-
-	EditText email; 						// 이메일, 아이디 입력창
-	EditText password; 						// 비밀번호 입력창
-	ImageView user_id_del; 					// 아이디 삭제 버튼
-	ImageView user_pw_del; 					// 패스워드 삭제 버튼
-	Button loginButton;						// 로그인 버튼
-	Button joinButton; 						// 회원가입 버튼
-
-	TextView loadingTitle;					// 로딩중 문자
-	int	titleNo	= 0;						// 로딩 문자번호
-	ArrayList<String> titleArr;				// 로딩 문자 담는 배열
+	private Thread x; 								// 쓰레드
+	private Handler mHandler;						// 핸들러
 	
-	LinearLayout loginFormLayout; 			// 로그인 폼
-	Timer			timer;					// 타이머
+	private String tmp_email;
+	
+	private EditText email; 						// 이메일, 아이디 입력창
+	private EditText password; 						// 비밀번호 입력창
+	private ImageView user_id_del; 					// 아이디 삭제 버튼
+	private ImageView user_pw_del; 					// 패스워드 삭제 버튼
+	private Button loginButton;						// 로그인 버튼
+	private Button joinButton; 						// 회원가입 버튼
+
+	private TextView loadingTitle;					// 로딩중 문자
+	private int	titleNo	= 0;						// 로딩 문자번호
+	private ArrayList<String> titleArr;				// 로딩 문자 담는 배열
+	
+	private LinearLayout loginFormLayout; 			// 로그인 폼
+	private Timer			timer;					// 타이머
 	
 	private ProgressDialog progressDialog;
 
@@ -335,8 +337,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				timer.cancel();														// 타이머 종료
 				timer = null;
 				Var.LOGIN_STATE = true;
-				Intent intent = new Intent(LogoActivity.this, QuestionActivity.class);
-                startActivity(intent);
+				Intent intent = new Intent(LogoActivity.this, ListActivity.class);
+                startActivityForResult(intent, 1);
 				finish();															// 로그인 액티비티 닫기
 			}
 		};
@@ -500,8 +502,33 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			user_pw_del.setVisibility(View.GONE);
 		}else if(id == R.id.button_sign_up){												// 회원가입 버튼
 			Intent intent = new Intent(LogoActivity.this, JoinActivity.class);
-            startActivity(intent);
+			 startActivityForResult(intent, 1);
 		}
 	}
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch (requestCode) {
+		case 1:
+			if(resultCode == RESULT_OK)
+			{
+				
+				tmp_email	= data.getExtras().getString("tmp_email");
+				
+				Log.i("TMPEMAIL", tmp_email);
+				email.setText(tmp_email);
+			}
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+	
 
 }

@@ -112,7 +112,15 @@ public class JoinActivity extends Activity {
 					public void run() {
 						 if(postJoinCheck(JoinActivity))
 						 {
+							 Bundle extra = new Bundle();
+							 Intent intent = new Intent();
 							 
+							 extra.putString("tmp_email", tmp_email);
+
+							 intent.putExtras(extra);
+							 setResult(RESULT_OK, intent);
+					
+							 finish();
 						 }
 					}
 				});
