@@ -75,7 +75,7 @@ public class ListActivity extends Activity {
 				
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent();
+					//Intent intent = new Intent();
 					//intent.putExtra(name, value);
 					Toast.makeText(getBaseContext(), position+"번째 아이템", Toast.LENGTH_LONG).show();
 				}
