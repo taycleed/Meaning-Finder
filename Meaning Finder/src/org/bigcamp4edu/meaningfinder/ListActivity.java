@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,11 +22,16 @@ import android.widget.Toast;
  * ListActivity shows completed questions.
  */
 public class ListActivity extends Activity {
-	ListView listView;
-	VOMArrayAdapter adt;
-    @Override
+	ListView listView;					// 리스트 뷰 xml
+	VOMArrayAdapter adt;				// 리스트 어뎁터
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        requestWindowFeature(Window.FEATURE_NO_TITLE);								// 액션바 제거
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);						// 상태바 제거
+        
         setContentView(R.layout.activity_list);
         listView = (ListView)findViewById(R.id.listView_questions);
         

@@ -154,7 +154,10 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			
 			progressDialog = new ProgressDialog(LogoActivity);
 			
-			email	= (EditText) findViewById(R.id.email);
+			email			= (EditText) findViewById(R.id.email);
+			password		= (EditText) findViewById(R.id.password);				// 패스워드 입력 창
+			
+			
 			email.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
@@ -196,8 +199,27 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				}
 			});
 			
+			email.setOnEditorActionListener(new OnEditorActionListener() {
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					if(actionId == EditorInfo.IME_ACTION_NEXT){						// 가상 키보드에서 다음 누를 때
+						
+						user_id_del.setVisibility(View.INVISIBLE);					// 아이디 글자 삭제버튼 숨기기
+						
+						email.setBackgroundResource(R.drawable.input_normal);
+						email.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
+
+						password.setCursorVisible(true);
+						password.setBackgroundResource(R.drawable.input_focus);
+						password.setPadding((int) getResources().getDisplayMetrics().density*10, 0, 0, 0);
+						password.requestFocus();
+						return true;
+					}
+					return false;
+				}
+			});
 			
-			password		= (EditText) findViewById(R.id.password);				// 패스워드 입력 창
+			
 			password.setOnTouchListener(new OnTouchListener() {
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {

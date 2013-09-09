@@ -36,7 +36,7 @@ public class XmlParser {
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
 			factory.setNamespaceAware(true);
 			XmlPullParser xpp		= factory.newPullParser();
-			URL url					= new URL(DB.listUrl+"?ic=10&userNo=19"); // 실제 xml을 받을수 있는 경로..
+			URL url					= new URL(DB.listUrl+"?ic=50&userNo=19"); // 실제 xml을 받을수 있는 경로..
 			URLConnection uc		= url.openConnection();
 			InputStream	in			= uc.getInputStream();
 			xpp.setInput(in, "UTF-8");
