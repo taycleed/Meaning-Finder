@@ -55,7 +55,7 @@ public class ListActivity extends Activity {
     }
 
 
-
+    
     public class VOMArrayAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -66,31 +66,56 @@ public class ListActivity extends Activity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
+        	viewHolder holder;
+        	 
+        	if(convertView == null){
+        		LayoutInflater inflater = getLayoutInflater();
+        		convertView = inflater.inflate(R.layout.list_item, parent, false);
+        		holder 	= new viewHolder();
+        		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout);
+        		holder.listQuest	= (TextView) convertView.findViewById(R.id.textViewItem);
+        		holder.listStar		= (ImageView) convertView.findViewById(R.id.imageViewItem);
+        		
+        		convertView.setTag(holder);
+        	}
+        	else{
+        		holder	= (viewHolder) convertView.getTag();
+        	}
 
-            LayoutInflater inflater = getLayoutInflater();
-            View row;
-            row = inflater.inflate(R.layout.list_item, parent, false);
-            LinearLayout listItemLayout;
-            TextView question;
-            ImageView star;
-            listItemLayout = (LinearLayout) row.findViewById(R.id.listItemLayout);
-            question = (TextView) row.findViewById(R.id.textViewItem);
-            star = (ImageView) row.findViewById(R.id.imageViewItem);
-            question.setText(Var.listText.get(position));
-            Image_Downloader.download(Var.listImgUrl.get(position), star);
-            listItemLayout.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					//Intent intent = new Intent();
-					//intent.putExtra(name, value);
-					Toast.makeText(getBaseContext(), position+"번째 아이템", Toast.LENGTH_LONG).show();
-				}
-			});
+        	holder.listQuest.setText(Var.listText.get(position));
+        	Image_Downloader.download(Var.listImgUrl.get(position), holder.listStar);
+        	
+//            LayoutInflater inflater = getLayoutInflater();
+//            View row;
+//            row = inflater.inflate(R.layout.list_item, parent, false);
+//            LinearLayout listItemLayout;
+//            TextView question;
+//            ImageView star;
+//            listItemLayout = (LinearLayout) row.findViewById(R.id.listItemLayout);
+//            question = (TextView) row.findViewById(R.id.textViewItem);
+//            star = (ImageView) row.findViewById(R.id.imageViewItem);
+//            question.setText(Var.listText.get(position));
+//            Image_Downloader.download(Var.listImgUrl.get(position), star);
+//            listItemLayout.setOnClickListener(new OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					//Intent intent = new Intent();
+//					//intent.putExtra(name, value);
+//					Toast.makeText(getBaseContext(), position+"번째 아이템", Toast.LENGTH_LONG).show();
+//				}
+//			});
 //            list.get(position).star
 //            star.setImageResource();
 
-            return row;
+            return convertView;
+        }
+        
+        public class viewHolder
+        {
+          LinearLayout listLinear;
+          TextView listQuest;
+          ImageView listStar;
         }
 
 

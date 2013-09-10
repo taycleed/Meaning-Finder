@@ -3,23 +3,25 @@
     android:id="@+id/listItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="1"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:weightSum="1" >
 
     <ImageView
         android:id="@+id/imageViewItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:src="#ff2345" />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="#ff2345" 
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/textViewItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:layout_weight="1"
         android:hint="abcd"
-        android:textSize="15dip"
         android:textColor="#ffffff"
-        android:layout_weight="0.7" />
+        android:textSize="15dip" />
 
 </LinearLayout>
