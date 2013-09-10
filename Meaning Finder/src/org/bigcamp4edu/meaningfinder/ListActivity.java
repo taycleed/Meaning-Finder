@@ -3,6 +3,7 @@ package org.bigcamp4edu.meaningfinder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class ListActivity extends Activity {
     }
 
 
+	Drawable starDrawable;
     
     public class VOMArrayAdapter extends BaseAdapter {
         @Override
@@ -81,9 +83,60 @@ public class ListActivity extends Activity {
         	else{
         		holder	= (viewHolder) convertView.getTag();
         	}
-
+        	
+        	String	star_image_name;
+        	star_image_name	= (String) Var.listImgName.get(position);
+        	
+        	if(star_image_name == "con_aries_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_aries_small);
+        	}
+        	else if(star_image_name == "con_camelopardalis_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_camelopardalis_small);
+        	}
+        	else if(star_image_name == "con_cancerconstellation_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_cancerconstellation_small);
+        	}
+        	else if(star_image_name == "con_canisminoris_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_canisminoris_small);
+        	}
+        	else if(star_image_name == "con_capricornus_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_capricornus_small);
+        	}
+        	else if(star_image_name == "con_casiopea_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_casiopea_small);
+        	}
+        	else if(star_image_name == "con_comaberenies_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_comaberenies_small);
+        	}
+        	else if(star_image_name == "con_gemin_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_gemin_small);
+        	}
+        	else if(star_image_name == "con_leo_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_leo_small);
+        	}
+        	else if(star_image_name == "con_sagittarius_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_sagittarius_small);
+        	}
+        	else if(star_image_name == "con_scorpius_small.png")
+        	{
+        		starDrawable	= getResources().getDrawable(R.drawable.con_scorpius_small);
+        	}
+        	else if(star_image_name == "con_ursamajor_small.png"){
+        		starDrawable	= getResources().getDrawable(R.drawable.con_ursamajor_small);
+        	}
+        	
         	holder.listQuest.setText(Var.listText.get(position));
-        	Image_Downloader.download(Var.listImgUrl.get(position), holder.listStar);
+        	holder.listStar.setImageDrawable(starDrawable);
         	
 //            LayoutInflater inflater = getLayoutInflater();
 //            View row;
