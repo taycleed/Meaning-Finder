@@ -32,7 +32,6 @@ public class XmlParser {
 	@SuppressWarnings("unused")
 	public static boolean getListText(){
         try{
-        	Log.i("TEXTDATA", "start parser");
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
 			factory.setNamespaceAware(true);
 			XmlPullParser xpp		= factory.newPullParser();
@@ -42,11 +41,11 @@ public class XmlParser {
 			xpp.setInput(in, "UTF-8");
 			int eventType			= xpp.getEventType();
 			
-		    final String Name		= "name";
-		    final String starImg			= "starImg";
+		    final String Name			= "name";
+		    final String starImg		= "starImg";
+		    final String questionNo		= "no";
 		    int i = 0;
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
-				Log.i("TEXTDATA", "in while");
 				switch(eventType){
 				// 문서의 시작
 			    case XmlPullParser.START_DOCUMENT:								
@@ -58,13 +57,12 @@ public class XmlParser {
 			    
 				// 태그의 시작
 			    case XmlPullParser.START_TAG:									// <? ~~ ?> 인가?
-			    	Log.i("TEXTDATA", "in start tag");
-			    	if(xpp.getName().toString().equals(Name)){
+			    	if(xpp.getName().toString().equals(questionNo)){
+			    		Var.listReqNo.add(xpp.nextText().toString());
+				    }else if(xpp.getName().toString().equals(Name)){
 				    	Var.listText.add(xpp.nextText().toString());
-				    	Log.i("TEXTDATA", Var.listText.get(i));
 				    }else if(xpp.getName().toString().equals(starImg)){
 				    	Var.listImgName.add(xpp.nextText().toString());
-				    	Log.i("TEXTDATA", Var.listImgName.get(i++));
 				    }
 			    break;
 

@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.widget.LinearLayout;
 
 public class Var {
+	public static ArrayList<String> listReqNo 	= new ArrayList<String>();
 	public static ArrayList<String> listText 	= new ArrayList<String>();
 	public static ArrayList<String> listImgName = new ArrayList<String>();
 	public static boolean FINISH			= false;								// 종료 시 체크하기 
