@@ -100,7 +100,6 @@
                 android:background="@drawable/input_normal"
                 android:hint="@string/name_title4"
                 android:padding="8dp"
-                android:text="김웅"
                 android:textColorHint="#aaaaaa" />
         </LinearLayout>
 
@@ -126,7 +125,6 @@
                 android:inputType="number"
                 android:maxLength="8"
                 android:padding="8dp"
-                android:text="19900301"
                 android:textColorHint="#aaaaaa" />
         </LinearLayout>
 
@@ -163,7 +161,6 @@
                 android:hint="@string/email_title2"
                 android:inputType="textEmailAddress"
                 android:padding="8dp"
-                android:text="a1@gmail.com"
                 android:textColorHint="#aaaaaa" />
         </LinearLayout>
 
@@ -189,7 +186,6 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:padding="8dp"
-                android:text="1234"
                 android:textColorHint="#aaaaaa" />
 
             <EditText
@@ -202,7 +198,6 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:padding="8dp"
-                android:text="1234"
                 android:textColorHint="#aaaaaa" />
         </LinearLayout>
     </LinearLayout>
