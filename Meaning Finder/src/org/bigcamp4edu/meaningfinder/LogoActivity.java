@@ -99,8 +99,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	private Thread x; 								// 쓰레드
-	private Handler mHandler;						// 핸들러
-	
+	private Handler mHandler;						// 핸들러asd
+	 
 	private String tmp_email;
 	
 	private EditText email; 						// 이메일, 아이디 입력창

@@ -69,17 +69,21 @@ public class ListActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
         {
-            AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
-            alertDlg.setPositiveButton( "asdasd", new DialogInterface.OnClickListener()
-            {
-                 @Override
-                 public void onClick( DialogInterface dialog, int which ) {
-                     dialog.dismiss();  // AlertDialog를 닫는다.
-                 }
-            });
-            
-            alertDlg.setMessage( Var.listReqNo.get(position) );
-            alertDlg.show();
+//            AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
+//            alertDlg.setPositiveButton( "asdasd", new DialogInterface.OnClickListener()
+//            {
+//                 @Override
+//                 public void onClick( DialogInterface dialog, int which ) {
+//                     dialog.dismiss();  // AlertDialog를 닫는다.
+//                 }
+//            });
+//            
+//            alertDlg.setMessage( Var.listReqNo.get(position) );
+//            alertDlg.show();
+        		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
+            	intent.putExtra("userId", Var.userId);
+            	intent.putExtra("questsionNo", Var.listReqNo.get(position));
+                startActivity(intent);
         }        
     }
 

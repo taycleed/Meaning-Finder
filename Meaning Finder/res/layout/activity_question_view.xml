@@ -2,7 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:background="@drawable/bg_general"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/join_layout_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/navi_bg"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/button_join_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/navi_btn_list_normal"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:text="VOM"
+                android:textColor="#7aebf6"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:text="Voice of Mind"
+                android:textColor="#454545"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/button_join_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/navi_btn_setting_normal"
+                android:singleLine="false" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

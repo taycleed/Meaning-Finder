@@ -9,8 +9,9 @@ import android.view.WindowManager;
 
 public class QuestionViewActivity extends Activity{
 	
-	Intent intent;
-	String requestion_no;
+	private Intent intent;
+	private String userId;
+	private String questsionNo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +24,11 @@ public class QuestionViewActivity extends Activity{
 		
 		setContentView(R.layout.activity_question_view);
 		
-		intent 			= getIntent();
-		requestion_no	= intent.getExtras().get("requestion_no").toString();
+		intent 			= getIntent();		
+		userId			= intent.getExtras().getString("userId");
+		questsionNo		= intent.getExtras().getString("questsionNo");
 		
-		Log.i("REQUEST", requestion_no);
+		
 		
 	}
 }
