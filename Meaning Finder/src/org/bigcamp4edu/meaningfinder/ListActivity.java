@@ -2,17 +2,25 @@ package org.bigcamp4edu.meaningfinder;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,9 +31,12 @@ import android.widget.Toast;
  * ListActivity shows completed questions.
  */
 public class ListActivity extends Activity {
+	ListActivity	ListActivity;
 	ListView listView;					// 리스트 뷰 xml
 	VOMArrayAdapter adt;				// 리스트 어뎁터
-
+	
+	Button setting_btn;
+	
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -35,6 +46,19 @@ public class ListActivity extends Activity {
         
         setContentView(R.layout.activity_list);
         listView = (ListView)findViewById(R.id.listView_questions);
+        
+        setting_btn	= (Button) findViewById(R.id.setting_btn);
+        setting_btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(ListActivity.this, SetupActivity.class);
+	            startActivity(intent);
+			}
+		});
+        
+       
         
         Thread dataParsingThread = new Thread(new Runnable() {
 			@Override
@@ -53,11 +77,43 @@ public class ListActivity extends Activity {
 		}
         adt = new VOMArrayAdapter();
         listView.setAdapter(adt);
+        
+        listView.setOnItemClickListener( new ListViewItemClickListener() );
+
+    }
+    
+    private class ListViewItemClickListener implements AdapterView.OnItemClickListener
+    {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
+        {
+//            AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
+//            alertDlg.setPositiveButton( "asdasd", new DialogInterface.OnClickListener()
+//            {
+//                 @Override
+//                 public void onClick( DialogInterface dialog, int which ) {
+//                     dialog.dismiss();  // AlertDialog를 닫는다.
+//                 }
+//            });
+//            
+//            alertDlg.setMessage( Var.listReqNo.get(position) );
+//            alertDlg.show();
+        		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
+            	intent.putExtra("userId", Var.userId);
+            	intent.putExtra("questionNo", Var.listReqNo.get(position));
+                startActivity(intent);
+        }        
     }
 
-
-	Drawable starDrawable;
     
+
+
+
+
+	setStarImage setStar = new setStarImage(this);
+    
+    
+    Drawable starDrawable;
     public class VOMArrayAdapter extends BaseAdapter {
         @Override
         public int getCount() {
@@ -87,82 +143,17 @@ public class ListActivity extends Activity {
         	String	star_image_name;
         	star_image_name	= (String) Var.listImgName.get(position);
         	
-        	if(star_image_name == "con_aries_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_aries_small);
-        	}
-        	else if(star_image_name == "con_camelopardalis_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_camelopardalis_small);
-        	}
-        	else if(star_image_name == "con_cancerconstellation_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_cancerconstellation_small);
-        	}
-        	else if(star_image_name == "con_canisminoris_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_canisminoris_small);
-        	}
-        	else if(star_image_name == "con_capricornus_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_capricornus_small);
-        	}
-        	else if(star_image_name == "con_casiopea_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_casiopea_small);
-        	}
-        	else if(star_image_name == "con_comaberenies_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_comaberenies_small);
-        	}
-        	else if(star_image_name == "con_gemin_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_gemin_small);
-        	}
-        	else if(star_image_name == "con_leo_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_leo_small);
-        	}
-        	else if(star_image_name == "con_sagittarius_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_sagittarius_small);
-        	}
-        	else if(star_image_name == "con_scorpius_small.png")
-        	{
-        		starDrawable	= getResources().getDrawable(R.drawable.con_scorpius_small);
-        	}
-        	else if(star_image_name == "con_ursamajor_small.png"){
-        		starDrawable	= getResources().getDrawable(R.drawable.con_ursamajor_small);
-        	}
-        	
+    		setStar.setStarImage(star_image_name);
+    		starDrawable	= setStar.getStarImage();
+
         	holder.listQuest.setText(Var.listText.get(position));
         	holder.listStar.setImageDrawable(starDrawable);
         	
-//            LayoutInflater inflater = getLayoutInflater();
-//            View row;
-//            row = inflater.inflate(R.layout.list_item, parent, false);
-//            LinearLayout listItemLayout;
-//            TextView question;
-//            ImageView star;
-//            listItemLayout = (LinearLayout) row.findViewById(R.id.listItemLayout);
-//            question = (TextView) row.findViewById(R.id.textViewItem);
-//            star = (ImageView) row.findViewById(R.id.imageViewItem);
-//            question.setText(Var.listText.get(position));
-//            Image_Downloader.download(Var.listImgUrl.get(position), star);
-//            listItemLayout.setOnClickListener(new OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View v) {
-//					//Intent intent = new Intent();
-//					//intent.putExtra(name, value);
-//					Toast.makeText(getBaseContext(), position+"번째 아이템", Toast.LENGTH_LONG).show();
-//				}
-//			});
-//            list.get(position).star
-//            star.setImageResource();
-
+        	
+        	
             return convertView;
         }
+        
         
         public class viewHolder
         {
@@ -187,4 +178,8 @@ public class ListActivity extends Activity {
 			return arg0;
 		}
     }
+   
+    
+    
+    
 }

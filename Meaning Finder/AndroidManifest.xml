@@ -41,6 +41,10 @@
             android:label="@string/title_activity_question" >
         </activity>
         <activity
+            android:name=".QuestionViewActivity"
+            android:label="@string/title_activity_question_view" >
+        </activity>
+        <activity
             android:name=".ConfirmActivity"
             android:label="@string/title_activity_confirm"
             android:parentActivityName="QuestionActivity" >

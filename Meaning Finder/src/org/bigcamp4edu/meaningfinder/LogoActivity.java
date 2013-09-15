@@ -15,6 +15,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -98,8 +99,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	private Thread x; 								// 쓰레드
-	private Handler mHandler;						// 핸들러
-	
+	private Handler mHandler;						// 핸들러asd
+	 
 	private String tmp_email;
 	
 	private EditText email; 						// 이메일, 아이디 입력창
@@ -115,6 +116,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	
 	private LinearLayout loginFormLayout; 			// 로그인 폼
 	private Timer			timer;					// 타이머
+	
+	private SharedPreferences pref;
 	
 	private ProgressDialog progressDialog;
 
@@ -145,6 +148,19 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 		joinButton.setOnClickListener(LogoActivity);								// 회원가입 버튼 리스너
 		
 		mHandler		 = new Handler();
+		
+		pref 					= getSharedPreferences("Setting", 0);
+		String prefUserId		= pref.getString("userId", "");
+		String prefUserPw		= pref.getString("userPw", "");
+		Boolean prefLOGIN_STATE	= pref.getBoolean("LOGIN_STATE", false);
+		
+		if(!prefUserId.equals("") && !prefUserPw.equals("") && prefLOGIN_STATE)
+		{
+			Var.userId		= (String) prefUserId;
+			Var.userPw		= (String) prefUserPw;
+			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
+		}
+		
 		
 		// 로그인이 안되있을경우
 		if(!Var.LOGIN_STATE)
@@ -333,6 +349,12 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			x.start();
 			
 		}
+		else if(Var.LOGIN_STATE)
+		{
+			Intent intent = new Intent(LogoActivity.this, ListActivity.class);
+            startActivity(intent);
+			finish();
+		}
 		
 	}
 	
@@ -358,9 +380,20 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			}else if(id == 1){
 				timer.cancel();														// 타이머 종료
 				timer = null;
+				
+				pref = getSharedPreferences("Setting", 0);
+				SharedPreferences.Editor edit	= pref.edit();
+				edit.putString("userId", Var.userId);
+				edit.putString("userPw", Var.userPw);
+				edit.putBoolean("LOGIN_STATE", Var.LOGIN_STATE);
+				edit.commit();
+				
+				
 				Var.LOGIN_STATE = true;
+				
+				
 				Intent intent = new Intent(LogoActivity.this, ListActivity.class);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
 				finish();															// 로그인 액티비티 닫기
 			}
 		};
