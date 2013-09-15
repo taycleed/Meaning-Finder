@@ -80,18 +80,19 @@
                     android:textColor="#ffffff"
                     android:textSize="15dp" />
 
-                <TextView 
+                <TextView
                     android:id="@+id/one_alarm_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="오전 07:00"
+                    android:text=""
                     android:textColor="#7aebf6"
                     android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/two_alarm_wrap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -107,25 +108,26 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/two_alarm_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="오후 11:00"
+                    android:text=""
                     android:textColor="#7aebf6"
                     android:textSize="15dp" />
             </LinearLayout>
 
-            <RelativeLayout 
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" >
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/input_normal" 
                     android:layout_alignParentBottom="true"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/input_normal"
                     android:padding="8dp"
                     android:text="로그아웃" />
             </RelativeLayout>
