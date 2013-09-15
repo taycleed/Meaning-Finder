@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,13 +59,10 @@ public class SetupActivity extends Activity {
 		one_alarm_wrap = (LinearLayout) findViewById(R.id.one_alarm_wrap);
 
 		one_alarm_wrap.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				showDialog(one_TIME_DIALOG_ID);
 			}
-
 		});
 
 		// capture our View elements
@@ -72,20 +70,12 @@ public class SetupActivity extends Activity {
 		two_alarm_wrap = (LinearLayout) findViewById(R.id.two_alarm_wrap);
 
 		two_alarm_wrap.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				showDialog(two_TIME_DIALOG_ID);
 			}
-
 		});
 
-		//final Calendar c = Calendar.getInstance();
-		//mHour = c.get(Calendar.HOUR_OF_DAY);
-		//mMinute = c.get(Calendar.MINUTE);
-		//updateDisplay();
-		
 		pref 					= getSharedPreferences("Setting", 0);
 		String one_alarm		= pref.getString("one_alarm", "noset");
 		int one_alarm_hour		= pref.getInt("one_alarm_hour", 0);
@@ -107,16 +97,19 @@ public class SetupActivity extends Activity {
 			updateDisplay(2);
 		}
 		
-		
-		
-		
+		Button btn_close = (Button) findViewById(R.id.setting_btn);
+		btn_close.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
+	/*
+	 * Update TextView which shows alarm time.
+	 */
 	private void updateDisplay(int id) {
-		// TODO Auto-generated method stub
-
-		
-		
 		if(id == 1)
 		{
 			int setHour = mHour;
@@ -129,7 +122,7 @@ public class SetupActivity extends Activity {
 			}
 			
 			one_alarm_time.setText(new StringBuilder().append(one_time + " ")
-				.append(pad(setHour)).append(":").append(pad(mMinute)));
+				.append(String.format("%02d", setHour)).append(":").append(String.format("%02d", mMinute)));
 			
 			pref = getSharedPreferences("Setting", 0);
 			SharedPreferences.Editor edit	= pref.edit();
@@ -149,7 +142,7 @@ public class SetupActivity extends Activity {
 			}
 			
 			two_alarm_time.setText(new StringBuilder().append(two_time + " ")
-					.append(pad(setHour)).append(":").append(pad(mMinuteTwo)));
+				.append(String.format("%02d", setHour)).append(":").append(String.format("%02d", mMinuteTwo)));
 			
 			pref = getSharedPreferences("Setting", 0);
 			SharedPreferences.Editor edit	= pref.edit();
@@ -160,19 +153,9 @@ public class SetupActivity extends Activity {
 		}
 	}
 
-	private static String pad(int c) {
-		// TODO Auto-generated method stub
-		if (c >= 10) {
-			return String.valueOf(c);
-		} else
-			return "0" + String.valueOf(c);
-	}
-
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
 			mHour = hourOfDay;
 			mMinute = minute;
 			updateDisplay(1);
@@ -180,10 +163,8 @@ public class SetupActivity extends Activity {
 	};
 	
 	private TimePickerDialog.OnTimeSetListener mTimeSetListenerTwo = new TimePickerDialog.OnTimeSetListener() {
-
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
 			mHourTwo = hourOfDay;
 			mMinuteTwo = minute;
 			updateDisplay(2);
@@ -192,14 +173,10 @@ public class SetupActivity extends Activity {
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		
 		if(id == one_TIME_DIALOG_ID){
-			return new TimePickerDialog(this, mTimeSetListener, mHour, mMinute,
-				false);
+			return new TimePickerDialog(this, mTimeSetListener, mHour, mMinute,	false);
 		}else if(id == two_TIME_DIALOG_ID){
-
-			return new TimePickerDialog(this, mTimeSetListenerTwo, mHourTwo, mMinuteTwo,
-						false);
+			return new TimePickerDialog(this, mTimeSetListenerTwo, mHourTwo, mMinuteTwo, false);
 		}
 		return null;
 	}
