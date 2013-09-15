@@ -2,75 +2,134 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_general"
     android:orientation="horizontal"
-    tools:context=".SetupActivity">
+    tools:context=".SetupActivity" >
 
     <LinearLayout
-            android:orientation="vertical"
+        android:id="@+id/join_layout_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="설정 "
-            android:textSize="30dp"/>
-
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/navi_bg"
+            android:padding="10dp" >
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="첫번째 알림"
-                    android:id="@+id/textView"
-                    android:textSize="20dp"
-                    />
-
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="켜기"
-                    android:id="@+id/checkBox"
-                    android:layout_marginLeft="30dp"/>
-        </LinearLayout>
-
-        <TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/timePicker"/>
-
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:text="설정"
+                android:textColor="#7aebf6"
+                android:textSize="30dp" />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="두번째 알림"
-                    android:id="@+id/textView2"
-                    android:textSize="20dp"
-                    />
-
-            <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="켜기"
-                    android:id="@+id/checkBox2"
-                    android:layout_marginLeft="30dp"/>
-        </LinearLayout>
-
-        <TimePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/timePicker2"/>
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:text="Setting"
+                android:textColor="#454545"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/setting_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/navi_btn_normal"
+                android:singleLine="false"
+                android:text="닫기" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="질문 알림 시간"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:id="@+id/one_alarm_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_normal"
+                android:padding="8dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1차 알림"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+
+                <TextView 
+                    android:id="@+id/one_alarm_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="오전 07:00"
+                    android:textColor="#7aebf6"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/input_normal"
+                android:padding="8dp"
+                android:weightSum="1" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2차 알림"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="오후 11:00"
+                    android:textColor="#7aebf6"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/input_normal" 
+                    android:layout_alignParentBottom="true"
+                    android:padding="8dp"
+                    android:text="로그아웃" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

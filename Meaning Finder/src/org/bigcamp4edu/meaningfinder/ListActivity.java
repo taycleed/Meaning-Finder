@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,9 +31,12 @@ import android.widget.Toast;
  * ListActivity shows completed questions.
  */
 public class ListActivity extends Activity {
+	ListActivity	ListActivity;
 	ListView listView;					// 리스트 뷰 xml
 	VOMArrayAdapter adt;				// 리스트 어뎁터
-
+	
+	Button setting_btn;
+	
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -41,6 +46,19 @@ public class ListActivity extends Activity {
         
         setContentView(R.layout.activity_list);
         listView = (ListView)findViewById(R.id.listView_questions);
+        
+        setting_btn	= (Button) findViewById(R.id.setting_btn);
+        setting_btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(ListActivity.this, SetupActivity.class);
+	            startActivity(intent);
+			}
+		});
+        
+       
         
         Thread dataParsingThread = new Thread(new Runnable() {
 			@Override
@@ -82,7 +100,7 @@ public class ListActivity extends Activity {
 //            alertDlg.show();
         		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
             	intent.putExtra("userId", Var.userId);
-            	intent.putExtra("questsionNo", Var.listReqNo.get(position));
+            	intent.putExtra("questionNo", Var.listReqNo.get(position));
                 startActivity(intent);
         }        
     }
@@ -92,6 +110,7 @@ public class ListActivity extends Activity {
 
 
 
+	setStarImage setStar = new setStarImage(this);
     
     
     Drawable starDrawable;
@@ -124,32 +143,9 @@ public class ListActivity extends Activity {
         	String	star_image_name;
         	star_image_name	= (String) Var.listImgName.get(position);
         	
-        	if(star_image_name.equals("con_aries_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_aries_small);
-        	}else if(star_image_name.equals("con_camelopardalis_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_camelopardalis_small);
-        	}else if(star_image_name.equals("con_cancerconstellation_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_cancerconstellation_small);
-        	}else if(star_image_name.equals("con_canisminoris_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_canisminoris_small);
-        	}else if(star_image_name.equals("con_capricornus_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_capricornus_small);
-        	}else if(star_image_name.equals("con_casiopea_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_casiopea_small);
-        	}else if(star_image_name.equals("con_comaberenies_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_comaberenies_small);
-        	}else if(star_image_name.equals("con_gemin_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_gemin_small);
-        	}else if(star_image_name.equals("con_leo_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_leo_small);
-        	}else if(star_image_name.equals("con_sagittarius_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_sagittarius_small);
-        	}else if(star_image_name.equals("con_scorpius_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_scorpius_small);
-        	}else if(star_image_name.equals("con_ursamajor_small.png")){
-        		starDrawable	= (Drawable) getResources().getDrawable(R.drawable.con_ursamajor_small);
-        	}
-        	
+    		setStar.setStarImage(star_image_name);
+    		starDrawable	= setStar.getStarImage();
+
         	holder.listQuest.setText(Var.listText.get(position));
         	holder.listStar.setImageDrawable(starDrawable);
         	
@@ -182,8 +178,7 @@ public class ListActivity extends Activity {
 			return arg0;
 		}
     }
-    
-    
+   
     
     
     

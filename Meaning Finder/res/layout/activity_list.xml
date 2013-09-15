@@ -18,7 +18,7 @@
             android:padding="10dp" >
 
             <Button
-                android:id="@+id/button_join_submit"
+                android:id="@+id/star_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -47,7 +47,7 @@
                 android:textSize="15dp" />
 
             <Button
-                android:id="@+id/button_join_submit"
+                android:id="@+id/setting_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

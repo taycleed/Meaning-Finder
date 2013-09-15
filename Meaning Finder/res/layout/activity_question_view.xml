@@ -29,21 +29,21 @@
                 android:singleLine="false" />
 
             <TextView
+                android:id="@+id/star_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:text="VOM"
                 android:textColor="#7aebf6"
                 android:textSize="30dp" />
 
             <TextView
+                android:id="@+id/star_name_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
-                android:text="Voice of Mind"
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
@@ -57,6 +57,45 @@
                 android:background="@drawable/navi_btn_setting_normal"
                 android:singleLine="false" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/question_title_wrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1" >
+
+            <ImageView
+                android:id="@+id/question_star_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:scaleType="fitXY"
+                android:src="#ff2345" />
+
+            <TextView
+                android:id="@+id/question_title"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:textColor="#c9c9c9"
+                android:textSize="15dip" />
+        </LinearLayout>
+
+        <ScrollView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/answer_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textSize="15dip" >
+            </TextView>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>
