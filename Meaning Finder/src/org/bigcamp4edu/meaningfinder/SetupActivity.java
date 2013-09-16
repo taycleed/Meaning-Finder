@@ -214,8 +214,7 @@ public class SetupActivity extends Activity {
 	private void setPendingIntent(){
 		//사용자가 알람을 확인하고 클릭했을때 새로운 액티비티를 시작할 인텐트 객체
 		Intent intent = new Intent(SetupActivity.this, NotifyService.class);
-		
-		Intent intent2 = new Intent(SetupActivity.this, QuestionActivity.class);
+		Intent intent2 = new Intent(SetupActivity.this, NotifyService.class);
 		//인텐트 객체를 포장해서 전달할 인텐트 전달자 객체
 		pendingI = PendingIntent.getService(SetupActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		pendingI_two = PendingIntent.getActivity(SetupActivity.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -232,7 +231,7 @@ public class SetupActivity extends Activity {
 			
 			AlarmManager alarmManager = (AlarmManager) SetupActivity.this.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.cancel(pendingI);
-			alarmManager.setRepeating(AlarmManager.RTC, getTriggerTime(mHour, mMinute), oneDay, pendingI);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerTime(mHour, mMinute), oneDay, pendingI);
 		}
 	};
 	
@@ -247,7 +246,7 @@ public class SetupActivity extends Activity {
 			
 			AlarmManager alarmManager = (AlarmManager) SetupActivity.this.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.cancel(pendingI_two);
-			alarmManager.setRepeating(AlarmManager.RTC, getTriggerTime(mHourTwo, mMinuteTwo), oneDay, pendingI_two);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerTime(mHourTwo, mMinuteTwo), oneDay, pendingI_two);
 		}
 	};
 

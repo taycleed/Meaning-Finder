@@ -65,6 +65,7 @@
             android:label="@string/title_activity_star" >
         </activity>
         <service android:name=".NotifyService"></service>
+        <activity android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog" android:name=".DialogActivity"></activity>
     </application>
 
 </manifest>

@@ -12,8 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.util.Log;
-import android.webkit.WebView.FindListener;
-import android.widget.RemoteViews;
 
 public class NotifyService extends Service {
 
@@ -28,7 +26,7 @@ public class NotifyService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d("VOM", "noti service started");
 		
-		String title = getString(R.string.app_name);
+		String title = getString(R.string.app_name); 
         String text = getString(R.string.noti_message);
         sendNotification(title, text);
         
@@ -55,20 +53,11 @@ public class NotifyService extends Service {
 	    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	    manager.notify(NOTIFICATION_ID, notification);
 	    
-	    new AlertDialog.Builder(this)
-	    	.setIcon(R.drawable.icon_launcher)
-	    	.setMessage(R.string.noti_message)
-	    	.setTitle(R.string.app_name)
-	    	.setPositiveButton(R.string.noti_yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // FIRE ZE MISSILES!
-                }
-            })
-            .setNegativeButton(R.string.noti_no, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // User cancelled the dialog
-                }
-            })
-            .show();
+	    /////////////////////////////////////
+	    
+	    Intent intent = new Intent(this, DialogActivity.class);
+	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	    startActivity(intent);
+	    
 	}
 }
