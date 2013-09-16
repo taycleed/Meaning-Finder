@@ -125,9 +125,24 @@ public class SetupActivity extends Activity {
 		((Button) findViewById(R.id.btn_logout)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(SetupActivity.this, NotifyService.class);
-				Log.d("VOM", "Force Start Service");
-				startService(intent);
+//				Intent intent = new Intent(SetupActivity.this, NotifyService.class);
+//				Log.d("VOM", "Force Start Service");
+//				startService(intent);
+				
+				SharedPreferences.Editor prefEditor = getSharedPreferences("Setting", 0).edit();
+				prefEditor.putString("userId", "");
+				prefEditor.putString("userPw", "");
+				prefEditor.putBoolean("LOGIN_STATE", false);
+				prefEditor.commit();
+				
+				Var.userId		= "";
+				Var.userPw		= "";
+				Var.LOGIN_STATE	= false;
+				
+				Intent intent = new Intent(SetupActivity.this, LogoActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);	// 현재 열린 모든 Activity 닫기
+                startActivity(intent);
+				finish();	// Setup 액티비티 닫기
 			}
 		});
 		

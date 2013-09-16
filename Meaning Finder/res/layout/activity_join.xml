@@ -9,7 +9,6 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="80dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/navi_bg"
         android:padding="10dp" >
 
@@ -34,6 +33,7 @@
 
         <Button
             android:id="@+id/button_join_submit"
+            style="@style/VomButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -76,6 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
                         android:text="@string/name_title2"
                         android:textColor="#5eb4d7" />
 
@@ -100,11 +101,14 @@
 
                 <EditText
                     android:id="@+id/name"
+                    style="@style/VomEditTextStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/input_normal"
                     android:hint="@string/name_title4"
+                    android:maxLength="30"
+                    android:maxLines="1"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" >
 
@@ -126,15 +130,17 @@
 
                 <EditText
                     android:id="@+id/birthday"
+                    style="@style/VomEditTextStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/input_normal"
                     android:hint="@string/birth_title1"
-                    android:inputType="number"
+                    android:inputType="date"
                     android:maxLength="8"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -163,6 +169,7 @@
 
                 <EditText
                     android:id="@+id/email"
+                    style="@style/VomEditTextStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -171,6 +178,7 @@
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -187,6 +195,7 @@
 
                 <EditText
                     android:id="@+id/pwd"
+                    style="@style/VomEditTextStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -199,6 +208,7 @@
 
                 <EditText
                     android:id="@+id/pwd_confirm"
+                    style="@style/VomEditTextStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
@@ -208,6 +218,7 @@
                     android:maxLength="16"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" />
+
             </LinearLayout>
         </LinearLayout>
 

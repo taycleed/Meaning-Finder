@@ -27,12 +27,17 @@
         <item name="buttonBarButtonStyle">@style/ButtonBarButton</item>
     </style>
 
-    <style name="VomButtonStyle">
+    <style name="VomButtonStyle" parent="@android:style/Widget.Holo.Light.Button">
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">@drawable/navi_btn_normal</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:minWidth">63dip</item>
     </style>
+    
+    <style name="VomEditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    
     
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
