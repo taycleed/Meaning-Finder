@@ -41,6 +41,7 @@
 
             <Button
                 android:id="@+id/setting_btn"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -49,6 +50,7 @@
                 android:background="@drawable/navi_btn_normal"
                 android:singleLine="false"
                 android:text="닫기" />
+
         </RelativeLayout>
 
         <LinearLayout
@@ -123,13 +125,15 @@
                 android:layout_height="wrap_content" >
 
                 <Button
+                    android:id="@+id/btn_logout"
+                    style="@style/VomButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="50dp"
-                    android:background="@drawable/input_normal"
+                    android:background="@drawable/btn_normal"
                     android:padding="8dp"
                     android:text="로그아웃" />
+
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

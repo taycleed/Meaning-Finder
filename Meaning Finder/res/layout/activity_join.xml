@@ -42,6 +42,7 @@
             android:background="@drawable/navi_btn_normal"
             android:singleLine="false"
             android:text="@string/next" />
+
     </RelativeLayout>
 
     <ScrollView
