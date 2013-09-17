@@ -1,7 +1,6 @@
 package org.bigcamp4edu.meaningfinder;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

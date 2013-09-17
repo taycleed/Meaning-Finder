@@ -3,18 +3,10 @@ package org.bigcamp4edu.meaningfinder;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-import android.graphics.drawable.Drawable;
-import android.R.string;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.util.Log;
-import android.widget.TextView;
 
 
 public class XmlParser {
