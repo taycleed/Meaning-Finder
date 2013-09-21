@@ -2,7 +2,6 @@ package org.bigcamp4edu.meaningfinder;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,10 +37,6 @@ public class DialogActivity extends Activity {
 	        .setNegativeButton(R.string.noti_no, new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface dialog, int id) {
 	            	moveTaskToBack(true);
-//	            	Intent intent = new Intent(Intent.ACTION_MAIN);
-//	            	intent.addCategory(Intent.CATEGORY_HOME);
-//	            	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//	            	startActivity(intent);
 
 	            	finish();
 	            }
