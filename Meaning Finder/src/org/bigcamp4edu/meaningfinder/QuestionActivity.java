@@ -1,6 +1,5 @@
 package org.bigcamp4edu.meaningfinder;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,17 +15,12 @@ import android.widget.TextView;
 
 public class QuestionActivity extends Activity {
 
-	private Intent intent; // intent
-	private String userId; // userId
-	private String questionNo; // 질문번호
-
 	private TextView star_name; // 별자리 한글이름
 	private TextView star_name_en; // 별자리 영어이름
 	private Drawable starDrawable;
 
 	private ImageView question_star_image; // 질문에 해당하는 별자리 image view
 	private TextView question_title; // 질문
-	private TextView answer_text; // 답변
 	
 	private EditText get_answer_text;
 	
@@ -81,8 +75,6 @@ public class QuestionActivity extends Activity {
 		
 		get_answer_text		= (EditText) findViewById(R.id.get_answer_text);
 		
-		// 질문을 받아옴.
-		(new QuestionGetterAsync()).execute();
 		
 		// '취소' 버튼 구현
 		button_cancle.setOnClickListener(new OnClickListener() {
@@ -133,6 +125,13 @@ public class QuestionActivity extends Activity {
 		
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// 질문을 받아옴.
+		(new QuestionGetterAsync()).execute();
+	}
 
 
 	@Override
