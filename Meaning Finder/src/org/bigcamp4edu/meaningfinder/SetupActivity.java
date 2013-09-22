@@ -149,6 +149,9 @@ public class SetupActivity extends Activity {
 			} else {
 				one_time = "오후";
 				setHour = setHour - 12;
+				
+				if(setHour == 0)
+					setHour = 12;
 			}
 			
 			one_alarm_time.setText(new StringBuilder().append(one_time + " ")
@@ -169,6 +172,9 @@ public class SetupActivity extends Activity {
 			} else {
 				two_time = "오후";
 				setHour = setHour - 12;
+				
+				if(setHour == 0)
+					setHour = 12;
 			}
 			
 			two_alarm_time.setText(new StringBuilder().append(two_time + " ")
