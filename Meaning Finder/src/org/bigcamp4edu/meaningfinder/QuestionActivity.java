@@ -1,9 +1,9 @@
 package org.bigcamp4edu.meaningfinder;
 
-import org.apache.http.message.BasicNameValuePair;
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -33,11 +33,42 @@ public class QuestionActivity extends Activity {
 	private Button button_cancle;
 	private Button button_join_submit;
 	
+	public class QuestionGetterAsync extends AsyncTask<Void, Void, Void>{
+		
+		@Override
+		protected void onPreExecute() {
+			Var.InitLoginInfo(QuestionActivity.this);
+			
+			if(!Var.LOGIN_STATE){
+				// TODO: Login이 필요함
+			}
+		}
+			
+		@Override
+		protected Void doInBackground(Void... params) {
+			XmlParser.getQuestion();
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			star_name.setText(Var.get_star_name);
+			star_name_en.setText(Var.get_star_name_en);
+			
+			setStarImage setStar = new setStarImage(QuestionActivity.this);
+			setStar.setStarImage(Var.get_star_img);
+			starDrawable	= setStar.getStarImage();
+			question_star_image.setImageDrawable(starDrawable);
+			
+			question_title.setText(Var.get_question_name);
+		}
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question);
-
 
 		star_name 			= (TextView) findViewById(R.id.get_star_name);
 		star_name_en 		= (TextView) findViewById(R.id.get_star_name_en);
@@ -50,46 +81,23 @@ public class QuestionActivity extends Activity {
 		
 		get_answer_text		= (EditText) findViewById(R.id.get_answer_text);
 		
-
-		Thread x = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				XmlParser.getQuestion();
-			}
-		});
-		x.start();
+		// 질문을 받아옴.
+		(new QuestionGetterAsync()).execute();
 		
-		try {
-			x.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		
-		star_name.setText(Var.get_star_name);
-		star_name_en.setText(Var.get_star_name_en);
-		
-		setStarImage setStar = new setStarImage(this);
-		setStar.setStarImage(Var.get_star_img);
-		starDrawable	= setStar.getStarImage();
-		question_star_image.setImageDrawable(starDrawable);
-		
-		question_title.setText(Var.get_question_name);
-			
-		
+		// '취소' 버튼 구현
 		button_cancle.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(QuestionActivity.this, ListActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 	            startActivity(intent);
 	            
 	            finish();
 			}
 		});
-		
+
+		// '저장' 버튼 구현
 		button_join_submit.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -104,8 +112,8 @@ public class QuestionActivity extends Activity {
 						if(XmlParser.insertAnswer())
 						{
 							Intent intent = new Intent(QuestionActivity.this, QuestionViewActivity.class);
-			            	intent.putExtra("userId", Var.userId);
 			            	intent.putExtra("questionNo", Var.insertQuestionNo);
+			            	intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			            	startActivity(intent);
 			            	
 			            	finish();
@@ -125,7 +133,7 @@ public class QuestionActivity extends Activity {
 		
 	}
 
-	// public class QuestionGetterAsync extends AsyncTask<>
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
