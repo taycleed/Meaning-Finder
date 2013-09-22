@@ -3,6 +3,8 @@ package org.bigcamp4edu.meaningfinder;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class Var {
 	public static ArrayList<String> listReqNo 	= new ArrayList<String>();
@@ -48,4 +50,19 @@ public class Var {
 	public static boolean WEB_GOBACK		= false;								// 이전 버튼 클릭 시
 	
 	public static boolean AUTOLOGIN_STATE;											// 자동로그인 상태
+	
+	public static void InitLoginInfo(Context context){
+		SharedPreferences pref 	= context.getSharedPreferences("Setting", 0);
+		
+		String prefUserId		= pref.getString("userId", "");
+		String prefUserPw		= pref.getString("userPw", "");
+		Boolean prefLOGIN_STATE	= pref.getBoolean("LOGIN_STATE", false);
+		
+		if(!prefUserId.equals("") && !prefUserPw.equals("") && prefLOGIN_STATE)
+		{
+			Var.userId		= (String) prefUserId;
+			Var.userPw		= (String) prefUserPw;
+			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
+		}
+	}
 }
