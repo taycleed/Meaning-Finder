@@ -37,26 +37,32 @@ public class NotifyService extends Service {
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
-	private void sendNotification(String title, String text)
-	{
-		long lastSaveTime = getSharedPreferences("Setting", 0).getLong(DB.LAST_ANSWER_DATE, 0);
+	public static boolean HasSavedToday(Context context){
+		long lastSaveTime = context.getSharedPreferences("Setting", 0).getLong(DB.LAST_ANSWER_DATE, 0);
 		if(lastSaveTime != 0){
 			Calendar calendar = new GregorianCalendar();	// 현재 시각
 			Calendar calendar2 = new GregorianCalendar();
 			calendar2.setTimeInMillis(lastSaveTime);		// 마지막 답변한 시각
 			
-			if(	   calendar.get(Calendar.DATE) == calendar2.get(Calendar.DATE) 
+			Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)));
+			Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DATE)));
+			
+			return calendar.get(Calendar.DATE) == calendar2.get(Calendar.DATE) 
 				&& calendar.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) 
-				&& calendar.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) ){
-				// 오늘 답변을 했으므로 질문 알림을 패스한다. 
-				Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)));
-				Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DATE)));
-								
-				// TODO: 알람 시작 시각을 내일로 재설정한다. 
-				
-				return ;
-			}
-				
+				&& calendar.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) ;
+		}
+		
+		return false;
+	}
+	
+	private void sendNotification(String title, String text)
+	{
+		if(HasSavedToday(this)){
+			// 오늘 답변을 했으므로 질문 알림을 패스한다. 
+							
+			// TODO: 알람 시작 시각을 내일로 재설정한다. 
+			
+			return ;
 		}
 		
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_launcher);

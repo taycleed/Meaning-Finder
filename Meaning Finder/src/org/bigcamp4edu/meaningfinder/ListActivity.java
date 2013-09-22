@@ -47,6 +47,17 @@ public class ListActivity extends Activity {
 			}
 		});
         
+        // '질문/답변' 버튼 기능 구현
+        Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
+        btn_gotoquestion.setOnClickListener(new OnClickListener() {
+
+        	@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ListActivity.this, QuestionActivity.class);
+	            startActivity(intent);
+			}
+		});
+        
     }
     
     @Override
@@ -71,7 +82,15 @@ public class ListActivity extends Activity {
         listView.setAdapter(adt);
         
         listView.setOnItemClickListener( new ListViewItemClickListener() );
-	};
+        
+        Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
+        
+        if(NotifyService.HasSavedToday(this)){	// 오늘 질문에 답한 기록이 있다면
+        	btn_gotoquestion.setVisibility(View.GONE);
+        }else{
+        	btn_gotoquestion.setVisibility(View.VISIBLE);
+        }
+	}
     
     
     private class ListViewItemClickListener implements AdapterView.OnItemClickListener

@@ -64,4 +64,5 @@
     <string name="noti_message">물어볼 게 있어 :)</string>
     <string name="noti_yes">뭔데?</string>
     <string name="noti_no">이따가...</string>
+    <string name="btn_goto_question">오늘 질문에 답하러 가기</string>
 </resources>
