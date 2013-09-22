@@ -70,8 +70,10 @@
                 android:id="@+id/listView_questions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="8" />
+
         </LinearLayout>
     </LinearLayout>
 
