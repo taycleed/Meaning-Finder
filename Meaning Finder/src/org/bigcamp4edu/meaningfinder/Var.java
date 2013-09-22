@@ -3,7 +3,6 @@ package org.bigcamp4edu.meaningfinder;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
-import android.widget.LinearLayout;
 
 public class Var {
 	public static ArrayList<String> listReqNo 	= new ArrayList<String>();

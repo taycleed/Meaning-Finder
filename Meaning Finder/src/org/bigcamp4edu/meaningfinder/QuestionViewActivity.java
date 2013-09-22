@@ -1,19 +1,9 @@
 package org.bigcamp4edu.meaningfinder;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
-import org.bigcamp4edu.meaningfinder.R.string;
-import org.w3c.dom.Text;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
