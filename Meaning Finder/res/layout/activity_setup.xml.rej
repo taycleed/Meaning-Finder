@@ -1,9 +1,0 @@
-diff a/Meaning Finder/res/layout/activity_setup.xml b/Meaning Finder/res/layout/activity_setup.xml	(rejected hunks)
-@@ -113,7 +113,6 @@
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:gravity="right"
--                    android:text=""
-                     android:text="알림시간을 설정해주세요"
-                     android:textColor="#7aebf6"
-                     android:textSize="15dp" />
