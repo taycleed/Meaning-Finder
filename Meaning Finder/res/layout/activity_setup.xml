@@ -130,7 +130,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="50dp"
-                    android:background="@drawable/input_normal"
                     android:padding="8dp"
                     android:text="로그아웃" />
             </RelativeLayout>
