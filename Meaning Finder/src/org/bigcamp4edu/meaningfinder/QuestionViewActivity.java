@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 public class QuestionViewActivity extends Activity {
 
-	private Intent intent; // intent
-	private String userId; // userId
 	private String questionNo; // 질문번호
 
 	private TextView star_name; // 별자리 한글이름
@@ -27,8 +25,6 @@ public class QuestionViewActivity extends Activity {
 	private ImageView question_star_image; // 질문에 해당하는 별자리 image view
 	private TextView question_title; // 질문
 	private TextView answer_text; // 답변
-
-	private Button button_question_list;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +37,25 @@ public class QuestionViewActivity extends Activity {
 
 		setContentView(R.layout.activity_question_view);
 
-		intent = getIntent();
-		userId = intent.getExtras().getString("userId");
+		Button button_question_list = (Button) findViewById(R.id.button_question_list);
+		button_question_list.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(QuestionViewActivity.this, ListActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+				startActivity(intent);
+				
+				finish();
+			}
+		});
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		Intent intent = getIntent();
 		questionNo = intent.getExtras().getString("questionNo");
 		Var.questionNo = questionNo;
 
@@ -52,8 +65,6 @@ public class QuestionViewActivity extends Activity {
 		question_star_image = (ImageView) findViewById(R.id.question_star_image);
 		question_title = (TextView) findViewById(R.id.question_title);
 		answer_text = (TextView) findViewById(R.id.answer_text);
-
-		button_question_list = (Button) findViewById(R.id.button_question_list);
 
 		Thread x = new Thread(new Runnable() {
 
@@ -80,27 +91,6 @@ public class QuestionViewActivity extends Activity {
 
 		question_title.setText(Var.info_question_name);
 		answer_text.setText(Var.info_answer_name);
-
-		button_question_list.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				finish();
-			}
-		});
-
-		Button setting_btn = (Button) findViewById(R.id.view_setting_btn);
-		setting_btn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(QuestionViewActivity.this,
-						SetupActivity.class);
-				startActivity(intent);
-			}
-		});
-
 	}
 	
 	@Override
