@@ -246,7 +246,6 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			{
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					mHandler.post(new Runnable() {
 
 						@Override
@@ -515,7 +514,6 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		switch (requestCode) {
