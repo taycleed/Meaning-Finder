@@ -34,4 +34,5 @@ public class DB {
 	public final static String AUTOLOGIN	= "autologin";															// 자동로그인체크
 	public final static String USER_ID		= "user_id";															// 아이디
 	public final static String USER_PW		= "user_pw";															// 패스워드
+	public final static String LAST_ANSWER_DATE = "last_answer_date";												// 마지막으로 질문에 답한 날/시각
 }

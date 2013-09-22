@@ -1,5 +1,8 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -36,6 +39,26 @@ public class NotifyService extends Service {
 	
 	private void sendNotification(String title, String text)
 	{
+		long lastSaveTime = getSharedPreferences("Setting", 0).getLong(DB.LAST_ANSWER_DATE, 0);
+		if(lastSaveTime != 0){
+			Calendar calendar = new GregorianCalendar();	// 현재 시각
+			Calendar calendar2 = new GregorianCalendar();
+			calendar2.setTimeInMillis(lastSaveTime);		// 마지막 답변한 시각
+			
+			if(	   calendar.get(Calendar.DATE) == calendar2.get(Calendar.DATE) 
+				&& calendar.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) 
+				&& calendar.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) ){
+				// 오늘 답변을 했으므로 질문 알림을 패스한다. 
+				Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)));
+				Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DATE)));
+								
+				// TODO: 알람 시작 시각을 내일로 재설정한다. 
+				
+				return ;
+			}
+				
+		}
+		
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_launcher);
 		Intent clickIntent = new Intent(this, QuestionActivity.class);
 	    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);

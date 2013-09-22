@@ -4,9 +4,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 import android.content.pm.PackageInfo;
@@ -26,11 +29,16 @@ public class XmlParser {
 	 ******************************************************************************/
 	@SuppressWarnings("unused")
 	public static boolean getListText(){
+		Log.d("VOM XmlParser", "getListText() userId=" + Var.userId);
+		
+		// List 초기화
+		Var.list_questions.clear();
+		
         try{
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
 			factory.setNamespaceAware(true);
 			XmlPullParser xpp		= factory.newPullParser();
-			URL url					= new URL(DB.listUrl+"?ic=100&userId=" + Var.userId); // 실제 xml을 받을수 있는 경로..
+			URL url					= new URL(DB.listUrl+"?ic=100&userId=" + Var.userId); // 실제 xml을 받을 수 있는 경로..
 			URLConnection uc		= url.openConnection();
 			InputStream	in			= uc.getInputStream();
 			xpp.setInput(in, "UTF-8");
@@ -40,6 +48,9 @@ public class XmlParser {
 		    final String starImg		= "starImg";
 		    final String questionNo		= "no";
 		    int i = 0;
+		    
+		    int reqNo = -1;
+		    String qText = "", qImgName = "";
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
 				switch(eventType){
 				// 문서의 시작
@@ -53,12 +64,20 @@ public class XmlParser {
 				// 태그의 시작
 			    case XmlPullParser.START_TAG:									// <? ~~ ?> 인가?
 			    	if(xpp.getName().toString().equals(questionNo)){
-			    		Var.listReqNo.add(xpp.nextText().toString());
+			    		reqNo = Integer.parseInt(xpp.nextText().toString());
 				    }else if(xpp.getName().toString().equals(Name)){
-				    	Var.listText.add(xpp.nextText().toString());
+				    	qText = xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(starImg)){
-				    	Var.listImgName.add(xpp.nextText().toString());
-				    }
+				    	qImgName = xpp.nextText().toString();
+
+						if (reqNo != -1 && !qText.equals("") && !qImgName.equals("")) {
+							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qImgName));
+							// 초기화
+							reqNo = -1;
+							qText = "";
+							qImgName = "";
+						}
+					}
 			    break;
 
 			    // 태그의 끝
@@ -72,6 +91,14 @@ public class XmlParser {
 				
 				eventType = xpp.next();
 			}
+			
+			// 질문을 시간 역순으로 정렬
+			Collections.sort(Var.list_questions, new Comparator<QuestionListItemType>() {
+				@Override
+				public int compare(QuestionListItemType lhs, QuestionListItemType rhs) {
+					return -(lhs.listReqNo - rhs.listReqNo);
+				}
+			});
 			
 			return true;
 		}catch(Exception e){

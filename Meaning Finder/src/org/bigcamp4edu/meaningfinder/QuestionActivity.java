@@ -1,10 +1,13 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.GregorianCalendar;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -103,6 +106,10 @@ public class QuestionActivity extends Activity {
 					public void run() {
 						if(XmlParser.insertAnswer())
 						{
+							long dateTimeInMilli = GregorianCalendar.getInstance().getTimeInMillis(); 
+							getSharedPreferences("Setting", 0).edit().putLong(DB.LAST_ANSWER_DATE, dateTimeInMilli).commit();
+							Log.d("VOM QuestionActivity", "Save time in milli : " + Long.toString(dateTimeInMilli));
+							
 							Intent intent = new Intent(QuestionActivity.this, QuestionViewActivity.class);
 			            	intent.putExtra("questionNo", Var.insertQuestionNo);
 			            	intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

@@ -2,14 +2,14 @@ package org.bigcamp4edu.meaningfinder;
 
 import java.util.ArrayList;
 
+import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class Var {
-	public static ArrayList<String> listReqNo 	= new ArrayList<String>();
-	public static ArrayList<String> listText 	= new ArrayList<String>();
-	public static ArrayList<String> listImgName = new ArrayList<String>();
+	public static ArrayList<QuestionListItemType> list_questions	= new ArrayList<QuestionListItemType>();
 	
 	public static String questionNo			= null;
 	
