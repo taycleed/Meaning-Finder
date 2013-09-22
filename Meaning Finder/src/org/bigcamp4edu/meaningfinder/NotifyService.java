@@ -62,7 +62,8 @@ public class NotifyService extends Service {
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_launcher);
 		Intent clickIntent = new Intent(this, QuestionActivity.class);
 	    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-	    Notification notification = new NotificationCompat.Builder(this)
+	    @SuppressWarnings("deprecation")
+		Notification notification = new NotificationCompat.Builder(this)
 	    		.setTicker(text)
 		    	.setContentTitle(title)
 		    	.setContentText(text)

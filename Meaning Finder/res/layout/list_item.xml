@@ -10,8 +10,9 @@
         android:id="@+id/imageViewItem"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="#ff2345" 
-        android:scaleType="fitXY"/>
+        android:contentDescription="star image"
+        android:scaleType="fitXY"
+        android:src="#ff2345" />
 
     <TextView
         android:id="@+id/textViewItem"

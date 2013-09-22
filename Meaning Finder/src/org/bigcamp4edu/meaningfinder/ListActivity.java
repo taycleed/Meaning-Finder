@@ -133,7 +133,7 @@ public class ListActivity extends Activity {
         	String	star_image_name;
         	star_image_name	= Var.list_questions.get(position).listImgName;
         	
-    		setStar.setStarImage(star_image_name);
+    		setStar.setStarImageName(star_image_name);
     		starDrawable	= setStar.getStarImage();
 
         	holder.listQuest.setText(Var.list_questions.get(position).listText);

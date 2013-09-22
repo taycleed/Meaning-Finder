@@ -24,7 +24,7 @@ public class JoinActivity extends Activity {
 	JoinActivity JoinActivity;
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 	
-    private boolean isSubmittable;
+//    private boolean isSubmittable;
     
     Thread x; 								// 쓰레드
 	Handler mHandler;						// 핸들러
@@ -118,8 +118,8 @@ public class JoinActivity extends Activity {
     	    String res				= response.toString();
     	    String resultStart		= "<result>";
     	    String resultEnd		= "</result>";
-    	    String errorCodeStart	= "<code>";
-    	    String errorCodeEnd		= "</code>";
+//    	    String errorCodeStart	= "<code>";
+//    	    String errorCodeEnd		= "</code>";
     	    String result			= null;
     	    
     	    res = res.replaceAll("\\s+", "");

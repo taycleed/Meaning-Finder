@@ -64,6 +64,7 @@ public class SetupActivity extends Activity {
 		one_alarm_wrap = (LinearLayout) findViewById(R.id.one_alarm_wrap);
 
 		one_alarm_wrap.setOnClickListener(new View.OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(one_TIME_DIALOG_ID);
@@ -75,6 +76,7 @@ public class SetupActivity extends Activity {
 		two_alarm_wrap = (LinearLayout) findViewById(R.id.two_alarm_wrap);
 
 		two_alarm_wrap.setOnClickListener(new View.OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(two_TIME_DIALOG_ID);

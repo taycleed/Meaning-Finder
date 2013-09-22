@@ -15,7 +15,7 @@ public class Image_Downloader {
 	public static HashMap<String, Bitmap> mImageCache = new HashMap<String, Bitmap>();
 
 	public static void download(final String url, ImageView imageView) {
-		Bitmap cachedImage = mImageCache.get(url);
+//		Bitmap cachedImage = mImageCache.get(url);
 		/*if (cachedImage != null) {
 			imageView.setImageBitmap(cachedImage);
 		} else */

@@ -14,7 +14,7 @@ public class setStarImage {
 		sContext	= context;
 	}
 	
-	public void setStarImage(String starImg){
+	public void setStarImageName(String starImg){
 		starImageStr	= (starImg);
 		Log.d("VOM setStarImage", "StarImage Name: " + starImageStr);
 	}

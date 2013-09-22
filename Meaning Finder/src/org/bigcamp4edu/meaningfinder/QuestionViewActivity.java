@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class QuestionViewActivity extends Activity {
 
@@ -85,7 +84,7 @@ public class QuestionViewActivity extends Activity {
 		star_name_en.setText(Var.info_star_name_en);
 
 		setStarImage setStar = new setStarImage(this);
-		setStar.setStarImage(Var.info_star_img);
+		setStar.setStarImageName(Var.info_star_img);
 		starDrawable = setStar.getStarImage();
 		question_star_image.setImageDrawable(starDrawable);
 

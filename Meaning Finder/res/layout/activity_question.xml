@@ -76,6 +76,7 @@
                 android:id="@+id/question_get_star_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:contentDescription="star image"
                 android:scaleType="fitXY"
                 android:src="#ff2345" />
 

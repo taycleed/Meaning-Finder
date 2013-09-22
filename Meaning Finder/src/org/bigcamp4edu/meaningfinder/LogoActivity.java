@@ -400,8 +400,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
     	    String res				= response.toString();
     	    String resultStart		= "<result>";
     	    String resultEnd		= "</result>";
-    	    String errorCodeStart	= "<code>";
-    	    String errorCodeEnd		= "</code>";
+//    	    String errorCodeStart	= "<code>";
+//    	    String errorCodeEnd		= "</code>";
     	    String result			= null;
     	    
     	    res = res.replaceAll("\\s+", "");

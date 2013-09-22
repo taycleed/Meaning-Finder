@@ -17,8 +17,8 @@ import android.util.Log;
 
 
 public class XmlParser {
-	private static final String TAG = "XMLPARSER";
-	private LogoActivity main;
+//	private static final String TAG = "XMLPARSER";
+//	private LogoActivity main;
 	static String versionText		= "";
 	static PackageInfo packageInfo;
 	/*******************************************************************************
@@ -125,10 +125,10 @@ public class XmlParser {
 			final String starImg		= "starImg";
 			
 			
-			final String qNo			= "questionNo";			
+//			final String qNo			= "questionNo";			
 			final String qName			= "questionName";			
 			
-			final String ansNo			= "answerNo"; 
+//			final String ansNo			= "answerNo"; 
 			final String ansName		= "answerName"; 
 
 			final String errorCode		= "errorCode";
@@ -206,8 +206,8 @@ public class XmlParser {
 			final String qNo			= "questionNo";			
 			final String qName			= "questionName";			
 			
-			final String ansNo			= "answerNo"; 
-			final String ansName		= "answerName"; 
+//			final String ansNo			= "answerNo"; 
+//			final String ansName		= "answerName"; 
 			
 			final String errorCode		= "errorCode";
 
@@ -284,8 +284,8 @@ public class XmlParser {
     	    String questionNoStart		= "<questionNo>";
     	    String questionNoEnd		= "</questionNo>";
     	    
-    	    String errorCodeStart	= "<code>";
-    	    String errorCodeEnd		= "</code>";
+//    	    String errorCodeStart	= "<code>";
+//    	    String errorCodeEnd		= "</code>";
     	    String result			= null;
     	    String insertQuestionNo	= null;
     	    
