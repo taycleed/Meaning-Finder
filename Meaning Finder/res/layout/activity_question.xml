@@ -20,14 +20,15 @@
 
             <Button
                 android:id="@+id/button_cancle"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/btn_normal"
-                android:singleLine="false" 
-                android:text="@string/cancel" 
+                android:singleLine="false"
+                android:text="@string/cancel"
                 android:textColor="#ffffff" />
 
             <TextView
@@ -51,15 +52,17 @@
 
             <Button
                 android:id="@+id/button_join_submit"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/btn_normal"
-                android:singleLine="false" 
+                android:singleLine="false"
                 android:text="@string/save"
                 android:textColor="#ffffff" />
+
         </RelativeLayout>
 
         <LinearLayout

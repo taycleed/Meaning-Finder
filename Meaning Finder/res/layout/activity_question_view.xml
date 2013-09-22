@@ -20,6 +20,7 @@
 
             <Button
                 android:id="@+id/button_question_list"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -49,6 +50,7 @@
 
             <Button
                 android:id="@+id/view_setting_btn"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -56,6 +58,7 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/navi_btn_setting_normal"
                 android:singleLine="false" />
+
         </RelativeLayout>
 
         <LinearLayout
