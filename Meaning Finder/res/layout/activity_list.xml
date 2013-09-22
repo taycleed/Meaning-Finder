@@ -13,12 +13,13 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:background="@drawable/navi_bg"
             android:padding="10dp" >
 
             <Button
                 android:id="@+id/star_list"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -48,6 +49,7 @@
 
             <Button
                 android:id="@+id/setting_btn"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -55,6 +57,7 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/navi_btn_setting_normal"
                 android:singleLine="false" />
+
         </RelativeLayout>
 
         <LinearLayout

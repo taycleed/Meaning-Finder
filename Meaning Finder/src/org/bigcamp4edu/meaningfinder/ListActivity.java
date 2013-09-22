@@ -35,8 +35,6 @@ public class ListActivity extends Activity {
 	ListView listView;					// 리스트 뷰 xml
 	VOMArrayAdapter adt;				// 리스트 어뎁터
 	
-	Button setting_btn;
-	
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -47,12 +45,11 @@ public class ListActivity extends Activity {
         setContentView(R.layout.activity_list);
         listView = (ListView)findViewById(R.id.listView_questions);
         
-        setting_btn	= (Button) findViewById(R.id.setting_btn);
+        Button setting_btn	= (Button) findViewById(R.id.setting_btn);
         setting_btn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(ListActivity.this, SetupActivity.class);
 	            startActivity(intent);
 			}
@@ -64,7 +61,6 @@ public class ListActivity extends Activity {
 			@Override
 			public void run() {
 				if(Var.listText.size() == 0){
-					Log.i("TEXTDATA", "parsing...");
 		        	XmlParser.getListText();
 		        }
 			}
@@ -81,6 +77,32 @@ public class ListActivity extends Activity {
         listView.setOnItemClickListener( new ListViewItemClickListener() );
 
     }
+    
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	
+    	 Thread dataParsingThread = new Thread(new Runnable() {
+ 			@Override
+ 			public void run() {
+ 				if(Var.listText.size() == 0){
+ 		        	XmlParser.getListText();
+ 		        }
+ 			}
+ 		});
+         dataParsingThread.start();
+         try {
+ 			dataParsingThread.join();
+ 		} catch (InterruptedException e) {
+ 			e.printStackTrace();
+ 		}
+         adt = new VOMArrayAdapter();
+         listView.setAdapter(adt);
+         
+         listView.setOnItemClickListener( new ListViewItemClickListener() );
+    };
+    
     
     private class ListViewItemClickListener implements AdapterView.OnItemClickListener
     {

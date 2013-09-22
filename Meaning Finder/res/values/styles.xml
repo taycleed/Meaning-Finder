@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -11,12 +11,13 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="android:textColor">#ffffff</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:windowBackground">@drawable/bg_general</item>
+        <item name="android:windowBackground">@drawable/bg_general</item>        
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
@@ -26,6 +27,18 @@
         <item name="buttonBarButtonStyle">@style/ButtonBarButton</item>
     </style>
 
+    <style name="VomButtonStyle" parent="@android:style/Widget.Holo.Light.Button">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@drawable/navi_btn_normal</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:minWidth">63dip</item>
+    </style>
+    
+    <style name="VomEditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    
+    
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">5dp</item>

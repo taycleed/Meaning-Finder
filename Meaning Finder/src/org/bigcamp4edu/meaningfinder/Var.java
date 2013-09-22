@@ -12,6 +12,18 @@ public class Var {
 	
 	public static String questionNo			= null;
 	
+	public static String get_star_name		= null;
+	public static String get_star_name_en	= null;
+	public static String get_star_img		= null;
+	public static String get_question_no	= null;
+	public static String get_question_name	= null;
+	public static String get_answer			= null;
+	public static Boolean get_exists_quesion	= false;
+	
+	public static String insertQuestionNo	= null;
+	
+	
+	
 	public static String info_star_name		= null;
 	public static String info_star_name_en	= null;
 	public static String info_star_img		= null;

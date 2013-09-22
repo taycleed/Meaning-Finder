@@ -1,47 +1,139 @@
 package org.bigcamp4edu.meaningfinder;
 
+import org.apache.http.message.BasicNameValuePair;
+
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class QuestionActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question);
+	private Intent intent; // intent
+	private String userId; // userId
+	private String questionNo; // 질문번호
 
-        // set today's question
-        TextView tv = (TextView) this.findViewById(R.id.textview_question);
-        tv.setText("[Today's Question]");
+	private TextView star_name; // 별자리 한글이름
+	private TextView star_name_en; // 별자리 영어이름
+	private Drawable starDrawable;
 
-        Button button = (Button) this.findViewById(R.id.button_question_submit);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: send inputted text to server
-
-                // Activity change.
-                Intent intent = new Intent(QuestionActivity.this, ConfirmActivity.class);
-                startActivity(intent);
-
-            }
-        });
-    }
-
-//    public class QuestionGetterAsync extends AsyncTask<>
+	private ImageView question_star_image; // 질문에 해당하는 별자리 image view
+	private TextView question_title; // 질문
+	private TextView answer_text; // 답변
+	
+	private EditText get_answer_text;
+	
+	private Button button_cancle;
+	private Button button_join_submit;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_question);
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.question, menu);
-        return true;
-    }
-    
+		star_name 			= (TextView) findViewById(R.id.get_star_name);
+		star_name_en 		= (TextView) findViewById(R.id.get_star_name_en);
+
+		question_star_image = (ImageView) findViewById(R.id.question_get_star_image);
+		question_title 		= (TextView) findViewById(R.id.question_get_title);
+		
+		button_cancle		= (Button) findViewById(R.id.button_cancle);
+		button_join_submit	= (Button) findViewById(R.id.button_join_submit);
+		
+		get_answer_text		= (EditText) findViewById(R.id.get_answer_text);
+		
+
+		Thread x = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				XmlParser.getQuestion();
+			}
+		});
+		x.start();
+		
+		try {
+			x.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
+		star_name.setText(Var.get_star_name);
+		star_name_en.setText(Var.get_star_name_en);
+		
+		setStarImage setStar = new setStarImage(this);
+		setStar.setStarImage(Var.get_star_img);
+		starDrawable	= setStar.getStarImage();
+		question_star_image.setImageDrawable(starDrawable);
+		
+		question_title.setText(Var.get_question_name);
+			
+		
+		button_cancle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(QuestionActivity.this, ListActivity.class);
+	            startActivity(intent);
+	            
+	            finish();
+			}
+		});
+		
+		button_join_submit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Var.get_answer	= get_answer_text.getText().toString();
+				
+				Thread x = new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						if(XmlParser.insertAnswer())
+						{
+							Intent intent = new Intent(QuestionActivity.this, QuestionViewActivity.class);
+			            	intent.putExtra("userId", Var.userId);
+			            	intent.putExtra("questionNo", Var.insertQuestionNo);
+			            	startActivity(intent);
+			            	
+			            	finish();
+						}
+					}
+				});
+				x.start();
+				
+				try {
+					x.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		
+	}
+
+	// public class QuestionGetterAsync extends AsyncTask<>
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.question, menu);
+		return true;
+	}
+
 }
