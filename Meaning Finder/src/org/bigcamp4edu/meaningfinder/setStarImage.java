@@ -2,6 +2,7 @@ package org.bigcamp4edu.meaningfinder;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 public class setStarImage {
 	
@@ -15,6 +16,7 @@ public class setStarImage {
 	
 	public void setStarImage(String starImg){
 		starImageStr	= (starImg);
+		Log.d("VOM setStarImage", "StarImage Name: " + starImageStr);
 	}
 	
 	public Drawable getStarImage(){

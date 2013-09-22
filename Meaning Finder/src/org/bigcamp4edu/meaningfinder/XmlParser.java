@@ -81,6 +81,8 @@ public class XmlParser {
     }
 	
 	public static boolean getAnswerText(){
+		Log.d("VOM XmlParser", "getAnswerText() userId=" + Var.userId + " questionNo=" + Var.questionNo );
+		
 		try{
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
 			factory.setNamespaceAware(true);
@@ -101,6 +103,8 @@ public class XmlParser {
 			
 			final String ansNo			= "answerNo"; 
 			final String ansName		= "answerName"; 
+
+			final String errorCode		= "errorCode";
 
 //		    int i = 0;
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
@@ -127,6 +131,9 @@ public class XmlParser {
 				    	Var.info_question_name	= (String) xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(ansName)){
 				    	Var.info_answer_name	= (String) xpp.nextText().toString();
+				    
+				    }else if(xpp.getName().toString().equals(errorCode)){
+				    	Log.e("VOM XmlParser", "getAnswerText() error code : " + (String) xpp.getText().toString() );
 				    }
 			    break;
 	
@@ -153,6 +160,8 @@ public class XmlParser {
 	
 	public static boolean getQuestion(){
 		try{
+			Log.d("VOM XmlParser", "getQuestion() userId : " + Var.userId);
+			
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
 			factory.setNamespaceAware(true);
 			XmlPullParser xpp		= factory.newPullParser();
@@ -161,7 +170,6 @@ public class XmlParser {
 			InputStream	in			= uc.getInputStream();
 			xpp.setInput(in, "UTF-8");
 			int eventType			= xpp.getEventType();
-			
 			
 			final String starName		= "starName";
 			final String starNameEn		= "starNameEn";
@@ -173,6 +181,8 @@ public class XmlParser {
 			
 			final String ansNo			= "answerNo"; 
 			final String ansName		= "answerName"; 
+			
+			final String errorCode		= "errorCode";
 
 //		    int i = 0;
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
@@ -197,10 +207,15 @@ public class XmlParser {
 				    	Var.get_star_name_en	= (String) xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(starImg)){
 				    	Var.get_star_img		= (String) xpp.nextText().toString();
+				    	Log.d("VOM XmlParser", "StarImage Name: " + Var.get_star_img);
 				    }else if(xpp.getName().toString().equals(qNo)){
 				    	Var.get_question_no		= (String) xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(qName)){
 				    	Var.get_question_name	= (String) xpp.nextText().toString();
+				    	
+				    }else if(xpp.getName().toString().equals(errorCode)){
+				    	
+				    	Log.e("VOM XmlParser", "getQuestion() error code : " + (String) xpp.getText().toString() );
 				    }
 			    break;
 	
@@ -239,8 +254,8 @@ public class XmlParser {
     	    String resultStart		= "<result>";
     	    String resultEnd		= "</result>";
     	    
-    	    String questionNoStart		= " <questionNo>";
-    	    String questionNoEnd		= " </questionNo>";
+    	    String questionNoStart		= "<questionNo>";
+    	    String questionNoEnd		= "</questionNo>";
     	    
     	    String errorCodeStart	= "<code>";
     	    String errorCodeEnd		= "</code>";
@@ -250,7 +265,7 @@ public class XmlParser {
     	    res = res.replaceAll("\\s+", "");
     	    try{
     	    	result 				= res.substring(res.indexOf(resultStart)+resultStart.length(), res.indexOf(resultEnd));
-    	    	insertQuestionNo	= res.substring(res.indexOf(questionNoStart)+resultStart.length(), res.indexOf(questionNoEnd));
+    	    	insertQuestionNo	= res.substring(res.indexOf(questionNoStart)+questionNoStart.length(), res.indexOf(questionNoEnd));
 	    	    	Log.i("TOKEN", insertQuestionNo);
     	    }catch(Exception e){
     	    	e.printStackTrace();
