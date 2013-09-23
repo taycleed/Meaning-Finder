@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -24,7 +23,6 @@ import android.widget.TextView;
  * ListActivity shows completed questions.
  */
 public class ListActivity extends Activity {
-	ListActivity	ListActivity;
 	ListView listView;					// 리스트 뷰 xml
 	VOMArrayAdapter adt;				// 리스트 어뎁터
 	
@@ -38,6 +36,7 @@ public class ListActivity extends Activity {
         setContentView(R.layout.activity_list);
         listView = (ListView)findViewById(R.id.listView_questions);
         
+        // '설정' 버튼 기능 구현
         Button setting_btn	= (Button) findViewById(R.id.setting_btn);
         setting_btn.setOnClickListener(new OnClickListener() {
 			
@@ -48,15 +47,29 @@ public class ListActivity extends Activity {
 			}
 		});
         
-       
+        // '질문/답변' 버튼 기능 구현
+        Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
+        btn_gotoquestion.setOnClickListener(new OnClickListener() {
+
+        	@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ListActivity.this, QuestionActivity.class);
+	            startActivity(intent);
+			}
+		});
         
-        Thread dataParsingThread = new Thread(new Runnable() {
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	
+    	Thread dataParsingThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if(Var.listText.size() == 0){
-					Log.i("TEXTDATA", "parsing...");
+//				if(Var.listText.size() == 0){
 		        	XmlParser.getListText();
-		        }
+//		        }
 			}
 		});
         dataParsingThread.start();
@@ -69,8 +82,16 @@ public class ListActivity extends Activity {
         listView.setAdapter(adt);
         
         listView.setOnItemClickListener( new ListViewItemClickListener() );
-
-    }
+        
+        Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
+        
+        if(NotifyService.HasSavedToday(this)){	// 오늘 질문에 답한 기록이 있다면
+        	btn_gotoquestion.setVisibility(View.GONE);
+        }else{
+        	btn_gotoquestion.setVisibility(View.VISIBLE);
+        }
+	}
+    
     
     private class ListViewItemClickListener implements AdapterView.OnItemClickListener
     {
@@ -90,7 +111,7 @@ public class ListActivity extends Activity {
 //            alertDlg.show();
         		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
             	intent.putExtra("userId", Var.userId);
-            	intent.putExtra("questionNo", Var.listReqNo.get(position));
+            	intent.putExtra("questionNo", Integer.toString(Var.list_questions.get(position).listReqNo));
                 startActivity(intent);
         }        
     }
@@ -107,10 +128,8 @@ public class ListActivity extends Activity {
     public class VOMArrayAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return Var.listText.size();
+            return Var.list_questions.size();
         }
-
-        
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
@@ -131,19 +150,18 @@ public class ListActivity extends Activity {
         	}
         	
         	String	star_image_name;
-        	star_image_name	= (String) Var.listImgName.get(position);
+        	star_image_name	= Var.list_questions.get(position).listImgName;
         	
-    		setStar.setStarImage(star_image_name);
+    		setStar.setStarImageName(star_image_name);
     		starDrawable	= setStar.getStarImage();
 
-        	holder.listQuest.setText(Var.listText.get(position));
+        	holder.listQuest.setText(Var.list_questions.get(position).listText);
         	holder.listStar.setImageDrawable(starDrawable);
         	
         	
         	
             return convertView;
         }
-        
         
         public class viewHolder
         {
@@ -152,19 +170,13 @@ public class ListActivity extends Activity {
           ImageView listStar;
         }
 
-
-
 		@Override
 		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
 			return arg0;
 		}
 
-
-
 		@Override
 		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
 			return arg0;
 		}
     }

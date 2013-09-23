@@ -29,7 +29,7 @@
 
     <style name="VomButtonStyle" parent="@android:style/Widget.Holo.Light.Button">
         <item name="android:textColor">#ffffff</item>
-        <item name="android:background">@drawable/navi_btn_normal</item>
+        <item name="android:background">@drawable/btn_normal</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:minWidth">63dip</item>
     </style>

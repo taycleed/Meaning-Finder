@@ -100,18 +100,18 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 		
 		mHandler		 = new Handler();
 		
-		pref 					= getSharedPreferences("Setting", 0);
-		String prefUserId		= pref.getString("userId", "");
-		String prefUserPw		= pref.getString("userPw", "");
-		Boolean prefLOGIN_STATE	= pref.getBoolean("LOGIN_STATE", false);
-		
-		if(!prefUserId.equals("") && !prefUserPw.equals("") && prefLOGIN_STATE)
-		{
-			Var.userId		= (String) prefUserId;
-			Var.userPw		= (String) prefUserPw;
-			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
-		}
-		
+//		pref 					= getSharedPreferences("Setting", 0);
+//		String prefUserId		= pref.getString("userId", "");
+//		String prefUserPw		= pref.getString("userPw", "");
+//		Boolean prefLOGIN_STATE	= pref.getBoolean("LOGIN_STATE", false);
+//		
+//		if(!prefUserId.equals("") && !prefUserPw.equals("") && prefLOGIN_STATE)
+//		{
+//			Var.userId		= (String) prefUserId;
+//			Var.userPw		= (String) prefUserPw;
+//			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
+//		}
+		Var.InitLoginInfo(this);
 		
 		// 로그인이 안되있을경우
 		if(!Var.LOGIN_STATE)
@@ -246,7 +246,6 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 			{
 				@Override
 				public void run() {
-					// TODO Auto-generated method stub
 					mHandler.post(new Runnable() {
 
 						@Override
@@ -400,8 +399,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
     	    String res				= response.toString();
     	    String resultStart		= "<result>";
     	    String resultEnd		= "</result>";
-    	    String errorCodeStart	= "<code>";
-    	    String errorCodeEnd		= "</code>";
+//    	    String errorCodeStart	= "<code>";
+//    	    String errorCodeEnd		= "</code>";
     	    String result			= null;
     	    
     	    res = res.replaceAll("\\s+", "");
@@ -515,7 +514,6 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		switch (requestCode) {

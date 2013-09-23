@@ -63,15 +63,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="10" >
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_gotoquestion"
+                style="@style/VomButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/btn_goto_question" />
 
             <ListView
                 android:id="@+id/listView_questions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_weight="8" />
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="10dp" />
+
         </LinearLayout>
     </LinearLayout>
 

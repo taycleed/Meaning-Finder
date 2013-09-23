@@ -50,7 +50,6 @@
                 android:background="@drawable/navi_btn_normal"
                 android:singleLine="false"
                 android:text="닫기" />
-
         </RelativeLayout>
 
         <LinearLayout
@@ -88,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="1"
+                    android:text="알림시간을 설정해주세요"
                     android:textColor="#7aebf6"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text=""
+                    android:text="알림시간을 설정해주세요"
                     android:textColor="#7aebf6"
                     android:textSize="15dp" />
             </LinearLayout>
@@ -130,10 +129,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/btn_normal"
+                    android:layout_marginTop="50dp"
                     android:padding="8dp"
                     android:text="로그아웃" />
-
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

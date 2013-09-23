@@ -19,7 +19,8 @@
             android:padding="10dp" >
 
             <Button
-                android:id="@+id/button_join_submit"
+                android:id="@+id/button_question_list"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -47,15 +48,6 @@
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
-            <Button
-                android:id="@+id/button_join_submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="false"
-                android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_setting_normal"
-                android:singleLine="false" />
         </RelativeLayout>
 
         <LinearLayout
@@ -69,6 +61,7 @@
                 android:id="@+id/question_star_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:contentDescription="star image"
                 android:scaleType="fitXY"
                 android:src="#ff2345" />
 

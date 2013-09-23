@@ -2,14 +2,28 @@ package org.bigcamp4edu.meaningfinder;
 
 import java.util.ArrayList;
 
+import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
+
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class Var {
-	public static ArrayList<String> listReqNo 	= new ArrayList<String>();
-	public static ArrayList<String> listText 	= new ArrayList<String>();
-	public static ArrayList<String> listImgName = new ArrayList<String>();
+	public static ArrayList<QuestionListItemType> list_questions	= new ArrayList<QuestionListItemType>();
 	
 	public static String questionNo			= null;
+	
+	public static String get_star_name		= null;
+	public static String get_star_name_en	= null;
+	public static String get_star_img		= null;
+	public static String get_question_no	= null;
+	public static String get_question_name	= null;
+	public static String get_answer			= null;
+	public static Boolean get_exists_quesion	= false;
+	
+	public static String insertQuestionNo	= null;
+	
+	
 	
 	public static String info_star_name		= null;
 	public static String info_star_name_en	= null;
@@ -36,4 +50,19 @@ public class Var {
 	public static boolean WEB_GOBACK		= false;								// 이전 버튼 클릭 시
 	
 	public static boolean AUTOLOGIN_STATE;											// 자동로그인 상태
+	
+	public static void InitLoginInfo(Context context){
+		SharedPreferences pref 	= context.getSharedPreferences("Setting", 0);
+		
+		String prefUserId		= pref.getString("userId", "");
+		String prefUserPw		= pref.getString("userPw", "");
+		Boolean prefLOGIN_STATE	= pref.getBoolean("LOGIN_STATE", false);
+		
+		if(!prefUserId.equals("") && !prefUserPw.equals("") && prefLOGIN_STATE)
+		{
+			Var.userId		= (String) prefUserId;
+			Var.userPw		= (String) prefUserPw;
+			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
+		}
+	}
 }

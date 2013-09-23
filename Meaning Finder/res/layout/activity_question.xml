@@ -1,42 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionActivity"
-    android:padding="50dp">
+    android:background="@drawable/bg_general"
+    android:orientation="horizontal" >
 
     <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical">
+        android:id="@+id/join_layout_wrap"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-        <TextView
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/navi_bg"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/button_cancle"
+                style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="질문에 답하기"
-                android:textSize="30dp"
-                android:id="@+id/textView"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/btn_normal"
+                android:singleLine="false"
+                android:text="@string/cancel"
+                android:textColor="#ffffff" />
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/get_star_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:textColor="#7aebf6"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/get_star_name_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="35dp"
+                android:textColor="#454545"
+                android:textSize="15dp" />
+
+            <Button
+                android:id="@+id/button_join_submit"
+                style="@style/VomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/btn_normal"
+                android:singleLine="false"
+                android:text="@string/save"
+                android:textColor="#ffffff" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/question_title_wrap"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="질문 1. 10년 이상 된 친구가 있는가? 어떤 친구인가?"
-            android:textSize="20dp"
-            android:id="@+id/textview_question"
-            android:layout_marginTop="30dp"/>
+            android:orientation="horizontal"
+            android:weightSum="1" >
 
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editText"/>
+            <ImageView
+                android:id="@+id/question_get_star_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="star image"
+                android:scaleType="fitXY"
+                android:src="#ff2345" />
 
-        <Button
+            <TextView
+                android:id="@+id/question_get_title"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:textColor="#c9c9c9"
+                android:textSize="15dip" />
+        </LinearLayout>
+
+        <ScrollView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/get_answer_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="저장"
-                android:id="@+id/button_question_submit"
-                android:singleLine="false"/>
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:scrollHorizontally="false"
+                android:textColor="#ffffff"
+                android:textCursorDrawable="@null"
+                android:textSize="15dip" />
+
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

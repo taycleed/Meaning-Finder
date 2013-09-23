@@ -53,7 +53,7 @@ public class SetupActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN); // 상태바 제거
 		
-		if(pendingI == null){
+		if(pendingI == null || pendingI_two == null){
 			setPendingIntent();
 		}
 
@@ -64,6 +64,7 @@ public class SetupActivity extends Activity {
 		one_alarm_wrap = (LinearLayout) findViewById(R.id.one_alarm_wrap);
 
 		one_alarm_wrap.setOnClickListener(new View.OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(one_TIME_DIALOG_ID);
@@ -75,6 +76,7 @@ public class SetupActivity extends Activity {
 		two_alarm_wrap = (LinearLayout) findViewById(R.id.two_alarm_wrap);
 
 		two_alarm_wrap.setOnClickListener(new View.OnClickListener() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				showDialog(two_TIME_DIALOG_ID);
@@ -149,6 +151,9 @@ public class SetupActivity extends Activity {
 			} else {
 				one_time = "오후";
 				setHour = setHour - 12;
+				
+				if(setHour == 0)
+					setHour = 12;
 			}
 			
 			one_alarm_time.setText(new StringBuilder().append(one_time + " ")
@@ -169,6 +174,9 @@ public class SetupActivity extends Activity {
 			} else {
 				two_time = "오후";
 				setHour = setHour - 12;
+				
+				if(setHour == 0)
+					setHour = 12;
 			}
 			
 			two_alarm_time.setText(new StringBuilder().append(two_time + " ")
@@ -203,9 +211,10 @@ public class SetupActivity extends Activity {
 		//사용자가 알람을 확인하고 클릭했을때 새로운 액티비티를 시작할 인텐트 객체
 		Intent intent = new Intent(SetupActivity.this, NotifyService.class);
 		Intent intent2 = new Intent(SetupActivity.this, NotifyService.class);
+		
 		//인텐트 객체를 포장해서 전달할 인텐트 전달자 객체
-		pendingI = PendingIntent.getService(SetupActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		pendingI_two = PendingIntent.getActivity(SetupActivity.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+		pendingI	 = PendingIntent.getService(SetupActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		pendingI_two = PendingIntent.getService(SetupActivity.this, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {

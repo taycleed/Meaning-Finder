@@ -1,5 +1,8 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 public class NotifyService extends Service {
@@ -33,12 +37,39 @@ public class NotifyService extends Service {
 		return super.onStartCommand(intent, flags, startId);
 	}
 	
+	public static boolean HasSavedToday(Context context){
+		long lastSaveTime = context.getSharedPreferences("Setting", 0).getLong(DB.LAST_ANSWER_DATE, 0);
+		if(lastSaveTime != 0){
+			Calendar calendar = new GregorianCalendar();	// 현재 시각
+			Calendar calendar2 = new GregorianCalendar();
+			calendar2.setTimeInMillis(lastSaveTime);		// 마지막 답변한 시각
+			
+			Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)));
+			Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DATE)));
+			
+			return calendar.get(Calendar.DATE) == calendar2.get(Calendar.DATE) 
+				&& calendar.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) 
+				&& calendar.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) ;
+		}
+		
+		return false;
+	}
+	
 	private void sendNotification(String title, String text)
 	{
+		if(HasSavedToday(this)){
+			// 오늘 답변을 했으므로 질문 알림을 패스한다. 
+							
+			// TODO: 알람 시작 시각을 내일로 재설정한다. 
+			
+			return ;
+		}
+		
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_launcher);
 		Intent clickIntent = new Intent(this, QuestionActivity.class);
 	    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-	    Notification notification = new Notification.Builder(this)
+	    @SuppressWarnings("deprecation")
+		Notification notification = new NotificationCompat.Builder(this)
 	    		.setTicker(text)
 		    	.setContentTitle(title)
 		    	.setContentText(text)

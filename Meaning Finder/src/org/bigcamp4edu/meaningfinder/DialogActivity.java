@@ -18,7 +18,7 @@ public class DialogActivity extends Activity {
 	    	.setTitle(R.string.app_name)
 	    	.setPositiveButton(R.string.noti_yes, new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface dialog, int id) {
-	            	Intent intent = new Intent(DialogActivity.this, LogoActivity.class);
+	            	Intent intent = new Intent(DialogActivity.this, QuestionActivity.class);
 	            	intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 	            	startActivity(intent);
 	            	
