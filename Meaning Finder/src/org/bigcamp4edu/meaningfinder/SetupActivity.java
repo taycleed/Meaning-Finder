@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+// TODO: 알림 On/Off 기능 추가 구현
 public class SetupActivity extends Activity {
 
 	private SharedPreferences pref;
