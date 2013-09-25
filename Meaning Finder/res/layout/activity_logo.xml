@@ -91,7 +91,7 @@
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:textColorHint="#c9c9c9"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
             <ImageView
                 android:id="@+id/user_pw_del"

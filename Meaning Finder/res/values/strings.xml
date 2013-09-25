@@ -11,6 +11,9 @@
     <string name="url_login">http://mean1.cloudapp.net/api/api_userLogin.php</string>
     <string name="url_get_question">http://mean1.cloudapp.net/api/api_requestionInfo.php</string>
     <string name="url_get_questions">http://mean1.cloudapp.net/api/api_requestionList.php</string>
+    <string name="desc_star_image">Constellation Image</string>
+    <string name="vom">VOM</string>
+    <string name="vom_long">Voice of Mind</string>
 
     <!-- 처음 로고화면의 타이틀 -->
     <string name="loading_title1">내 마음을 봄&#8230;</string>
@@ -47,11 +50,21 @@
     <string name="join_query_error">회원가입 insert query 에러.</string>
     <string name="save">저장</string>
     <string name="cancel">취소</string>
+    
+    <!-- Setting Activity -->
+    <string name="notice1">1차 알림</string>
+    <string name="notice2">2차 알림</string>
+    <string name="set_notice_plz">알림시간을 설정해주세요</string>
+    <string name="logout">로그아웃</string>
+    <string name="close">닫기</string>
+    <string name="title_setting">설정</string>
+    <string name="title_setting_en">Settings</string>
+    <string name="question_notice_time">질문 알림 시간</string>
 
     <!-- Notification Dialog -->
     <string name="noti_message">물어볼 게 있어 :)</string>
     <string name="noti_yes">뭔데?</string>
-    <string name="noti_no">이따가...</string>
+    <string name="noti_no">이따가…</string>
     <string name="btn_goto_question">오늘 질문에 답하러 가기</string>
 
 </resources>

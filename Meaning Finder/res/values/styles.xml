@@ -37,6 +37,7 @@
     <style name="VomEditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">@drawable/input</item>
+        <item name="android:textSize">15sp</item>
     </style>
     
     
