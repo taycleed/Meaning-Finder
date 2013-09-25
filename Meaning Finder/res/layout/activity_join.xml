@@ -106,6 +106,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:hint="@string/name_title4"
+                    android:inputType="textPersonName"
                     android:maxLength="30"
                     android:maxLines="1"
                     android:padding="8dp"

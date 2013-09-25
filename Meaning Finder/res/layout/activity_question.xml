@@ -106,9 +106,8 @@
                 android:layout_margin="10dp"
                 android:inputType="textMultiLine"
                 android:scrollHorizontally="false"
-                android:textColor="#ffffff"
                 android:textCursorDrawable="@null"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
         </ScrollView>
     </LinearLayout>

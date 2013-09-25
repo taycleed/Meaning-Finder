@@ -47,6 +47,17 @@ public class ListActivity extends Activity {
 			}
 		});
         
+        // 별자리 버튼 기능 구현
+        ((Button) findViewById(R.id.star_list)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ListActivity.this, StarListActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+	            startActivity(intent);
+			}
+		});
+        
         // '질문/답변' 버튼 기능 구현
         Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
         btn_gotoquestion.setOnClickListener(new OnClickListener() {
