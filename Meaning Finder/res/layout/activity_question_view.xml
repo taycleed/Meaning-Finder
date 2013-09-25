@@ -26,7 +26,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_list_normal"
+                android:background="@drawable/navi_btn_list"
                 android:singleLine="false" />
 
             <TextView
@@ -63,7 +63,8 @@
                 android:layout_height="70dp"
                 android:contentDescription="star image"
                 android:scaleType="fitXY"
-                android:src="#ff2345" />
+                android:src="#ff2345"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/question_title"

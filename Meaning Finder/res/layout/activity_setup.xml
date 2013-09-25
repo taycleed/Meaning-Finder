@@ -47,7 +47,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_normal"
+                android:background="@drawable/navi_btn"
                 android:singleLine="false"
                 android:text="닫기" />
         </RelativeLayout>
@@ -67,56 +67,78 @@
                 android:textSize="20dp" />
 
             <LinearLayout
-                android:id="@+id/one_alarm_wrap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_normal"
-                android:padding="8dp"
-                android:weightSum="1" >
+                android:layout_height="wrap_content" >
 
-                <TextView
+                <CheckBox
+                    android:id="@+id/checkBox_setting_time1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1차 알림"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:id="@+id/one_alarm_time"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/one_alarm_wrap"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="알림시간을 설정해주세요"
-                    android:textColor="#7aebf6"
-                    android:textSize="15dp" />
+                    android:background="@drawable/input_normal"
+                    android:padding="8dp"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1차 알림"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/one_alarm_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="알림시간을 설정해주세요"
+                        android:textColor="#7aebf6"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/two_alarm_wrap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/input_normal"
-                android:padding="8dp"
-                android:weightSum="1" >
+                android:layout_marginTop="10dp" >
 
-                <TextView
+                <CheckBox
+                    android:id="@+id/checkBox_setting_time2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2차 알림"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:id="@+id/two_alarm_time"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/two_alarm_wrap"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="알림시간을 설정해주세요"
-                    android:textColor="#7aebf6"
-                    android:textSize="15dp" />
+                    android:background="@drawable/input_normal"
+                    android:padding="8dp"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2차 알림"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/two_alarm_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="알림시간을 설정해주세요"
+                        android:textColor="#7aebf6"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <RelativeLayout

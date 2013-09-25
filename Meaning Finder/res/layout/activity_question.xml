@@ -78,7 +78,8 @@
                 android:layout_height="70dp"
                 android:contentDescription="star image"
                 android:scaleType="fitXY"
-                android:src="#ff2345" />
+                android:src="#ff2345"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/question_get_title"
