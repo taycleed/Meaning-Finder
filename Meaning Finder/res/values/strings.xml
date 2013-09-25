@@ -7,12 +7,6 @@
     <string name="title_activity_join">JoinActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_question">QuestionActivity</string>
-    <string name="title_activity_question_view">QuestionViewActivity</string>
-    <string name="title_activity_confirm">ConfirmActivity</string>
-    <string name="title_activity_list">ListActivity</string>
-    <string name="title_activity_setup">SetupActivity</string>
-    <string name="title_activity_star">StarActivity</string>
     <string name="url_join">http://mean1.cloudapp.net/api/api_userJoinProc.php</string>
     <string name="url_login">http://mean1.cloudapp.net/api/api_userLogin.php</string>
     <string name="url_get_question">http://mean1.cloudapp.net/api/api_requestionInfo.php</string>
@@ -31,8 +25,7 @@
     <string name="login">로그인</string>
     <string name="login_wait">로그인 중입니다. 잠시만 기다려주십시오.</string>
     <string name="login_fail_msg">아이디와 패스워드 오류입니다. 다시 한 번 확인해주세요.</string>
-    
-    
+
     <!-- 로그인 화면 -->
     <string name="hello">Hello :-)</string>
     <string name="nicetomeetyou">Nice to meet you!</string>
@@ -47,22 +40,18 @@
     <string name="password_title1">이메일과 함께 사용할 비밀번호도 적어줘.</string>
     <string name="password_title2">비밀번호</string>
     <string name="password_title3">비밀번호 확인</string>
-    
-
     <string name="join_success">회원 등록 성공!</string>
     <string name="join_longname">이름의 글자수가 다릅니다. 32자 이하</string>
     <string name="join_wrong_email">이메일 정규식이 틀렸습니다.</string>
     <string name="join_email_dup">이메일 중복.</string>
     <string name="join_query_error">회원가입 insert query 에러.</string>
-    
-    
     <string name="save">저장</string>
     <string name="cancel">취소</string>
-    
-    
+
     <!-- Notification Dialog -->
     <string name="noti_message">물어볼 게 있어 :)</string>
     <string name="noti_yes">뭔데?</string>
     <string name="noti_no">이따가...</string>
     <string name="btn_goto_question">오늘 질문에 답하러 가기</string>
+
 </resources>
