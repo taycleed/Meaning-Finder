@@ -57,6 +57,7 @@ public class QuestionActivity extends Activity {
 			setStar.setStarImageName(Var.get_star_img);
 			starDrawable	= setStar.getStarImage();
 			question_star_image.setImageDrawable(starDrawable);
+			question_star_image.setVisibility(View.VISIBLE);
 			
 			question_title.setText(Var.get_question_name);
 		}
