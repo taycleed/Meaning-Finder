@@ -39,7 +39,7 @@ public class StarListActivity extends Activity {
 			}
 		});
         
-        // 별자리 버튼 기능 구현
+        // ListActivity 버튼 기능 구현
         ((Button) findViewById(R.id.btn_starlist_tolist)).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -47,6 +47,8 @@ public class StarListActivity extends Activity {
 				Intent intent = new Intent(StarListActivity.this, ListActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 	            startActivity(intent);
+	            
+	            finish();
 			}
 		});
         
@@ -84,6 +86,7 @@ public class StarListActivity extends Activity {
         	listStar.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					// TODO: 특정 별자리의 질문들 보기 페이지로 전환
 					Toast.makeText(StarListActivity.this, star_image_name, Toast.LENGTH_SHORT).show();
 				}
 			});
