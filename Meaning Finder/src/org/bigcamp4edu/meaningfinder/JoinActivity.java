@@ -1,6 +1,8 @@
 package org.bigcamp4edu.meaningfinder;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -60,11 +63,21 @@ public class JoinActivity extends Activity {
     	pwd					= (EditText) findViewById(R.id.pwd);						// 비밀번호 입력 뷰
     	pwdconfirm			= (EditText) findViewById(R.id.pwd_confirm);				// 비밀번호 확인 입력 뷰
     	
+    	OnFocusChangeListener joinCheckListener = new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				JoinActivity.this.CheckJoinInfo();
+			}
+		};
+    	name.setOnFocusChangeListener(joinCheckListener);
+    	birthday.setOnFocusChangeListener(joinCheckListener);
+    	email.setOnFocusChangeListener(joinCheckListener);
+    	pwd.setOnFocusChangeListener(joinCheckListener);
+    	pwdconfirm.setOnFocusChangeListener(joinCheckListener);
+    	//TODO: focus change가 아니라 text change가 있으면 더 완벽
     	
     	button_join_submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				
-				
 				tmp_name		= name.getText().toString();
 				tmp_birthday	= birthday.getText().toString();
 				tmp_email		= email.getText().toString();
@@ -93,12 +106,58 @@ public class JoinActivity extends Activity {
 				
 			}
 		});
+    	button_join_submit.setEnabled(false);
 
     }
     
+    /*
+     * 가입 정보 입력에 따라 '저장' 버튼 활성화/비활성화
+     */
+    protected void CheckJoinInfo() {
+    	String s_name = name.getText().toString();
+    	String s_birthday = birthday.getText().toString();
+    	String s_email = email.getText().toString();
+    	String s_pwd = pwd.getText().toString();
+    	String s_pwdconfirm = pwdconfirm.getText().toString();
+    	
+		if( s_name.equals("")
+				|| s_birthday.length() != 8
+				// TODO: birthday가 날짜 형식에 맞는지 체크
+				|| !isEmailValid(s_email)
+				|| !s_pwd.equals(s_pwdconfirm)
+		)
+			button_join_submit.setEnabled(false);
+		else{
+			button_join_submit.setEnabled(true);
+		}
+	}
     
-    
-    /*******************************************************************************
+    /*
+     * if this function returns true then your email address is valid, otherwise not
+     * (http://stackoverflow.com/questions/9355899/android-email-edittext-validation)
+     */
+    private boolean isEmailValid(String email)
+    {
+         String regExpn =
+             "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                 +"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                   +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                   +"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                   +"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                   +"([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
+
+     CharSequence inputStr = email;
+
+     Pattern pattern = Pattern.compile(regExpn,Pattern.CASE_INSENSITIVE);
+     Matcher matcher = pattern.matcher(inputStr);
+
+     if(matcher.matches())
+        return true;
+     else
+        return false;
+}
+
+	/*******************************************************************************
 	 * 
 	 *	회원가입 동작
 	 *
