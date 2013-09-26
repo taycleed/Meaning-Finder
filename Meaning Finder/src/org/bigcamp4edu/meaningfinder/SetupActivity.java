@@ -142,53 +142,40 @@ public class SetupActivity extends Activity {
 	 * Update TextView which shows alarm time.
 	 */
 	private void updateDisplay(int id) {
-		if(id == 1)
-		{
-			int setHour = mHour;
-
-			if (mHour < 12) {
-				one_time = "오전";
-			} else {
-				one_time = "오후";
-				setHour = setHour - 12;
-				
-				if(setHour == 0)
-					setHour = 12;
-			}
-			
-			one_alarm_time.setText(new StringBuilder().append(one_time + " ")
-				.append(String.format("%02d", setHour)).append(":").append(String.format("%02d", mMinute)));
-			
-			pref = getSharedPreferences("Setting", 0);
-			SharedPreferences.Editor edit	= pref.edit();
-			edit.putString("one_alarm", "set");
-			edit.putInt("one_alarm_hour", mHour);
-			edit.putInt("one_alarm_minute", mMinute);
-			edit.commit();
-			
+		int hour, minute;
+		String ampm, whichOne;
+		TextView targetTextView;
+		if(id == 1){
+			hour = mHour;
+			minute = mMinute;
+			targetTextView = one_alarm_time;
+			whichOne = "one";
 		}else if(id == 2){
-			int setHour = mHourTwo;
-
-			if (mHourTwo < 12) {
-				two_time = "오전";
-			} else {
-				two_time = "오후";
-				setHour = setHour - 12;
-				
-				if(setHour == 0)
-					setHour = 12;
-			}
+			hour = mHourTwo;
+			minute = mMinuteTwo;
+			targetTextView = two_alarm_time;
+			whichOne = "two";
+		}else
+			return;
+		
+		if (hour < 12) {
+			ampm = "오전";
+		} else {
+			ampm = "오후";
+			hour = hour - 12;
 			
-			two_alarm_time.setText(new StringBuilder().append(two_time + " ")
-				.append(String.format("%02d", setHour)).append(":").append(String.format("%02d", mMinuteTwo)));
-			
-			pref = getSharedPreferences("Setting", 0);
-			SharedPreferences.Editor edit	= pref.edit();
-			edit.putString("two_alarm", "set");
-			edit.putInt("two_alarm_hour", mHourTwo);
-			edit.putInt("two_alarm_minute", mMinuteTwo);
-			edit.commit();
-		}
+			if(hour == 0)
+				hour = 12;
+		}		
+		targetTextView.setText(new StringBuilder().append(ampm + " ")
+				.append(String.format("%02d", hour)).append(":").append(String.format("%02d", minute)));
+		
+		pref = getSharedPreferences("Setting", 0);
+		pref.edit()
+			.putString(whichOne + "_alarm", "set")
+			.putInt(whichOne + "_alarm_hour", hour)
+			.putInt(whichOne + "_alarm_minute", minute)
+			.commit();
 	}
 	
 	private static long getTriggerTime(int hour, int minute)
@@ -205,6 +192,26 @@ public class SetupActivity extends Activity {
 	    }
 
 	    return calendar.getTimeInMillis();
+	}
+	
+	public static void UpdateAlarm(Context context){
+		boolean isOneSet, isTwoSet;
+		int one_hour, two_hour, one_minute, two_minute;
+		
+		// Get data from SharedPref.
+		
+		// Parse time
+		
+		// Set Intent and Alarm
+		
+		Intent intent = new Intent(context, NotifyService.class); 
+		PendingIntent pendingI,pendingI_two;
+		pendingI	 = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		pendingI_two = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		alarmManager.cancel(pendingI);
+//		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerTime(mHour, mMinute), oneDay, pendingI);
 	}
 	
 	private void setPendingIntent(){
@@ -225,6 +232,8 @@ public class SetupActivity extends Activity {
 			updateDisplay(1);
 			
 			Log.d("VOM", "Time Set(1)");
+			
+//			UpdateAlarm(SetupActivity.this);
 			
 			AlarmManager alarmManager = (AlarmManager) SetupActivity.this.getSystemService(Context.ALARM_SERVICE);
 			alarmManager.cancel(pendingI);
