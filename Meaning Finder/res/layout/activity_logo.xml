@@ -48,10 +48,10 @@
 
             <EditText
                 android:id="@+id/email"
+                style="@style/VomEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/input_normal"
                 android:hint="@string/emailStr"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -79,9 +79,9 @@
 
             <EditText
                 android:id="@+id/password"
+                style="@style/VomEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@drawable/input_normal"
                 android:hint="@string/passwordStr"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
@@ -91,7 +91,7 @@
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:textColorHint="#c9c9c9"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
             <ImageView
                 android:id="@+id/user_pw_del"
@@ -111,13 +111,13 @@
 
             <Button
                 android:id="@+id/button_sign_up"
+                style="@style/VomButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginRight="5dip"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_normal"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="@string/join"
@@ -125,17 +125,18 @@
 
             <Button
                 android:id="@+id/button_login"
+                style="@style/VomButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_gravity="right"
                 android:layout_marginLeft="5dip"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_normal"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:text="@string/login"
                 android:textSize="12sp" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -26,7 +26,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/btn_normal"
+                android:background="@drawable/navi_btn"
                 android:singleLine="false"
                 android:text="@string/cancel"
                 android:textColor="#ffffff" />
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
+                android:text="@string/vom"
                 android:textColor="#7aebf6"
                 android:textSize="30dp" />
 
@@ -47,6 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
+                android:text="@string/vom_long"
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
@@ -58,7 +60,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/btn_normal"
+                android:background="@drawable/navi_btn"
                 android:singleLine="false"
                 android:text="@string/save"
                 android:textColor="#ffffff" />
@@ -76,9 +78,10 @@
                 android:id="@+id/question_get_star_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:contentDescription="star image"
+                android:contentDescription="@string/desc_star_image"
                 android:scaleType="fitXY"
-                android:src="#ff2345" />
+                android:src="#ff2345"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/question_get_title"
@@ -97,14 +100,14 @@
 
             <EditText
                 android:id="@+id/get_answer_text"
+                style="@style/VomEditTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:inputType="textMultiLine"
-                android:padding="10dp"
                 android:scrollHorizontally="false"
-                android:textColor="#ffffff"
                 android:textCursorDrawable="@null"
-                android:textSize="15dip" />
+                android:textSize="20sp" />
 
         </ScrollView>
     </LinearLayout>

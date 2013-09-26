@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_general"
-    android:orientation="horizontal" >
+    tools:context=".StarListActivity" >
 
     <LinearLayout
-        android:id="@+id/join_layout_wrap"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="80dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
             android:background="@drawable/navi_bg"
             android:padding="10dp" >
 
             <Button
-                android:id="@+id/button_question_list"
+                android:id="@+id/btn_starlist_tolist"
                 style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:singleLine="false" />
 
             <TextView
-                android:id="@+id/star_name"
+                android:id="@+id/textview_starlist_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -40,7 +40,7 @@
                 android:textSize="30dp" />
 
             <TextView
-                android:id="@+id/star_name_en"
+                android:id="@+id/textview_starlist_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -50,48 +50,34 @@
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
+            <Button
+                android:id="@+id/btn_starlist_setting"
+                style="@style/VomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="false"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/navi_btn_setting"
+                android:singleLine="false" />
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/question_title_wrap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/question_star_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:contentDescription="@string/desc_star_image"
-                android:scaleType="fitXY"
-                android:src="#ff2345"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/question_title"
-                android:layout_width="fill_parent"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:textColor="#c9c9c9"
-                android:textSize="15dip" />
-        </LinearLayout>
-
-        <ScrollView 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/answer_text"
+            <GridView
+                android:id="@+id/gridview_starlist_stars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:textColor="#ffffff"
-                android:textSize="15dip" >
-            </TextView>
-        </ScrollView>
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:numColumns="4" >
+
+            </GridView>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

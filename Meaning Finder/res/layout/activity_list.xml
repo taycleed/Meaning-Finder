@@ -25,7 +25,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_star_normal"
+                android:background="@drawable/navi_btn_star"
                 android:singleLine="false" />
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:text="VOM"
+                android:text="@string/vom"
                 android:textColor="#7aebf6"
                 android:textSize="30dp" />
 
@@ -43,7 +43,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
-                android:text="Voice of Mind"
+                android:text="@string/vom_long"
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
@@ -55,7 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_setting_normal"
+                android:background="@drawable/navi_btn_setting"
                 android:singleLine="false" />
 
         </RelativeLayout>

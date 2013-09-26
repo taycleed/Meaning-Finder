@@ -37,8 +37,7 @@ public class ListActivity extends Activity {
         listView = (ListView)findViewById(R.id.listView_questions);
         
         // '설정' 버튼 기능 구현
-        Button setting_btn	= (Button) findViewById(R.id.setting_btn);
-        setting_btn.setOnClickListener(new OnClickListener() {
+        ((Button) findViewById(R.id.setting_btn)).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -47,9 +46,19 @@ public class ListActivity extends Activity {
 			}
 		});
         
+        // 별자리 버튼 기능 구현
+        ((Button) findViewById(R.id.star_list)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ListActivity.this, StarListActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+	            startActivity(intent);
+			}
+		});
+        
         // '질문/답변' 버튼 기능 구현
-        Button btn_gotoquestion	= (Button) findViewById(R.id.btn_gotoquestion);
-        btn_gotoquestion.setOnClickListener(new OnClickListener() {
+        ((Button) findViewById(R.id.btn_gotoquestion)).setOnClickListener(new OnClickListener() {
 
         	@Override
 			public void onClick(View v) {
@@ -98,21 +107,10 @@ public class ListActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) 
         {
-//            AlertDialog.Builder alertDlg = new AlertDialog.Builder(view.getContext());
-//            alertDlg.setPositiveButton( "asdasd", new DialogInterface.OnClickListener()
-//            {
-//                 @Override
-//                 public void onClick( DialogInterface dialog, int which ) {
-//                     dialog.dismiss();  // AlertDialog를 닫는다.
-//                 }
-//            });
-//            
-//            alertDlg.setMessage( Var.listReqNo.get(position) );
-//            alertDlg.show();
-        		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
-            	intent.putExtra("userId", Var.userId);
-            	intent.putExtra("questionNo", Integer.toString(Var.list_questions.get(position).listReqNo));
-                startActivity(intent);
+    		Intent intent = new Intent(ListActivity.this, QuestionViewActivity.class);
+        	intent.putExtra("userId", Var.userId);
+        	intent.putExtra("questionNo", Integer.toString(Var.list_questions.get(position).listReqNo));
+            startActivity(intent);
         }        
     }
 
@@ -158,8 +156,6 @@ public class ListActivity extends Activity {
         	holder.listQuest.setText(Var.list_questions.get(position).listText);
         	holder.listStar.setImageDrawable(starDrawable);
         	
-        	
-        	
             return convertView;
         }
         
@@ -172,12 +168,12 @@ public class ListActivity extends Activity {
 
 		@Override
 		public Object getItem(int arg0) {
-			return arg0;
+			return Var.list_questions.get(arg0);
 		}
 
 		@Override
 		public long getItemId(int arg0) {
-			return arg0;
+			return Var.list_questions.get(arg0).listReqNo;
 		}
     }
    

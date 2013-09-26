@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:text="설정"
+                android:text="@string/title_setting"
                 android:textColor="#7aebf6"
                 android:textSize="30dp" />
 
@@ -35,7 +35,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
-                android:text="Setting"
+                android:text="@string/title_setting_en"
                 android:textColor="#454545"
                 android:textSize="15dp" />
 
@@ -47,9 +47,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
-                android:background="@drawable/navi_btn_normal"
+                android:background="@drawable/navi_btn"
                 android:singleLine="false"
-                android:text="닫기" />
+                android:text="@string/close" />
         </RelativeLayout>
 
         <LinearLayout
@@ -62,61 +62,83 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="질문 알림 시간"
+                android:text="@string/question_notice_time"
                 android:textColor="#ffffff"
                 android:textSize="20dp" />
 
             <LinearLayout
-                android:id="@+id/one_alarm_wrap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_normal"
-                android:padding="8dp"
-                android:weightSum="1" >
+                android:layout_height="wrap_content" >
 
-                <TextView
+                <CheckBox
+                    android:id="@+id/checkBox_setting_time1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1차 알림"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:id="@+id/one_alarm_time"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/one_alarm_wrap"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="알림시간을 설정해주세요"
-                    android:textColor="#7aebf6"
-                    android:textSize="15dp" />
+                    android:background="@drawable/input_normal"
+                    android:padding="8dp"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notice1"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/one_alarm_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/set_notice_plz"
+                        android:textColor="#7aebf6"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/two_alarm_wrap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/input_normal"
-                android:padding="8dp"
-                android:weightSum="1" >
+                android:layout_marginTop="10dp" >
 
-                <TextView
+                <CheckBox
+                    android:id="@+id/checkBox_setting_time2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2차 알림"
-                    android:textColor="#ffffff"
-                    android:textSize="15dp" />
+                    android:layout_height="match_parent" />
 
-                <TextView
-                    android:id="@+id/two_alarm_time"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/two_alarm_wrap"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="알림시간을 설정해주세요"
-                    android:textColor="#7aebf6"
-                    android:textSize="15dp" />
+                    android:background="@drawable/input_normal"
+                    android:padding="8dp"
+                    android:weightSum="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notice2"
+                        android:textColor="#ffffff"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/two_alarm_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/set_notice_plz"
+                        android:textColor="#7aebf6"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -131,7 +153,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="50dp"
                     android:padding="8dp"
-                    android:text="로그아웃" />
+                    android:text="@string/logout" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

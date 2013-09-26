@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 
 public class Var {
 	public static ArrayList<QuestionListItemType> list_questions	= new ArrayList<QuestionListItemType>();
+	public static ArrayList<String>	list_stars	= new ArrayList<String>();
 	
 	public static String questionNo			= null;
 	

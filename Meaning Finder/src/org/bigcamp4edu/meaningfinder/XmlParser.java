@@ -33,6 +33,7 @@ public class XmlParser {
 		
 		// List 초기화
 		Var.list_questions.clear();
+		Var.list_stars.clear();
 		
         try{
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
@@ -72,6 +73,9 @@ public class XmlParser {
 
 						if (reqNo != -1 && !qText.equals("") && !qImgName.equals("")) {
 							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qImgName));
+							
+							if(!Var.list_stars.contains(qImgName))	// 별자리 리스트용 데이터
+								Var.list_stars.add(qImgName);
 							// 초기화
 							reqNo = -1;
 							qText = "";
