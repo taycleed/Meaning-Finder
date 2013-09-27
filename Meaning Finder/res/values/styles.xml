@@ -28,16 +28,24 @@
     </style>
 
     <style name="VomButtonStyle" parent="@android:style/Widget.Holo.Light.Button">
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/button_text_color</item>
         <item name="android:background">@drawable/btn_9</item>
         <item name="android:minHeight">40dip</item>
         <item name="android:minWidth">63dip</item>
     </style>
     
     <style name="VomEditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@color/button_text_color</item>
         <item name="android:background">@drawable/input</item>
         <item name="android:textSize">15sp</item>
+    </style>
+    
+    <style name="VomDatePickerStyle" parent="@android:style/Widget.Holo.Light">
+        <item name="android:editTextStyle">@style/Widget.EditText.White</item>
+    </style>
+    
+    <style name="Widget.EditText.White" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/white</item>
     </style>
     
     

@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -19,7 +23,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -36,12 +43,13 @@ public class JoinActivity extends Activity {
 	Button		button_join_submit;			// 회원가입 버튼
 	
 	EditText 	name;						// 이름 입력창
-	EditText 	birthday;					// 생일 입력창
+	TextView	birthday;					// 생일 창
 	EditText 	email;						// 이메일 입력창
 	EditText 	pwd;						// 비밀번호 입력창
 	EditText 	pwdconfirm;					// 비밀번호 확인 입력창
 	
 	String tmp_name, tmp_birthday, tmp_email, tmp_pwd; 
+	int init_year, init_month, init_day;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,28 +66,56 @@ public class JoinActivity extends Activity {
 
     	button_join_submit	= (Button) findViewById(R.id.button_join_submit);			// 회원가입 버튼
     	name				= (EditText) findViewById(R.id.name);						// 이름 입력 뷰
-    	birthday			= (EditText) findViewById(R.id.birthday);					// 생일 입력 뷰
+    	birthday			= (TextView) findViewById(R.id.textView_join_birthday);
     	email				= (EditText) findViewById(R.id.email);						// 이메일 입력 뷰
     	pwd					= (EditText) findViewById(R.id.pwd);						// 비밀번호 입력 뷰
     	pwdconfirm			= (EditText) findViewById(R.id.pwd_confirm);				// 비밀번호 확인 입력 뷰
     	
-    	OnFocusChangeListener joinCheckListener = new OnFocusChangeListener() {
+		TextWatcher joinInfoTextWatcher = new TextWatcher() {
 			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
+			public void onTextChanged(CharSequence s, int start, int before, int count) {};
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,	int after) {};
+			@Override
+			public void afterTextChanged(Editable s) {
 				JoinActivity.this.CheckJoinInfo();
-			}
+			};
 		};
-    	name.setOnFocusChangeListener(joinCheckListener);
-    	birthday.setOnFocusChangeListener(joinCheckListener);
-    	email.setOnFocusChangeListener(joinCheckListener);
-    	pwd.setOnFocusChangeListener(joinCheckListener);
-    	pwdconfirm.setOnFocusChangeListener(joinCheckListener);
-    	//TODO: focus change가 아니라 text change가 있으면 더 완벽
+    	name.addTextChangedListener(joinInfoTextWatcher);
+    	email.addTextChangedListener(joinInfoTextWatcher);
+    	pwd.addTextChangedListener(joinInfoTextWatcher);
+    	pwdconfirm.addTextChangedListener(joinInfoTextWatcher);
+    	birthday.addTextChangedListener(joinInfoTextWatcher);
+    	
+    	init_year = 1997;
+    	init_month = 0;
+    	init_day = 1;
+    	birthday.setOnClickListener(new OnClickListener() {
+    		
+    		private OnDateSetListener onDateSet = new OnDateSetListener() {
+				@Override
+				public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+					init_year = year;
+					init_month = monthOfYear;
+					init_day = dayOfMonth;
+					tmp_birthday = String.format("%04d%02d%02d", year, monthOfYear + 1, dayOfMonth);
+					birthday.setText(String.format("%04d년 %02d월 %02d일", year, monthOfYear + 1, dayOfMonth));
+				}
+			};
+    		
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				DatePickerDialog datePicker = new DatePickerDialog(JoinActivity.this, onDateSet, init_year, init_month, init_day);
+				datePicker.getDatePicker().setCalendarViewShown(false);
+				datePicker.show();
+			}
+		});
     	
     	button_join_submit.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				tmp_name		= name.getText().toString();
-				tmp_birthday	= birthday.getText().toString();
 				tmp_email		= email.getText().toString();
 				tmp_pwd			= pwd.getText().toString();
 				
@@ -115,16 +151,17 @@ public class JoinActivity extends Activity {
      */
     protected void CheckJoinInfo() {
     	String s_name = name.getText().toString();
-    	String s_birthday = birthday.getText().toString();
+    	String s_birthday = tmp_birthday;
     	String s_email = email.getText().toString();
     	String s_pwd = pwd.getText().toString();
     	String s_pwdconfirm = pwdconfirm.getText().toString();
     	
 		if( s_name.equals("")
+				|| s_name.length() > 32
 				|| s_birthday.length() != 8
-				// TODO: birthday가 날짜 형식에 맞는지 체크
 				|| !isEmailValid(s_email)
 				|| !s_pwd.equals(s_pwdconfirm)
+				|| s_pwd.length() < 8
 		)
 			button_join_submit.setEnabled(false);
 		else{

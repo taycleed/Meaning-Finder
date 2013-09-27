@@ -128,17 +128,15 @@
                     android:text="@string/birth_title1"
                     android:textColor="#ffffff" />
 
-                <EditText
-                    android:id="@+id/birthday"
+                <TextView
+                    android:id="@+id/textView_join_birthday"
                     style="@style/VomEditTextStyle"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
+                    android:background="@drawable/input"
                     android:hint="@string/birth_title1"
-                    android:inputType="date"
-                    android:maxLength="8"
-                    android:padding="8dp"
-                    android:textColorHint="#aaaaaa" />
+                    android:padding="8dp" />
 
             </LinearLayout>
 
