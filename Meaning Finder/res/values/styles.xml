@@ -40,15 +40,6 @@
         <item name="android:textSize">15sp</item>
     </style>
     
-    <style name="VomDatePickerStyle" parent="@android:style/Widget.Holo.Light">
-        <item name="android:editTextStyle">@style/Widget.EditText.White</item>
-    </style>
-    
-    <style name="Widget.EditText.White" parent="@android:style/Widget.EditText">
-        <item name="android:textColor">@color/white</item>
-    </style>
-    
-    
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">5dp</item>

@@ -143,15 +143,23 @@ public class SetupActivity extends Activity {
 		((CheckBox) findViewById(R.id.checkBox_setting_time1)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				
+				// TODO 
+				if(isChecked){
+
+				}else{
+					
+				}
 			}
 		});
 		((CheckBox) findViewById(R.id.checkBox_setting_time2)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				
+				// TODO 
+				if(isChecked){
+
+				}else{
+					
+				}
 			}
 		});
 		
