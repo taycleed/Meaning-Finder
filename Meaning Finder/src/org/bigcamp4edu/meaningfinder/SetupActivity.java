@@ -89,11 +89,11 @@ public class SetupActivity extends Activity {
 
 		pref 					= getSharedPreferences("Setting", 0);
 		String one_alarm		= pref.getString("one_alarm", "noset");
-		int one_alarm_hour		= pref.getInt("one_alarm_hour", 0);
+		int one_alarm_hour		= pref.getInt("one_alarm_hour", 7);
 		int one_alarm_minute	= pref.getInt("one_alarm_minute", 0);
 		
 		String two_alarm		= pref.getString("two_alarm", "noset");
-		int two_alarm_hour		= pref.getInt("two_alarm_hour", 0);
+		int two_alarm_hour		= pref.getInt("two_alarm_hour", 23);
 		int two_alarm_minute	= pref.getInt("two_alarm_minute", 0);
 		
 		if(one_alarm.equals("set")){
