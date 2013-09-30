@@ -71,6 +71,8 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 	private SharedPreferences pref;
 	
 	private ProgressDialog progressDialog;
+	
+	private boolean fromQuestionActivity ; 
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,6 +83,9 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);						// 상태바 제거
 		
 		setContentView(R.layout.activity_logo);
+		
+		if(getIntent().getExtras() != null)
+			fromQuestionActivity = getIntent().getExtras().getBoolean("fromQuestion", false);
 		
 		LogoActivity	= this;
 		
@@ -341,9 +346,14 @@ public class LogoActivity extends Activity implements OnClickListener,OnTouchLis
 				
 				Var.LOGIN_STATE = true;
 				
-				
-				Intent intent = new Intent(LogoActivity.this, ListActivity.class);
-                startActivity(intent);
+				// QuestionActivity에서 왔으면 거기로 보냄.
+				if(fromQuestionActivity){
+					Intent intent = new Intent(LogoActivity.this, QuestionActivity.class);
+					startActivity(intent);
+				}else{
+					Intent intent = new Intent(LogoActivity.this, ListActivity.class);
+					startActivity(intent);
+				}
 				finish();															// 로그인 액티비티 닫기
 			}
 		};

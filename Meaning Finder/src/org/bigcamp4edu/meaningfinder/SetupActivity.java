@@ -175,7 +175,8 @@ public class SetupActivity extends Activity {
 				Var.LOGIN_STATE	= false;
 				
 				Intent intent = new Intent(SetupActivity.this, LogoActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);	// 현재 열린 모든 Activity 닫기
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);	
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 				finish();	// Setup 액티비티 닫기
 			}

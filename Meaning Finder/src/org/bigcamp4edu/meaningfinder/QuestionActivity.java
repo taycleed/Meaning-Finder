@@ -37,7 +37,13 @@ public class QuestionActivity extends Activity {
 			Var.InitLoginInfo(QuestionActivity.this);
 			
 			if(!Var.LOGIN_STATE){
-				// TODO: Login이 필요함
+				// Login이 필요함
+				Intent intent = new Intent(QuestionActivity.this, LogoActivity.class);
+				intent.putExtra("fromQuestion", true);
+				startActivity(intent);
+				
+				QuestionActivity.this.finish();
+				this.cancel(true);
 			}
 		}
 			
