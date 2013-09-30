@@ -44,8 +44,8 @@ public class NotifyService extends Service {
 			Calendar calendar2 = new GregorianCalendar();
 			calendar2.setTimeInMillis(lastSaveTime);		// 마지막 답변한 시각
 			
-			Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE)));
-			Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.DATE)));
+			Log.d("VOM NotifyService", "NOW: " + String.format("%4d/%2d/%2d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) +1, calendar.get(Calendar.DATE)));
+			Log.d("VOM NotifyService", "SAVED: " + String.format("%4d/%2d/%2d", calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH) +1, calendar2.get(Calendar.DATE)));
 			
 			return calendar.get(Calendar.DATE) == calendar2.get(Calendar.DATE) 
 				&& calendar.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) 
@@ -65,6 +65,7 @@ public class NotifyService extends Service {
 			return ;
 		}
 		
+		// Notification Bar에 표시할 Notification setting
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_launcher);
 		Intent clickIntent = new Intent(this, QuestionActivity.class);
 	    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -79,14 +80,18 @@ public class NotifyService extends Service {
 
 	    notification.flags = Notification.FLAG_AUTO_CANCEL;
 
+	    // Nofitication bar에 Notification 등록
 	    NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 	    manager.notify(NOTIFICATION_ID, notification);
 	    
 	    /////////////////////////////////////
 	    
+	    // 전면 Dialog 알람 시작
 	    Intent intent = new Intent(this, DialogActivity.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    startActivity(intent);
 	    
+	    // 알람 TriggerTime 재설정
+	    SetupActivity.UpdateAlarm(NotifyService.this);
 	}
 }
