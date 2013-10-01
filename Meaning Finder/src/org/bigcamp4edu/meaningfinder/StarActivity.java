@@ -1,18 +1,36 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
+import org.bigcamp4edu.meaningfinder.ListActivity.VOMArrayAdapter.viewHolder;
+import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class StarActivity extends Activity {
+	
+	String starName ="";
+	ArrayList<QuestionListItemType> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +62,7 @@ public class StarActivity extends Activity {
 		});
     
         Intent fromIntent = getIntent();
-        String starName = fromIntent.getExtras().getString("StarName");
+        starName = fromIntent.getExtras().getString("StarName");
 //        String starNameEn = fromIntent.getExtras().getString("StarNameEn");
         String starImg = fromIntent.getExtras().getString("StarImg");
         
@@ -53,6 +71,84 @@ public class StarActivity extends Activity {
         siMapper.setStarImageName(starImg);
         ((ImageView) findViewById(R.id.imageView_star)).setImageDrawable(siMapper.getStarImageBig());
         siMapper = null;
+    }
+    
+    OnItemClickListener onListItemClick = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent intent = new Intent(StarActivity.this, QuestionViewActivity.class);
+        	intent.putExtra("userId", Var.userId);
+        	intent.putExtra("questionNo", Integer.toString(list.get(position).listReqNo));
+            startActivity(intent);
+		}
+	};
+	
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	
+    	list = new ArrayList<QuestionListItemType>();
+		for(QuestionListItemType item : Var.list_questions){
+			if(item.listStarName.equals(starName))
+				list.add(item);
+		}
+    	
+    	ListView listview = (ListView) findViewById(R.id.listView_star_questions);
+    	listview.setAdapter(new StarListArrayAdapter());
+    	listview.setOnItemClickListener(onListItemClick);
+    }
+    
+    public class StarListArrayAdapter extends BaseAdapter {
+//    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy³â MM¿ù ddÀÏ HH:mm:ss  ");
+    	
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+        	viewHolder holder;
+        	 
+        	if(convertView == null){
+        		LayoutInflater inflater = getLayoutInflater();
+        		convertView = inflater.inflate(R.layout.starquestionlist_item, parent, false);
+        		holder 	= new viewHolder();
+        		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout_starquestion);
+        		holder.listQuestion	= (TextView) convertView.findViewById(R.id.textView_starquestion_item);
+        		
+        		convertView.setTag(holder);
+        	}
+        	else{
+        		holder	= (viewHolder) convertView.getTag();
+        	}
+        	
+        	holder.listQuestion.setText(list.get(position).listText);
+//        	GregorianCalendar calendar = new GregorianCalendar();
+//        	calendar.setTimeInMillis(Var.list_questions.get(position).timeStamp * 1000);
+//        	holder.listDate.setText( dateFormat.format(calendar.getTime()) );
+        	
+//        	Log.d("VOM List Adapter", dateFormat.format(calendar.getTime()));
+        	
+            return convertView;
+        }
+        
+        public class viewHolder
+        {
+          TextView listQuestion;
+          LinearLayout listLinear;
+        }
+
+		@Override
+		public Object getItem(int arg0) {
+			return list.get(arg0);
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return list.get(arg0).listReqNo;
+		}
     }
 
 
