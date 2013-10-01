@@ -222,14 +222,18 @@ public class JoinActivity extends Activity {
 	 *
 	 ******************************************************************************/
 	boolean postJoinCheck(Context context){
+		int sex = -1;
+		if(tmp_sex.equals("male"))
+			sex = 0;
+		else if(tmp_sex.equals("female"))
+			sex = 1;
+		
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();	// 파라메터 값 보내기 위한 배열
     	postParameters.add(new BasicNameValuePair("name",		tmp_name));
     	postParameters.add(new BasicNameValuePair("birthday",	tmp_birthday));
-    	postParameters.add(new BasicNameValuePair("sex",	tmp_sex));
+    	postParameters.add(new BasicNameValuePair("sex",	Integer.toString(sex)));
     	postParameters.add(new BasicNameValuePair("email",		tmp_email));
     	postParameters.add(new BasicNameValuePair("pass",		tmp_pwd));
-    	
-    	
     	
     	try {
 
