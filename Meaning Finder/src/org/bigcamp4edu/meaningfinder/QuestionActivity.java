@@ -59,7 +59,7 @@ public class QuestionActivity extends Activity {
 			star_name.setText(Var.get_star_name);
 			star_name_en.setText(Var.get_star_name_en);
 			
-			setStarImage setStar = new setStarImage(QuestionActivity.this);
+			StarImageMapper setStar = new StarImageMapper(QuestionActivity.this);
 			setStar.setStarImageName(Var.get_star_img);
 			starDrawable	= setStar.getStarImage();
 			question_star_image.setImageDrawable(starDrawable);

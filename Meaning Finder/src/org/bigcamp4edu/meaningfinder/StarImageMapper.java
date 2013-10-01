@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-public class setStarImage {
+public class StarImageMapper {
 	
 	private Context sContext;
 	private String starImageStr;
 	private Drawable starDrawable;
 	
-	public setStarImage(Context context){
+	public StarImageMapper(Context context){
 		sContext	= context;
 	}
 	

@@ -124,7 +124,7 @@ public class ListActivity extends Activity {
 
 
 
-	setStarImage setStar = new setStarImage(this);
+	StarImageMapper setStar = new StarImageMapper(this);
     
     
     Drawable starDrawable;

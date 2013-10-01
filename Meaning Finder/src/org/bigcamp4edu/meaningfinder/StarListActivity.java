@@ -56,7 +56,7 @@ public class StarListActivity extends Activity {
 	
 	class StarListArrayAdapter extends BaseAdapter {
 		
-		setStarImage starImageSetter = new setStarImage(StarListActivity.this);
+		StarImageMapper starImageSetter = new StarImageMapper(StarListActivity.this);
 
 		@Override
 		public int getCount() {
