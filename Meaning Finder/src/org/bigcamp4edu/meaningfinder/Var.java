@@ -1,8 +1,10 @@
 package org.bigcamp4edu.meaningfinder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
+import org.bigcamp4edu.meaningfinder.util.StarListItemType;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,7 +12,7 @@ import android.content.SharedPreferences;
 
 public class Var {
 	public static ArrayList<QuestionListItemType> list_questions	= new ArrayList<QuestionListItemType>();
-	public static ArrayList<String>	list_stars	= new ArrayList<String>();
+	public static HashMap<String, StarListItemType> list_stars = new HashMap<String, StarListItemType>();
 	
 	public static String questionNo			= null;
 	

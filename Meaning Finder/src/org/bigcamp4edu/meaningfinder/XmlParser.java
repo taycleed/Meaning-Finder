@@ -10,6 +10,7 @@ import java.util.Comparator;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
+import org.bigcamp4edu.meaningfinder.util.StarListItemType;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 import android.content.pm.PackageInfo;
@@ -46,13 +47,14 @@ public class XmlParser {
 			int eventType			= xpp.getEventType();
 			
 		    final String Name			= "name";
+		    final String starName		= "starName";
 		    final String starImg		= "starImg";
 		    final String questionNo		= "no";
 		    final String time		= "time";
 		    int i = 0;
 		    
 		    int reqNo = -1;
-		    String qText = "", qImgName = "";
+		    String qText = "", qName = "", qImgName = "";
 		    long timeStamp = 0;
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
 				switch(eventType){
@@ -72,21 +74,25 @@ public class XmlParser {
 			    		reqNo = Integer.parseInt(xpp.nextText().toString());
 				    }else if(xpp.getName().toString().equals(Name)){
 				    	qText = xpp.nextText().toString();
+				    }else if(xpp.getName().toString().equals(starName)){
+				    	qName = xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(starImg)){
 				    	qImgName = xpp.nextText().toString();
 					}else if(xpp.getName().toString().equals(time)){
 						timeStamp = Long.parseLong(xpp.nextText().toString());
 						
-						if (reqNo != -1 && !qText.equals("") && !qImgName.equals("") &&  timeStamp != 0) {
-							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qImgName, timeStamp));
+						if (reqNo != -1 && !qText.equals("") && !qName.equals("") && !qImgName.equals("") &&  timeStamp != 0) {
+							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qName, qImgName, timeStamp));
 							
-							Log.d("VOM XmlParser", "QuestionListItem Added: " + Integer.toString(reqNo) + ", " + qText + ", " + qImgName + ", " + Long.toString(timeStamp));
+							Log.d("VOM XmlParser", "QuestionListItem Added: " + Integer.toString(reqNo) + ", " + qText + ", " + qName + ", " + qImgName + ", " + Long.toString(timeStamp));
 							
-							if(!Var.list_stars.contains(qImgName))	// 별자리 리스트용 데이터
-								Var.list_stars.add(qImgName);
+							StarListItemType slItem = new StarListItemType(qName, qImgName);
+							if(!Var.list_stars.containsKey(slItem.starName))	// 별자리 리스트용 데이터
+								Var.list_stars.put(slItem.starName, slItem);
 							// 초기화
 							reqNo = -1;
 							qText = "";
+							qName = "";
 							qImgName = "";
 							timeStamp = 0;
 						}

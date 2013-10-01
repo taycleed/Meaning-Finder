@@ -61,11 +61,11 @@ public class SetupActivity extends Activity {
 		alarmManager = (AlarmManager) SetupActivity.this.getSystemService(Context.ALARM_SERVICE);
 
 		pref 					= getSharedPreferences("Setting", 0);
-		one_onoff		= pref.getString("one_alarm", "noset").equals("set");
+		one_onoff				= pref.getString("one_alarm", "set").equals("set");
 		int one_alarm_hour		= pref.getInt("one_alarm_hour", 7);
 		int one_alarm_minute	= pref.getInt("one_alarm_minute", 0);
 		
-		two_onoff		= pref.getString("two_alarm", "noset").equals("set");
+		two_onoff				= pref.getString("two_alarm", "set").equals("set");
 		int two_alarm_hour		= pref.getInt("two_alarm_hour", 23);
 		int two_alarm_minute	= pref.getInt("two_alarm_minute", 0);
 		

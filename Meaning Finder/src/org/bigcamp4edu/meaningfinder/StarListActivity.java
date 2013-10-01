@@ -1,5 +1,11 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.bigcamp4edu.meaningfinder.util.StarListItemType;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -57,15 +63,16 @@ public class StarListActivity extends Activity {
 	class StarListArrayAdapter extends BaseAdapter {
 		
 		StarImageMapper starImageSetter = new StarImageMapper(StarListActivity.this);
+		ArrayList<StarListItemType> list = new ArrayList<StarListItemType>(Var.list_stars.values());
 
 		@Override
 		public int getCount() {
-			return Var.list_stars.size();
+			return list.size();
 		}
 
 		@Override
-		public String getItem(int position) {
-			return Var.list_stars.get(position);
+		public StarListItemType getItem(int position) {
+			return list.get(position);
 		}
 
 		@Override
@@ -79,21 +86,28 @@ public class StarListActivity extends Activity {
     		convertView = inflater.inflate(R.layout.starlist_item, parent, false);
     		ImageView listStar		= (ImageView) convertView.findViewById(R.id.imageView_stars);
         	
-        	final String star_image_name = Var.list_stars.get(position);
+        	final String star_image_name = list.get(position).starImgName;
         	starImageSetter.setStarImageName(star_image_name);
         	listStar.setImageDrawable(starImageSetter.getStarImage());
         	
+        	final int f_position = position;
         	listStar.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// TODO: 특정 별자리의 질문들 보기 페이지로 전환
-					Toast.makeText(StarListActivity.this, star_image_name, Toast.LENGTH_SHORT).show();
+//					Toast.makeText(StarListActivity.this, star_image_name, Toast.LENGTH_SHORT).show();
+					
+					Intent intent = new Intent(StarListActivity.this, StarActivity.class);
+					intent.putExtra("StarName", list.get(f_position).starName);
+//					intent.putExtra("StarNameEn", Var.list_stars.get(f_position).starName);
+					intent.putExtra("StarImg", list.get(f_position).starImgName);
+					startActivity(intent);
 				}
 			});
         	
             return convertView;
 		}
-		
+
 	}
 
 	@Override

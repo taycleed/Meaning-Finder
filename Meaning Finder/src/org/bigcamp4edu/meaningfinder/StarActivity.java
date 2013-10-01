@@ -9,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class StarActivity extends Activity {
 
@@ -43,8 +45,14 @@ public class StarActivity extends Activity {
     
         Intent fromIntent = getIntent();
         String starName = fromIntent.getExtras().getString("StarName");
-        String starNameEn = fromIntent.getExtras().getString("StarNameEn");
+//        String starNameEn = fromIntent.getExtras().getString("StarNameEn");
         String starImg = fromIntent.getExtras().getString("StarImg");
+        
+        ((TextView) findViewById(R.id.textview_star_title)).setText(starName);
+        StarImageMapper siMapper = new StarImageMapper(this);
+        siMapper.setStarImageName(starImg);
+        ((ImageView) findViewById(R.id.imageView_star)).setImageDrawable(siMapper.getStarImageBig());
+        siMapper = null;
     }
 
 
