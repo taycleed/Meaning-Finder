@@ -25,6 +25,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import org.apache.http.NameValuePair;
@@ -44,11 +47,12 @@ public class JoinActivity extends Activity {
 	
 	EditText 	name;						// 이름 입력창
 	TextView	birthday;					// 생일 창
+	RadioGroup	sex;						// 성별 입력버튼 그룹
 	EditText 	email;						// 이메일 입력창
 	EditText 	pwd;						// 비밀번호 입력창
 	EditText 	pwdconfirm;					// 비밀번호 확인 입력창
 	
-	String tmp_name ="", tmp_birthday ="", tmp_email ="", tmp_pwd =""; 
+	String tmp_name ="", tmp_birthday ="", tmp_email ="", tmp_pwd ="", tmp_sex =""; 
 	int init_year, init_month, init_day;
     
     @Override
@@ -67,6 +71,7 @@ public class JoinActivity extends Activity {
     	button_join_submit	= (Button) findViewById(R.id.button_join_submit);			// 회원가입 버튼
     	name				= (EditText) findViewById(R.id.name);						// 이름 입력 뷰
     	birthday			= (TextView) findViewById(R.id.textView_join_birthday);
+    	sex					= (RadioGroup) findViewById(R.id.radioGroup_join_sex);
     	email				= (EditText) findViewById(R.id.email);						// 이메일 입력 뷰
     	pwd					= (EditText) findViewById(R.id.pwd);						// 비밀번호 입력 뷰
     	pwdconfirm			= (EditText) findViewById(R.id.pwd_confirm);				// 비밀번호 확인 입력 뷰
@@ -82,10 +87,25 @@ public class JoinActivity extends Activity {
 			};
 		};
     	name.addTextChangedListener(joinInfoTextWatcher);
+    	birthday.addTextChangedListener(joinInfoTextWatcher);
     	email.addTextChangedListener(joinInfoTextWatcher);
     	pwd.addTextChangedListener(joinInfoTextWatcher);
     	pwdconfirm.addTextChangedListener(joinInfoTextWatcher);
-    	birthday.addTextChangedListener(joinInfoTextWatcher);
+    	sex.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if(checkedId == R.id.radio_sex_male){
+//					Toast.makeText(JoinActivity.this, "남자", Toast.LENGTH_SHORT).show();
+					Log.d("VOM Join", "Selected MALE");
+					tmp_sex = "male";
+				}else if(checkedId == R.id.radio_sex_female){
+//					Toast.makeText(JoinActivity.this, "여자", Toast.LENGTH_SHORT).show();
+					Log.d("VOM Join", "Selected FEMALE");
+					tmp_sex = "female";
+				}
+			}
+		});
+    	
     	
     	init_year = 1997;
     	init_month = 0;
@@ -152,6 +172,7 @@ public class JoinActivity extends Activity {
     protected void CheckJoinInfo() {
     	String s_name = name.getText().toString();
     	String s_birthday = tmp_birthday;
+    	String s_sex = tmp_sex;
     	String s_email = email.getText().toString();
     	String s_pwd = pwd.getText().toString();
     	String s_pwdconfirm = pwdconfirm.getText().toString();
@@ -159,6 +180,7 @@ public class JoinActivity extends Activity {
 		if( s_name.equals("")
 				|| s_name.length() > 32
 				|| s_birthday.length() != 8
+				|| s_sex.equals("")
 				|| !isEmailValid(s_email)
 				|| !s_pwd.equals(s_pwdconfirm)
 				|| s_pwd.length() < 8
@@ -203,8 +225,10 @@ public class JoinActivity extends Activity {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();	// 파라메터 값 보내기 위한 배열
     	postParameters.add(new BasicNameValuePair("name",		tmp_name));
     	postParameters.add(new BasicNameValuePair("birthday",	tmp_birthday));
+    	postParameters.add(new BasicNameValuePair("sex",	tmp_sex));
     	postParameters.add(new BasicNameValuePair("email",		tmp_email));
     	postParameters.add(new BasicNameValuePair("pass",		tmp_pwd));
+    	
     	
     	
     	try {

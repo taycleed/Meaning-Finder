@@ -1,8 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    
     android:orientation="vertical"
     tools:context=".JoinActivity" >
 
@@ -42,7 +41,6 @@
             android:background="@drawable/navi_btn"
             android:singleLine="false"
             android:text="@string/next" />
-
     </RelativeLayout>
 
     <ScrollView
@@ -118,26 +116,82 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="16dp" >
+                android:layout_height="wrap_content"
+                android:weightSum="2" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/birth_title1"
-                    android:textColor="#ffffff" />
-
-                <TextView
-                    android:id="@+id/textView_join_birthday"
-                    style="@style/VomEditTextStyle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/input"
-                    android:hint="@string/birth_title1"
-                    android:padding="8dp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="16dp" >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/birth_title1"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        style="@style/VomEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/input"
+                        android:hint="@string/birth_title1"
+                        android:padding="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="16dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sex_title"
+                        android:textColor="#ffffff" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup_join_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2" >
+
+                        <RadioButton
+                            android:id="@+id/radio_sex_male"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sex_male"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:id="@+id/radio_sex_female"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/sex_female"
+                            android:textColor="@color/white" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/textView_join_birthday"
+                        style="@style/VomEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/input"
+                        android:hint="@string/sex_title"
+                        android:padding="8dp"
+                        android:visibility="gone" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -174,7 +228,6 @@
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -212,10 +265,8 @@
                     android:maxLength="16"
                     android:padding="8dp"
                     android:textColorHint="#aaaaaa" />
-
             </LinearLayout>
         </LinearLayout>
-
     </ScrollView>
 
 </LinearLayout>
