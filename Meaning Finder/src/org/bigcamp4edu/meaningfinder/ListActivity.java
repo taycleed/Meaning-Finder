@@ -1,10 +1,14 @@
 package org.bigcamp4edu.meaningfinder;
 
 
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +29,7 @@ import android.widget.TextView;
 public class ListActivity extends Activity {
 	ListView listView;					// 리스트 뷰 xml
 	VOMArrayAdapter adt;				// 리스트 어뎁터
+	
 	
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +129,8 @@ public class ListActivity extends Activity {
     
     Drawable starDrawable;
     public class VOMArrayAdapter extends BaseAdapter {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss  ");
+    	
         @Override
         public int getCount() {
             return Var.list_questions.size();
@@ -140,6 +147,7 @@ public class ListActivity extends Activity {
         		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout);
         		holder.listQuest	= (TextView) convertView.findViewById(R.id.textViewItem);
         		holder.listStar		= (ImageView) convertView.findViewById(R.id.imageViewItem);
+        		holder.listDate		= (TextView) convertView.findViewById(R.id.textView_listItem_date);
         		
         		convertView.setTag(holder);
         	}
@@ -155,6 +163,11 @@ public class ListActivity extends Activity {
 
         	holder.listQuest.setText(Var.list_questions.get(position).listText);
         	holder.listStar.setImageDrawable(starDrawable);
+        	GregorianCalendar calendar = new GregorianCalendar();
+        	calendar.setTimeInMillis(Var.list_questions.get(position).timeStamp * 1000);
+        	holder.listDate.setText( dateFormat.format(calendar.getTime()) );
+        	
+        	Log.d("VOM List Adapter", dateFormat.format(calendar.getTime()));
         	
             return convertView;
         }
@@ -164,6 +177,7 @@ public class ListActivity extends Activity {
           LinearLayout listLinear;
           TextView listQuest;
           ImageView listStar;
+          TextView listDate;
         }
 
 		@Override
@@ -176,8 +190,4 @@ public class ListActivity extends Activity {
 			return Var.list_questions.get(arg0).listReqNo;
 		}
     }
-   
-    
-    
-    
 }

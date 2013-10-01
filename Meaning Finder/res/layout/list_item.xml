@@ -3,26 +3,41 @@
     android:id="@+id/listItemLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="1" >
-
-    <ImageView
-        android:id="@+id/imageViewItem"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:contentDescription="star image"
-        android:scaleType="fitXY"
-        android:src="#ff2345" />
+    android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textViewItem"
+        android:id="@+id/textView_listItem_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:text="1234년 56월 78일"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/listItemInnerLayout"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:layout_weight="1"
-        android:hint="abcd"
-        android:textColor="#ffffff"
-        android:textSize="15dip" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp" >
+
+        <ImageView
+            android:id="@+id/imageViewItem"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="star image"
+            android:scaleType="fitXY"
+            android:src="#ff2345" />
+
+        <TextView
+            android:id="@+id/textViewItem"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 "
+            android:textColor="@color/white"
+            android:textSize="15dip" />
+
+    </LinearLayout>
 
 </LinearLayout>

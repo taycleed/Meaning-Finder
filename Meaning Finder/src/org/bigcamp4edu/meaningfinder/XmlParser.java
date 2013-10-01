@@ -48,10 +48,12 @@ public class XmlParser {
 		    final String Name			= "name";
 		    final String starImg		= "starImg";
 		    final String questionNo		= "no";
+		    final String time		= "time";
 		    int i = 0;
 		    
 		    int reqNo = -1;
 		    String qText = "", qImgName = "";
+		    long timeStamp = 0;
 			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
 				switch(eventType){
 				// 문서의 시작
@@ -64,15 +66,21 @@ public class XmlParser {
 			    
 				// 태그의 시작
 			    case XmlPullParser.START_TAG:									// <? ~~ ?> 인가?
+			    	Log.i("TEXTNAME", xpp.getName().toString());
+			    	
 			    	if(xpp.getName().toString().equals(questionNo)){
 			    		reqNo = Integer.parseInt(xpp.nextText().toString());
 				    }else if(xpp.getName().toString().equals(Name)){
 				    	qText = xpp.nextText().toString();
 				    }else if(xpp.getName().toString().equals(starImg)){
 				    	qImgName = xpp.nextText().toString();
-
-						if (reqNo != -1 && !qText.equals("") && !qImgName.equals("")) {
-							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qImgName));
+					}else if(xpp.getName().toString().equals(time)){
+						timeStamp = Long.parseLong(xpp.nextText().toString());
+						
+						if (reqNo != -1 && !qText.equals("") && !qImgName.equals("") &&  timeStamp != 0) {
+							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qImgName, timeStamp));
+							
+							Log.d("VOM XmlParser", "QuestionListItem Added: " + Integer.toString(reqNo) + ", " + qText + ", " + qImgName + ", " + Long.toString(timeStamp));
 							
 							if(!Var.list_stars.contains(qImgName))	// 별자리 리스트용 데이터
 								Var.list_stars.add(qImgName);
@@ -80,6 +88,7 @@ public class XmlParser {
 							reqNo = -1;
 							qText = "";
 							qImgName = "";
+							timeStamp = 0;
 						}
 					}
 			    break;
