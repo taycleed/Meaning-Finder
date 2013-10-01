@@ -48,7 +48,7 @@ public class JoinActivity extends Activity {
 	EditText 	pwd;						// 비밀번호 입력창
 	EditText 	pwdconfirm;					// 비밀번호 확인 입력창
 	
-	String tmp_name, tmp_birthday, tmp_email, tmp_pwd; 
+	String tmp_name ="", tmp_birthday ="", tmp_email ="", tmp_pwd =""; 
 	int init_year, init_month, init_day;
     
     @Override
@@ -99,7 +99,7 @@ public class JoinActivity extends Activity {
 					init_month = monthOfYear;
 					init_day = dayOfMonth;
 					tmp_birthday = String.format("%04d%02d%02d", year, monthOfYear + 1, dayOfMonth);
-					birthday.setText(String.format("%04d년 %02d월 %02d일", year, monthOfYear + 1, dayOfMonth));
+					birthday.setText(String.format("%04d년 %d월 %d일", year, monthOfYear + 1, dayOfMonth));
 				}
 			};
     		
