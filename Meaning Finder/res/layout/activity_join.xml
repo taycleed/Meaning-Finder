@@ -133,7 +133,7 @@
                         android:textColor="#ffffff" />
 
                     <TextView
-                        android:id="@+id/TextView01"
+                        android:id="@+id/textView_join_birthday"
                         style="@style/VomEditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -180,17 +180,6 @@
                             android:text="@string/sex_female"
                             android:textColor="@color/white" />
                     </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/textView_join_birthday"
-                        style="@style/VomEditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/input"
-                        android:hint="@string/sex_title"
-                        android:padding="8dp"
-                        android:visibility="gone" />
                 </LinearLayout>
             </LinearLayout>
 
