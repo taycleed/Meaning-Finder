@@ -1,16 +1,11 @@
 package org.bigcamp4edu.meaningfinder;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
-import org.bigcamp4edu.meaningfinder.ListActivity.VOMArrayAdapter.viewHolder;
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -60,6 +55,21 @@ public class StarActivity extends Activity {
 	            finish();
 			}
 		});
+        
+        // 질문 Show/Unshow 버튼 기능 구현
+        ((Button) findViewById(R.id.btn_star_questiononoff)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				View listView = StarActivity.this.findViewById(R.id.listView_star_questions);
+				if(listView.getVisibility() == View.VISIBLE){
+					listView.setVisibility(View.GONE);
+				}else{
+					listView.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+        findViewById(R.id.listView_star_questions).setVisibility(View.GONE);
     
         Intent fromIntent = getIntent();
         starName = fromIntent.getExtras().getString("StarName");

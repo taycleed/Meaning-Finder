@@ -58,7 +58,9 @@
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/navi_btn_setting"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:visibility="gone" />
+
         </RelativeLayout>
 
         <FrameLayout
@@ -79,6 +81,16 @@
                 android:layout_marginBottom="50dp" >
 
             </ListView>
+
+            <Button
+                android:id="@+id/btn_star_questiononoff"
+                style="@style/VomButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|left"
+                android:layout_margin="5dp"
+                android:background="@drawable/navi_btn_star" />
+
         </FrameLayout>
     </LinearLayout>
 

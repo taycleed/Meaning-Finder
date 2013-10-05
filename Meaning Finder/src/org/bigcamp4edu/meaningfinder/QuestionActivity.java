@@ -117,10 +117,11 @@ public class QuestionActivity extends Activity {
 							getSharedPreferences("Setting", 0).edit().putLong(DB.LAST_ANSWER_DATE, dateTimeInMilli).commit();
 							Log.d("VOM QuestionActivity", "Save time in milli : " + Long.toString(dateTimeInMilli));
 							
-							Intent intent = new Intent(QuestionActivity.this, QuestionViewActivity.class);
-			            	intent.putExtra("questionNo", Var.insertQuestionNo);
-			            	intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-			            	startActivity(intent);
+							Intent intent = new Intent(QuestionActivity.this, StarActivity.class);
+							intent.putExtra("StarName", star_name.getText());
+							intent.putExtra("StarNameEn", star_name_en.getText());
+							intent.putExtra("StarImg", Var.get_star_img);
+							startActivity(intent);
 			            	
 			            	finish();
 						}

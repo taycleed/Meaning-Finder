@@ -59,7 +59,9 @@
                 android:layout_alignParentTop="false"
                 android:layout_marginTop="5dip"
                 android:background="@drawable/navi_btn_setting"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:visibility="gone" />
+
         </RelativeLayout>
 
         <LinearLayout
