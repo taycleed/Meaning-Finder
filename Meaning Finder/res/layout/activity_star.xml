@@ -18,7 +18,7 @@
             android:padding="10dp" >
 
             <Button
-                android:id="@+id/btn_star_tolist"
+                android:id="@+id/btn_star_tostarlist"
                 style="@style/VomButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

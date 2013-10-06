@@ -44,11 +44,11 @@ public class StarActivity extends Activity {
 			}
 		});
         
-        // ListActivity 버튼 기능 구현
-        ((Button) findViewById(R.id.btn_star_tolist)).setOnClickListener(new OnClickListener() {
+        // StarActivity 버튼 기능 구현
+        ((Button) findViewById(R.id.btn_star_tostarlist)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(StarActivity.this, ListActivity.class);
+				Intent intent = new Intent(StarActivity.this, StarListActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 	            startActivity(intent);
 	            
