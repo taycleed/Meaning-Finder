@@ -129,7 +129,7 @@ public class ListActivity extends Activity {
     
     Drawable starDrawable;
     public class VOMArrayAdapter extends BaseAdapter {
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss  ");
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
     	
         @Override
         public int getCount() {

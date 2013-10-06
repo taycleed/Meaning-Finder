@@ -9,9 +9,10 @@
         android:id="@+id/textView_listItem_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
         android:text="1234년 56월 78일"
-        android:textColor="@color/white" />
+        android:textColor="#aaaaaa" />
 
     <LinearLayout
         android:id="@+id/listItemInnerLayout"
@@ -30,10 +31,12 @@
         <TextView
             android:id="@+id/textViewItem"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
+            android:gravity="top|left"
+            android:maxHeight="50dp"
+            android:minHeight="30dp"
             android:text="질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 "
             android:textColor="@color/white"
             android:textSize="15dip" />

@@ -1,11 +1,15 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -69,7 +73,7 @@ public class StarActivity extends Activity {
 				}
 			}
 		});
-        findViewById(R.id.listView_star_questions).setVisibility(View.GONE);
+        findViewById(R.id.listView_star_questions).setVisibility(View.GONE);	// 일단 질문들은 안보이게 해놓음.
     
         Intent fromIntent = getIntent();
         starName = fromIntent.getExtras().getString("StarName");
@@ -83,16 +87,6 @@ public class StarActivity extends Activity {
         siMapper = null;
     }
     
-    OnItemClickListener onListItemClick = new OnItemClickListener() {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			Intent intent = new Intent(StarActivity.this, QuestionViewActivity.class);
-        	intent.putExtra("userId", Var.userId);
-        	intent.putExtra("questionNo", Integer.toString(list.get(position).listReqNo));
-            startActivity(intent);
-		}
-	};
-	
     @Override
     protected void onResume() {
     	// TODO Auto-generated method stub
@@ -106,11 +100,19 @@ public class StarActivity extends Activity {
     	
     	ListView listview = (ListView) findViewById(R.id.listView_star_questions);
     	listview.setAdapter(new StarListArrayAdapter());
-    	listview.setOnItemClickListener(onListItemClick);
+    	listview.setOnItemClickListener(new OnItemClickListener() {
+    		@Override
+    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    			Intent intent = new Intent(StarActivity.this, QuestionViewActivity.class);
+            	intent.putExtra("userId", Var.userId);
+            	intent.putExtra("questionNo", Integer.toString(list.get(position).listReqNo));
+                startActivity(intent);
+    		}
+    	});
     }
     
     public class StarListArrayAdapter extends BaseAdapter {
-//    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss  ");
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
     	
         @Override
         public int getCount() {
@@ -123,23 +125,25 @@ public class StarActivity extends Activity {
         	 
         	if(convertView == null){
         		LayoutInflater inflater = getLayoutInflater();
-        		convertView = inflater.inflate(R.layout.starquestionlist_item, parent, false);
+        		convertView = inflater.inflate(R.layout.list_item, parent, false);
         		holder 	= new viewHolder();
-        		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout_starquestion);
-        		holder.listQuestion	= (TextView) convertView.findViewById(R.id.textView_starquestion_item);
-        		
+        		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout);
+        		holder.listQuestion	= (TextView) convertView.findViewById(R.id.textViewItem);
+        		holder.listDate = (TextView) convertView.findViewById(R.id.textView_listItem_date);
+        		holder.listStar = (ImageView) convertView.findViewById(R.id.imageViewItem);
         		convertView.setTag(holder);
         	}
         	else{
         		holder	= (viewHolder) convertView.getTag();
         	}
         	
+        	GregorianCalendar calendar = new GregorianCalendar();
+        	calendar.setTimeInMillis(Var.list_questions.get(position).timeStamp * 1000);
+        	holder.listDate.setText( dateFormat.format(calendar.getTime()) );
+        	holder.listStar.setVisibility(View.GONE);	// 이 액티비티에서는 보여줄 필요없음.
         	holder.listQuestion.setText(list.get(position).listText);
-//        	GregorianCalendar calendar = new GregorianCalendar();
-//        	calendar.setTimeInMillis(Var.list_questions.get(position).timeStamp * 1000);
-//        	holder.listDate.setText( dateFormat.format(calendar.getTime()) );
         	
-//        	Log.d("VOM List Adapter", dateFormat.format(calendar.getTime()));
+        	Log.d("VOM List Adapter", dateFormat.format(calendar.getTime()));
         	
             return convertView;
         }
@@ -148,6 +152,8 @@ public class StarActivity extends Activity {
         {
           TextView listQuestion;
           LinearLayout listLinear;
+          ImageView listStar;
+          TextView listDate;
         }
 
 		@Override

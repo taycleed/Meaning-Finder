@@ -22,12 +22,7 @@ public class XmlParser {
 //	private LogoActivity main;
 	static String versionText		= "";
 	static PackageInfo packageInfo;
-	/*******************************************************************************
-	 * 
-	 *	앱 버전 체크
-	 * @return 
-	 *
-	 ******************************************************************************/
+
 	@SuppressWarnings("unused")
 	public static boolean getListText(){
 		Log.d("VOM XmlParser", "getListText() userId=" + Var.userId);
@@ -328,6 +323,104 @@ public class XmlParser {
     		e.printStackTrace();
     		return false;
     	}
+	}
+
+	
+	public static boolean getStarQuestionListText(String _starName, ArrayList<QuestionListItemType> list){
+		Log.d("VOM XmlParser", "getListText() userId=" + Var.userId);
+		
+		// List 초기화
+		Var.list_questions.clear();
+		Var.list_stars.clear();
+		
+	    try{
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 
+			factory.setNamespaceAware(true);
+			XmlPullParser xpp		= factory.newPullParser();
+			URL url					= new URL(DB.listUrl+"?ic=100&userId=" + Var.userId); // 실제 xml을 받을 수 있는 경로..
+			URLConnection uc		= url.openConnection();
+			InputStream	in			= uc.getInputStream();
+			xpp.setInput(in, "UTF-8");
+			int eventType			= xpp.getEventType();
+			
+		    final String Name			= "name";
+		    final String starName		= "starName";
+		    final String starImg		= "starImg";
+		    final String questionNo		= "no";
+		    final String time		= "time";
+		    int i = 0;
+		    
+		    int reqNo = -1;
+		    String qText = "", qName = "", qImgName = "";
+		    long timeStamp = 0;
+			while (eventType != XmlPullParser.END_DOCUMENT) {					// XML의 끝일때까지 반복
+				switch(eventType){
+				// 문서의 시작
+			    case XmlPullParser.START_DOCUMENT:								
+			    break;
+				
+			    // 문서의 끝
+			    case XmlPullParser.END_DOCUMENT:
+			    break;
+			    
+				// 태그의 시작
+			    case XmlPullParser.START_TAG:									// <? ~~ ?> 인가?
+			    	Log.i("TEXTNAME", xpp.getName().toString());
+			    	
+			    	if(xpp.getName().toString().equals(questionNo)){
+			    		reqNo = Integer.parseInt(xpp.nextText().toString());
+				    }else if(xpp.getName().toString().equals(Name)){
+				    	qText = xpp.nextText().toString();
+				    }else if(xpp.getName().toString().equals(starName)){
+				    	qName = xpp.nextText().toString();
+				    }else if(xpp.getName().toString().equals(starImg)){
+				    	qImgName = xpp.nextText().toString();
+					}else if(xpp.getName().toString().equals(time)){
+						timeStamp = Long.parseLong(xpp.nextText().toString());
+						
+						if (reqNo != -1 && !qText.equals("") && !qName.equals("") && !qImgName.equals("") &&  timeStamp != 0) {
+							Var.list_questions.add(new QuestionListItemType(reqNo, qText, qName, qImgName, timeStamp));
+							
+							Log.d("VOM XmlParser", "QuestionListItem Added: " + Integer.toString(reqNo) + ", " + qText + ", " + qName + ", " + qImgName + ", " + Long.toString(timeStamp));
+							
+							StarListItemType slItem = new StarListItemType(qName, qImgName);
+							if(!Var.list_stars.containsKey(slItem.starName))	// 별자리 리스트용 데이터
+								Var.list_stars.put(slItem.starName, slItem);
+							// 초기화
+							reqNo = -1;
+							qText = "";
+							qName = "";
+							qImgName = "";
+							timeStamp = 0;
+						}
+					}
+			    break;
+	
+			    // 태그의 끝
+			    case XmlPullParser.END_TAG:										// < ~~ > 인가?	
+			    break;
+	
+			    // 텍스트
+			    case XmlPullParser.TEXT:
+			    break;
+				}
+				
+				eventType = xpp.next();
+			}
+			
+			// 질문을 시간 역순으로 정렬
+			Collections.sort(Var.list_questions, new Comparator<QuestionListItemType>() {
+				@Override
+				public int compare(QuestionListItemType lhs, QuestionListItemType rhs) {
+					return -(lhs.listReqNo - rhs.listReqNo);
+				}
+			});
+			
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	
