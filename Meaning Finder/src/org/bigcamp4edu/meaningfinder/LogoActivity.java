@@ -23,6 +23,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -50,8 +53,7 @@ public class LogoActivity extends Activity implements OnClickListener,
 	LogoActivity LogoActivity;
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
-	private Thread x; // 쓰레드
-	private Handler mHandler; // 핸들러asd
+	private Animation anim;
 
 	private String tmp_email;
 
@@ -105,20 +107,6 @@ public class LogoActivity extends Activity implements OnClickListener,
 		loginButton.setOnClickListener(LogoActivity); // 로그인 버튼 리스너
 		joinButton.setOnClickListener(LogoActivity); // 회원가입 버튼 리스너
 
-		mHandler = new Handler();
-
-		// pref = getSharedPreferences("Setting", 0);
-		// String prefUserId = pref.getString("userId", "");
-		// String prefUserPw = pref.getString("userPw", "");
-		// Boolean prefLOGIN_STATE = pref.getBoolean("LOGIN_STATE", false);
-		//
-		// if(!prefUserId.equals("") && !prefUserPw.equals("") &&
-		// prefLOGIN_STATE)
-		// {
-		// Var.userId = (String) prefUserId;
-		// Var.userPw = (String) prefUserPw;
-		// Var.LOGIN_STATE = (Boolean) prefLOGIN_STATE;
-		// }
 		Var.InitLoginInfo(this);
 
 		loadingTitle.setVisibility(View.VISIBLE);
@@ -259,76 +247,65 @@ public class LogoActivity extends Activity implements OnClickListener,
 			}
 		});
 
-		x = new Thread(new Runnable() {
+		titleArr = new ArrayList<String>();
+		titleArr.add(getResources().getString(R.string.loading_title1));
+		titleArr.add(getResources().getString(R.string.loading_title2));
+		titleArr.add(getResources().getString(R.string.loading_title3));
+		
+		anim = AnimationUtils.loadAnimation(this, R.anim.alpha_1_1_1sec);
+		anim.setRepeatCount(titleArr.size());
+//		Log.d("VOM Logo", "Anim RepeatCount: " + Integer.toString(anim.getRepeatCount()) );
+		anim.setAnimationListener(new AnimationListener() {
+			
 			@Override
-			public void run() {
-				mHandler.post(new Runnable() {
-
-					@Override
-					public void run() {
-						try {
-							changeTitle();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				});
+			public void onAnimationStart(Animation animation) {
+//				Log.d("VOM Logo", "Anim Start");
+				
+				loginFormLayout.setVisibility(View.GONE);
+				loadingTitle.setVisibility(View.VISIBLE);
+				titleNo = 0;
+				if(titleNo < titleArr.size()){
+					loadingTitle.setText(titleArr.get(titleNo++));
+				}
 			}
-
-			private void changeTitle() throws InterruptedException {
-				titleArr = new ArrayList<String>();
-
-				String strFormat1 = getResources().getString(
-						R.string.loading_title1);
-				String strFormat2 = getResources().getString(
-						R.string.loading_title2);
-				String strFormat3 = getResources().getString(
-						R.string.loading_title3);
-
-				titleArr.add(strFormat1);
-				titleArr.add(strFormat2);
-				titleArr.add(strFormat3);
-
-				new CountDownTimer(4000, 1000) {
-					public void onTick(long millisUntilFinished) {
-						final String strFormat = (String) titleArr
-								.get(titleNo++);
-						loadingTitle.setText(strFormat);
-
-						if (titleNo == titleArr.size()) {
-							titleNo = 0;
-						}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+//				Log.d("VOM Logo", "Anim Repeat");
+				if(titleNo < titleArr.size()){
+					loadingTitle.setText(titleArr.get(titleNo++));
+				}
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+//				Log.d("VOM Logo", "Anim End");
+				
+				if(titleNo < titleArr.size()){
+					// nothing
+				}else{
+					loginFormLayout.setVisibility(View.VISIBLE);
+					loadingTitle.setVisibility(View.GONE);
+					
+					// 로그인 되어있을 경우
+					if (Var.LOGIN_STATE) {
+						Intent intent = new Intent(LogoActivity.this, ListActivity.class);
+						startActivity(intent);
+						finish();
 					}
-
-					public void onFinish() {
-						// 로그인 되어있을 경우
-						if (Var.LOGIN_STATE) {
-							Intent intent = new Intent(LogoActivity.this,
-									ListActivity.class);
-							startActivity(intent);
-							finish();
-						}else{
-							// mTextField.setText("done!");
-							loginFormLayout.setVisibility(View.VISIBLE);
-							loadingTitle.setVisibility(View.GONE);
-						}
-						x = null;
-					}
-
-				}.start();
-
+				}
 			}
 		});
 
+		
 	}
+	
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		
-		
-		x.start();
+		loadingTitle.startAnimation(anim);
 	}
 
 	/*******************************************************************************

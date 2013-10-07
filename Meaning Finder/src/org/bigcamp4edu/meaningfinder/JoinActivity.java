@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -110,6 +111,28 @@ public class JoinActivity extends Activity {
     	init_year = 1997;
     	init_month = 0;
     	init_day = 1;
+    	birthday.setOnTouchListener(new OnTouchListener() {
+    		private OnDateSetListener onDateSet = new OnDateSetListener() {
+				@Override
+				public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+					init_year = year;
+					init_month = monthOfYear;
+					init_day = dayOfMonth;
+					tmp_birthday = String.format("%04d%02d%02d", year, monthOfYear + 1, dayOfMonth);
+					birthday.setText(String.format("%04d년 %d월 %d일", year, monthOfYear + 1, dayOfMonth));
+				}
+			};
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					DatePickerDialog datePicker = new DatePickerDialog(JoinActivity.this, onDateSet, init_year, init_month, init_day);
+					datePicker.getDatePicker().setCalendarViewShown(false);
+					datePicker.show();
+				}
+				return true;
+			}
+		});
     	birthday.setOnClickListener(new OnClickListener() {
     		
     		private OnDateSetListener onDateSet = new OnDateSetListener() {
