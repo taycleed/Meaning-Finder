@@ -167,7 +167,7 @@ public class JoinActivity extends Activity {
 				Thread thread = new Thread(new Runnable() {
 					public void run() {
 						 if(postJoinCheck(JoinActivity))
-						 {
+						 {	// Join Success
 							 Bundle extra = new Bundle();
 							 Intent intent = new Intent();
 							 
@@ -177,6 +177,10 @@ public class JoinActivity extends Activity {
 							 setResult(RESULT_OK, intent);
 					
 							 finish();
+						 }else{ // Join Fail
+							 
+							 // Show why
+							 Toast.makeText(getApplicationContext(), joinFailError, Toast.LENGTH_LONG).show();
 						 }
 					}
 				});
@@ -188,6 +192,7 @@ public class JoinActivity extends Activity {
     	button_join_submit.setEnabled(false);
 
     }
+    private String joinFailError = "";
     
     /*
      * 가입 정보 입력에 따라 '저장' 버튼 활성화/비활성화
@@ -265,8 +270,8 @@ public class JoinActivity extends Activity {
     	    String res				= response.toString();
     	    String resultStart		= "<result>";
     	    String resultEnd		= "</result>";
-//    	    String errorCodeStart	= "<code>";
-//    	    String errorCodeEnd		= "</code>";
+    	    String errorCodeStart	= "<code>";
+    	    String errorCodeEnd		= "</code>";
     	    String result			= null;
     	    
     	    res = res.replaceAll("\\s+", "");
@@ -280,6 +285,23 @@ public class JoinActivity extends Activity {
     	    if(result.equals("true")){												// 성공 메시지일 경우
     	    	return true;
     	    }else{																	// 성공이 아닐 경우
+
+//    	    	[Error Code]
+//				name length		이름의 글자수가 다릅니다. 32자 이하
+//				email pattern	이메일 정규식이 틀렸습니다.
+//				exist email		이메일 중복
+//				query error		회원가입 insert query 에러
+
+    			String errorCode = res.substring(res.indexOf(errorCodeStart)+errorCodeStart.length(), res.indexOf(errorCodeEnd)).substring(0, 4);
+    			if(errorCode.equals("name")){
+    				joinFailError = "이름의 글자수가 다릅니다. (32자 이하)";
+    			}else if(errorCode.equals("emai")){
+    				joinFailError = "이메일 정규식이 틀렸습니다.";
+    			}else if(errorCode.equals("exis")){
+    				joinFailError = "이메일 중복";
+    			}else if(errorCode.equals("quer")){
+    				joinFailError = "회원가입 insert query 에러";
+    			} 
     			
     	    	return false;
     	    }
