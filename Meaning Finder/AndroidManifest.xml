@@ -21,7 +21,7 @@
             android:name="org.bigcamp4edu.meaningfinder.LogoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/FullscreenTheme" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,22 +30,22 @@
         </activity>
         <activity
             android:name="org.bigcamp4edu.meaningfinder.JoinActivity"
-            android:label="@string/title_activity_join" >
+            android:label="@string/title_activity_join" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.QuestionActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.QuestionActivity" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.QuestionViewActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.QuestionViewActivity" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.ListActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.ListActivity" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.SetupActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.SetupActivity" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.StarActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.StarActivity" android:screenOrientation="portrait">
         </activity>
 
         <service android:name="org.bigcamp4edu.meaningfinder.NotifyService" >
@@ -53,10 +53,10 @@
 
         <activity
             android:name="org.bigcamp4edu.meaningfinder.DialogActivity"
-            android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog" >
+            android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="org.bigcamp4edu.meaningfinder.StarListActivity" >
+            android:name="org.bigcamp4edu.meaningfinder.StarListActivity" android:screenOrientation="portrait">
         </activity>
     </application>
 
