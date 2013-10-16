@@ -1,5 +1,6 @@
 package org.bigcamp4edu.meaningfinder;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import android.os.Bundle;
 import android.app.Activity;
@@ -112,7 +113,7 @@ public class SetupActivity extends Activity {
 				}
 				one_onoff = isChecked;
 				updateDisplay(1);
-				UpdateAlarm(SetupActivity.this);
+				UpdateAlarm(SetupActivity.this, 0);
 			}
 		});
 		((CheckBox) findViewById(R.id.checkBox_setting_time2)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -134,7 +135,7 @@ public class SetupActivity extends Activity {
 				}
 				two_onoff = isChecked;
 				updateDisplay(2);
-				UpdateAlarm(SetupActivity.this);
+				UpdateAlarm(SetupActivity.this, 0);
 			}
 		});
 		
@@ -256,7 +257,10 @@ public class SetupActivity extends Activity {
 	    return calendar.getTimeInMillis();
 	}
 	
-	public static void UpdateAlarm(Context context){
+	/*
+	 * @param type : 0 for new Alarm, 1 for Alarm time change
+	 **/
+	public static void UpdateAlarm(Context context, int type){
 		boolean isOneSet, isTwoSet;
 		int one_hour, two_hour, one_minute, two_minute;
 		
@@ -271,22 +275,32 @@ public class SetupActivity extends Activity {
 		two_minute	= pref.getInt("two_alarm_minute", 0);
 
 		// Set Intent and Alarm
-		Intent intent = new Intent(context, NotifyService.class); 
+		Intent intent = new Intent(context.getApplicationContext(), NotifyService.class); 
 		PendingIntent pendingI, pendingI_two;
-		pendingI	 = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		pendingI_two = PendingIntent.getService(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		int flag = PendingIntent.FLAG_UPDATE_CURRENT;
+		if(type == 1)
+			flag = PendingIntent.FLAG_NO_CREATE;
+		pendingI	 = PendingIntent.getService(context.getApplicationContext(), 0, intent, flag);
+		pendingI_two = PendingIntent.getService(context.getApplicationContext(), 1, intent, flag);
 		
+		long triggerTime ;
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.cancel(pendingI);
 		if(isOneSet){
-			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerTime(one_hour, one_minute), oneDay, pendingI);
-			Log.d("VOM SetupActivity", "Set Alarm1 : " + String.format("%02d:%02d", one_hour, one_minute));
+			triggerTime = getTriggerTime(one_hour, one_minute);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, oneDay, pendingI);
+			Calendar cal = new GregorianCalendar();
+			cal.setTimeInMillis(triggerTime);
+			Log.d("VOM SetupActivity", "Set Alarm1 : " + String.format("%02d/%02d %02d:%02d", cal.get(GregorianCalendar.MONTH) +1, cal.get(GregorianCalendar.DAY_OF_MONTH), one_hour, one_minute));
 		}
 		
 		alarmManager.cancel(pendingI_two);
 		if(isTwoSet){
-			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, getTriggerTime(two_hour, two_minute), oneDay, pendingI_two);
-			Log.d("VOM SetupActivity", "Set Alarm2 : " + String.format("%02d:%02d", two_hour, two_minute));
+			triggerTime = getTriggerTime(two_hour, two_minute);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, oneDay, pendingI_two);
+			Calendar cal = new GregorianCalendar();
+			cal.setTimeInMillis(triggerTime);
+			Log.d("VOM SetupActivity", "Set Alarm2 : " + String.format("%02d/%02d %02d:%02d", cal.get(GregorianCalendar.MONTH) +1, cal.get(GregorianCalendar.DAY_OF_MONTH), two_hour, two_minute));
 		}
 	}
 	
@@ -299,7 +313,7 @@ public class SetupActivity extends Activity {
 			
 			Log.d("VOM", "Time Set(1)");
 			
-			UpdateAlarm(SetupActivity.this);
+			UpdateAlarm(SetupActivity.this, 0);
 		}
 	};
 	
@@ -312,7 +326,7 @@ public class SetupActivity extends Activity {
 			
 			Log.d("VOM", "Time Set(2)");
 			
-			UpdateAlarm(SetupActivity.this);
+			UpdateAlarm(SetupActivity.this, 0);
 		}
 	};
 

@@ -57,11 +57,11 @@ public class NotifyService extends Service {
 	
 	private void sendNotification(String title, String text)
 	{
+		// 알람 TriggerTime 재설정
+		SetupActivity.UpdateAlarm(NotifyService.this, 1);
+		
 		if(HasSavedToday(this)){
 			// 오늘 답변을 했으므로 질문 알림을 패스한다. 
-							
-			// TODO: 알람 시작 시각을 내일로 재설정한다. 
-			
 			return ;
 		}
 		
@@ -90,8 +90,5 @@ public class NotifyService extends Service {
 	    Intent intent = new Intent(this, DialogActivity.class);
 	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	    startActivity(intent);
-	    
-	    // 알람 TriggerTime 재설정
-	    SetupActivity.UpdateAlarm(NotifyService.this);
 	}
 }
