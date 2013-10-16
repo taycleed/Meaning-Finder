@@ -36,14 +36,14 @@
     <string name="name_title1">안녕! 반가워! 내 이름은 </string>
     <string name="name_title2">VOM</string>
     <string name="name_title3">이야 :)</string>
-    <string name="name_title4">네 이름은 뭐야?</string>
+    <string name="name_title4">네 이름은 뭐야? (최대 32자)</string>
     <string name="birth_title1">생일은?</string>
     <string name="sex_title">성별은?</string>
     <string name="sex_male">남</string>
     <string name="sex_female">여</string>
     <string name="email_title1">네가 적은 내용을 안전하게 보관할 수 있게 하고싶어.</string>
     <string name="email_title2">e-mail 주소를 알려줄래?</string>
-    <string name="password_title1">이메일과 함께 사용할 비밀번호도 적어줘.</string>
+    <string name="password_title1">이메일과 함께 사용할 비밀번호도 적어줘.(8자 이상)</string>
     <string name="password_title2">비밀번호</string>
     <string name="password_title3">비밀번호 확인</string>
     <string name="join_success">회원 등록 성공!</string>
