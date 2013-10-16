@@ -266,11 +266,11 @@ public class SetupActivity extends Activity {
 		
 		// Get data from SharedPref.
 		SharedPreferences pref = context.getSharedPreferences("Setting", 0);
-		isOneSet		= pref.getString("one_alarm", "noset").equals("set");
+		isOneSet		= pref.getString("one_alarm", "set").equals("set");
 		one_hour		= pref.getInt("one_alarm_hour", 7);
 		one_minute	= pref.getInt("one_alarm_minute", 0);
 		
-		isTwoSet		= pref.getString("two_alarm", "noset").equals("set");
+		isTwoSet		= pref.getString("two_alarm", "set").equals("set");
 		two_hour		= pref.getInt("two_alarm_hour", 23);
 		two_minute	= pref.getInt("two_alarm_minute", 0);
 
@@ -284,8 +284,10 @@ public class SetupActivity extends Activity {
 		pendingI_two = PendingIntent.getService(context.getApplicationContext(), 1, intent, flag);
 		
 		long triggerTime ;
+		PendingIntent pi_cancel = PendingIntent.getService(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.cancel(pendingI);
+		if(pi_cancel != null)
+			alarmManager.cancel(pi_cancel);
 		if(isOneSet){
 			triggerTime = getTriggerTime(one_hour, one_minute);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, oneDay, pendingI);
@@ -294,7 +296,9 @@ public class SetupActivity extends Activity {
 			Log.d("VOM SetupActivity", "Set Alarm1 : " + String.format("%02d/%02d %02d:%02d", cal.get(GregorianCalendar.MONTH) +1, cal.get(GregorianCalendar.DAY_OF_MONTH), one_hour, one_minute));
 		}
 		
-		alarmManager.cancel(pendingI_two);
+		pi_cancel = PendingIntent.getService(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
+		if(pi_cancel != null)
+			alarmManager.cancel(pi_cancel);
 		if(isTwoSet){
 			triggerTime = getTriggerTime(two_hour, two_minute);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, oneDay, pendingI_two);

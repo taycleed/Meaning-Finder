@@ -67,5 +67,12 @@ public class Var {
 			Var.userPw		= (String) prefUserPw;
 			Var.LOGIN_STATE	= (Boolean) prefLOGIN_STATE;
 		}
+		
+		
+		if(pref.getString("one_alarm", "none").equals("none")){
+			// No alarm has been set/unset. 
+			// Set default alarm. 
+			SetupActivity.UpdateAlarm(context, 0);
+		}
 	}
 }
