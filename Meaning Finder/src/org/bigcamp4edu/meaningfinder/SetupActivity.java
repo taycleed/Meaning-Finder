@@ -138,6 +138,12 @@ public class SetupActivity extends Activity {
 				UpdateAlarm(SetupActivity.this, 0);
 			}
 		});
+		((CheckBox) findViewById(R.id.checkBox_setting_vibrate)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				updateVibrateInfo(isChecked);
+			}
+		});
 		
 		mHour 	= one_alarm_hour;
 		mMinute = one_alarm_minute;
@@ -148,6 +154,9 @@ public class SetupActivity extends Activity {
 		mMinuteTwo 	= two_alarm_minute;
 		((CheckBox) findViewById(R.id.checkBox_setting_time2)).setChecked(two_onoff);
 		updateDisplay(2);
+		
+		((CheckBox) findViewById(R.id.checkBox_setting_vibrate)).setChecked(pref.getBoolean("Vibrate", true));
+		updateVibrateInfo(pref.getBoolean("Vibrate", true));
 		
 		Button btn_close = (Button) findViewById(R.id.setting_btn);
 		btn_close.setOnClickListener(new OnClickListener() {
@@ -187,6 +196,16 @@ public class SetupActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+	}
+	
+	private void updateVibrateInfo(boolean isOn){
+		if(isOn){
+			pref.edit().putBoolean("Vibrate", true).commit();
+			SetupActivity.this.findViewById(R.id.textView_setting_vib_desc).setAlpha(1.0f);
+		}else{
+			pref.edit().putBoolean("Vibrate", false).commit();
+			SetupActivity.this.findViewById(R.id.textView_setting_vib_desc).setAlpha(0.5f);
+		}
 	}
 
 	/*

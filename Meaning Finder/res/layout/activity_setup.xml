@@ -141,6 +141,26 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <CheckBox
+                    android:id="@+id/checkBox_setting_vibrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/textView_setting_vib_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vib_desc"
+                    android:textColor="#ffffff"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -155,6 +175,7 @@
                     android:padding="8dp"
                     android:text="@string/logout" />
             </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

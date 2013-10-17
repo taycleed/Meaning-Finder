@@ -9,9 +9,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -63,6 +65,13 @@ public class NotifyService extends Service {
 		if(HasSavedToday(this)){
 			// 오늘 답변을 했으므로 질문 알림을 패스한다. 
 			return ;
+		}
+		
+		// Vibrate
+		Vibrator vib = (Vibrator)	getSystemService(Context.VIBRATOR_SERVICE);
+		SharedPreferences pref = getSharedPreferences("Setting", 0);
+		if(vib.hasVibrator() && pref.getBoolean("Vibrate", true)){
+			vib.vibrate(500);
 		}
 		
 		// Notification Bar에 표시할 Notification setting

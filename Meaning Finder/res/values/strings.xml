@@ -63,6 +63,7 @@
     <string name="title_setting">설정</string>
     <string name="title_setting_en">Settings</string>
     <string name="question_notice_time">질문 알림 시간</string>
+    <string name="vib_desc">알림 시 진동 울림</string>
 
     <!-- Notification Dialog -->
     <string name="noti_message">물어볼 게 있어 :)</string>
