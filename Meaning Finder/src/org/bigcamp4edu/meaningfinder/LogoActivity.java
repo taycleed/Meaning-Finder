@@ -284,14 +284,15 @@ public class LogoActivity extends Activity implements OnClickListener,
 				if(titleNo < titleArr.size()){
 					// nothing
 				}else{
-					loginFormLayout.setVisibility(View.VISIBLE);
-					loadingTitle.setVisibility(View.GONE);
 					
 					// 로그인 되어있을 경우
 					if (Var.LOGIN_STATE) {
 						Intent intent = new Intent(LogoActivity.this, ListActivity.class);
 						startActivity(intent);
 						finish();
+					}else{
+						loginFormLayout.setVisibility(View.VISIBLE);
+						loadingTitle.setVisibility(View.GONE);
 					}
 				}
 			}
