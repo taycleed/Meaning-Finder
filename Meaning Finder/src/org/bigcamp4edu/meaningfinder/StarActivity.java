@@ -4,11 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import org.bigcamp4edu.meaningfinder.QuestionActivity.QuestionGetterAsync;
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
 
 import com.trevorpage.tpsvg.SVGParserRenderer;
 import com.trevorpage.tpsvg.SVGView;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -33,7 +35,7 @@ import android.widget.TextView;
 
 public class StarActivity extends Activity {
 	
-	String starName ="";
+	String starName ="", starImg="";
 	ArrayList<QuestionListItemType> list;
 
     @Override
@@ -83,25 +85,20 @@ public class StarActivity extends Activity {
         Intent fromIntent = getIntent();
         starName = fromIntent.getExtras().getString("StarName");
 //        String starNameEn = fromIntent.getExtras().getString("StarNameEn");
-        String starImg = fromIntent.getExtras().getString("StarImg");
+        starImg = fromIntent.getExtras().getString("StarImg");
         
-        ((TextView) findViewById(R.id.textview_star_title)).setText(starName);	// Title: Contellation name
+        ((TextView) findViewById(R.id.textview_star_title)).setText(starName);	// Title: Constellation name
         // Prepare question items
     	list = new ArrayList<QuestionListItemType>();
-		for(QuestionListItemType item : Var.list_questions){
-			if(item.listStarName.equals(starName))
-				list.add(item);
-		}
+//		for(QuestionListItemType item : Var.list_questions){
+//			if(item.listStarName.equals(starName))
+//				list.add(item);
+//		}
         
-		// Set Contellation Image
-		SetStarImage(starImg);
-    }
-    
-    @Override
-    protected void onResume() {
-    	super.onResume();
-    	
-    	ListView listview = (ListView) findViewById(R.id.listView_star_questions);
+//		// Set Contellation Image
+//		SetStarImage(starImg);
+		
+		ListView listview = (ListView) findViewById(R.id.listView_star_questions);
     	listview.setAdapter(new StarListArrayAdapter());
     	listview.setOnItemClickListener(new OnItemClickListener() {
     		@Override
@@ -112,6 +109,40 @@ public class StarActivity extends Activity {
                 startActivity(intent);
     		}
     	});
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	
+    	(new StarQuestionGetterAsync()).execute();
+    }
+    
+    class StarQuestionGetterAsync extends AsyncTask<Void, Void, Void> {
+    	@Override
+    	protected void onPreExecute() {
+    		list.clear();
+    	};
+    	
+		@Override
+		protected Void doInBackground(Void... params) {
+//			XmlParser.getStarQuestionListText(starName, list);
+			XmlParser.getListText();
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			for (QuestionListItemType item : Var.list_questions) {
+				if (item.listStarName.equals(starName))
+					list.add(item);
+			}
+			
+			// Set Constellation Image
+			SetStarImage(starImg);
+		}
     }
     
     private FrameLayout SetStarImage(String starImg){
@@ -129,17 +160,20 @@ public class StarActivity extends Activity {
 		
 		for(int i = 1 ; i <= star_count ; i++){
 			if(i == star_count){
-				SVGView svgView = new SVGView(this);
-				svgView.setSVGRenderer(svgRenderer, String.format("line_%02d", i));
-				svgView.setBackgroundColor(0x00999999);
-				fl.addView(svgView);
+				SVGView svgView ;
+				if(i != 1){				
+					svgView = new SVGView(this);
+					svgView.setSVGRenderer(svgRenderer, String.format("line_%02d", i));
+					svgView.setBackgroundColor(0x00999999);
+					fl.addView(svgView);
+				}
 				
 				// TODO: add animation on star
 				svgView = new SVGView(this);
 				svgView.setSVGRenderer(svgRenderer, String.format("star_%02d", i));
 				svgView.setBackgroundColor(0x00999999);
 				fl.addView(svgView);
-				svgView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha_1_0_500msec));
+				svgView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha_1_0_900msec));
 			}else{
 				SVGView svgView = new SVGView(this);
 				svgView.setSVGRenderer(svgRenderer, String.format("num_%02d", i));

@@ -327,11 +327,7 @@ public class XmlParser {
 
 	
 	public static boolean getStarQuestionListText(String _starName, ArrayList<QuestionListItemType> list){
-		Log.d("VOM XmlParser", "getListText() userId=" + Var.userId);
-		
-		// List √ ±‚»≠
-		Var.list_questions.clear();
-		Var.list_stars.clear();
+		Log.d("VOM XmlParser", "getStarQuestionListText() userId=" + Var.userId + ", StarName=" + _starName);
 		
 	    try{
 			XmlPullParserFactory factory = XmlPullParserFactory.newInstance(); 

@@ -101,7 +101,6 @@
                         android:layout_height="70dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
-                        android:text="TEST test TEST test TEST test TEST test TEST test TEST test "
                         android:textColor="@color/vom_white"
                         android:textSize="15sp" />
 
@@ -116,7 +115,6 @@
                         android:inputType="textMultiLine"
                         android:minHeight="10dp"
                         android:scrollHorizontally="false"
-                        android:text="TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test "
                         android:textCursorDrawable="@null"
                         android:textSize="15sp" >
 
