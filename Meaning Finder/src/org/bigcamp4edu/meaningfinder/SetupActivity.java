@@ -196,6 +196,10 @@ public class SetupActivity extends Activity {
 		
 		FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_setting_svgtest);
 		SVGParserRenderer svgRenderer = new SVGParserRenderer(this, R.raw.cancer);
+		SVGView svgView_dimmed = new SVGView(this);
+		svgView_dimmed.setSVGRenderer(svgRenderer, "line_dim");
+		svgView_dimmed.setBackgroundColor(0x00999999);
+		fl.addView(svgView_dimmed);
 		
 		for(int i = 1 ; i < 6 ; i++){
 			SVGView svgView = new SVGView(this);

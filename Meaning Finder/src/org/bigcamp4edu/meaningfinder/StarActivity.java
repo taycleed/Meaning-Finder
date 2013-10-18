@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 
 import org.bigcamp4edu.meaningfinder.util.QuestionListItemType;
 
+import com.trevorpage.tpsvg.SVGParserRenderer;
+import com.trevorpage.tpsvg.SVGView;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,10 +20,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,7 +53,7 @@ public class StarActivity extends Activity {
 			}
 		});
         
-        // StarActivity 버튼 기능 구현
+        // 'To Star List' 버튼 기능 구현
         ((Button) findViewById(R.id.btn_star_tostarlist)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -80,23 +85,21 @@ public class StarActivity extends Activity {
 //        String starNameEn = fromIntent.getExtras().getString("StarNameEn");
         String starImg = fromIntent.getExtras().getString("StarImg");
         
-        ((TextView) findViewById(R.id.textview_star_title)).setText(starName);
-        StarImageMapper siMapper = new StarImageMapper(this);
-        siMapper.setStarImageName(starImg);
-        ((ImageView) findViewById(R.id.imageView_star)).setImageDrawable(siMapper.getStarImageBig());
-        siMapper = null;
-    }
-    
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
+        ((TextView) findViewById(R.id.textview_star_title)).setText(starName);	// Title: Contellation name
+        // Prepare question items
     	list = new ArrayList<QuestionListItemType>();
 		for(QuestionListItemType item : Var.list_questions){
 			if(item.listStarName.equals(starName))
 				list.add(item);
 		}
+        
+		// Set Contellation Image
+		SetStarImage(starImg);
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
     	
     	ListView listview = (ListView) findViewById(R.id.listView_star_questions);
     	listview.setAdapter(new StarListArrayAdapter());
@@ -111,7 +114,47 @@ public class StarActivity extends Activity {
     	});
     }
     
-    public class StarListArrayAdapter extends BaseAdapter {
+    private FrameLayout SetStarImage(String starImg){
+		StarImageMapper siMapper = new StarImageMapper(this);
+	    siMapper.setStarImageName(starImg);
+	    FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_star_image);
+		SVGParserRenderer svgRenderer = new SVGParserRenderer(this, siMapper.getStarImageSvgId());
+		int star_count = list.size();
+		
+		// 
+		SVGView svgView_dimmed = new SVGView(this);
+		svgView_dimmed.setSVGRenderer(svgRenderer, "line_dim");
+		svgView_dimmed.setBackgroundColor(0x00999999);
+		fl.addView(svgView_dimmed);
+		
+		for(int i = 1 ; i <= star_count ; i++){
+			if(i == star_count){
+				SVGView svgView = new SVGView(this);
+				svgView.setSVGRenderer(svgRenderer, String.format("line_%02d", i));
+				svgView.setBackgroundColor(0x00999999);
+				fl.addView(svgView);
+				
+				// TODO: add animation on star
+				svgView = new SVGView(this);
+				svgView.setSVGRenderer(svgRenderer, String.format("star_%02d", i));
+				svgView.setBackgroundColor(0x00999999);
+				fl.addView(svgView);
+				svgView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.alpha_1_0_500msec));
+			}else{
+				SVGView svgView = new SVGView(this);
+				svgView.setSVGRenderer(svgRenderer, String.format("num_%02d", i));
+				svgView.setBackgroundColor(0x00999999);
+				
+				fl.addView(svgView);
+			}
+		}       
+	    
+	    siMapper = null;
+	    
+	    return fl;
+	}
+
+	public class StarListArrayAdapter extends BaseAdapter {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
     	
         @Override
@@ -171,7 +214,7 @@ public class StarActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.star, menu);
+//        getMenuInflater().inflate(R.menu.star, menu);
         return true;
     }
     

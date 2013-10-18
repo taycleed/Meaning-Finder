@@ -18,6 +18,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:windowBackground">@drawable/bg_general</item>        
+        <item name="android:typeface">sans</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
