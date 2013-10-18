@@ -35,7 +35,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:text="@string/vom"
-                android:textColor="#7aebf6"
+                android:textColor="@color/vom_sky"
                 android:textSize="30dp" />
 
             <TextView
@@ -46,7 +46,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
                 android:text="@string/vom_long"
-                android:textColor="#454545"
+                android:textColor="@color/vom_gray"
                 android:textSize="15dp" />
 
             <Button

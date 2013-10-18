@@ -25,7 +25,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="180dp"
             android:gravity="center"
-            android:text="@string/loading_title1" />
+            android:text="@string/loading_title1"
+            android:textColor="@color/vom_white" />
+
     </RelativeLayout>
 
     <!-- Login form -->
@@ -57,8 +59,7 @@
                 android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:textColor="#ffffff"
-                android:textColorHint="#c9c9c9"
+                android:textColorHint="@color/vom_gray"
                 android:textSize="13sp" />
 
             <ImageView
@@ -90,7 +91,7 @@
                 android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
-                android:textColorHint="#c9c9c9"
+                android:textColorHint="@color/vom_gray"
                 android:textSize="13sp" />
 
             <ImageView

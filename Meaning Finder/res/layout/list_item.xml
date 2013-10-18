@@ -12,7 +12,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
         android:text="1234년 56월 78일"
-        android:textColor="#aaaaaa" />
+        android:textColor="@color/vom_gray" />
 
     <LinearLayout
         android:id="@+id/listItemInnerLayout"
@@ -38,7 +38,7 @@
             android:maxHeight="50dp"
             android:minHeight="30dp"
             android:text="질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 질문 "
-            android:textColor="@color/white"
+            android:textColor="@color/vom_white"
             android:textSize="15dip" />
 
     </LinearLayout>

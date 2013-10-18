@@ -38,7 +38,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
                 android:text="@string/vom"
-                android:textColor="#7aebf6"
+                android:textColor="@color/vom_sky"
                 android:textSize="30dp" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="35dp"
                 android:text="@string/vom_long"
-                android:textColor="#454545"
+                android:textColor="@color/vom_gray"
                 android:textSize="15dp" />
 
             <Button
@@ -72,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="10dp"
             android:weightSum="1" >
 
             <ImageView
@@ -90,7 +91,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:textColor="#c9c9c9"
+                android:textColor="@color/vom_white"
                 android:textSize="15dip" />
         </LinearLayout>
 

@@ -17,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:text="@string/hello"
-            android:textColor="#7aebf6"
+            android:textColor="@color/vom_sky"
             android:textSize="30dp" />
 
         <TextView
@@ -69,20 +69,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name_title1"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="@string/name_title2"
-                        android:textColor="#5eb4d7" />
+                        android:textColor="@color/vom_sky" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name_title3"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/name_title4"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
                 </LinearLayout>
 
                 <EditText
@@ -108,7 +108,7 @@
                     android:maxLength="30"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColorHint="#aaaaaa" >
+                    android:textColorHint="@color/vom_gray" >
 
                     <requestFocus />
                 </EditText>
@@ -130,7 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/birth_title1"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
 
                     <TextView
                         android:id="@+id/textView_join_birthday"
@@ -140,7 +140,9 @@
                         android:layout_marginTop="5dp"
                         android:background="@drawable/input"
                         android:hint="@string/birth_title1"
-                        android:padding="8dp" />
+                        android:padding="8dp"
+                        android:textColorHint="@color/vom_gray" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/sex_title"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
 
                     <RadioGroup
                         android:id="@+id/radioGroup_join_sex"
@@ -170,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/sex_male"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/vom_white" />
 
                         <RadioButton
                             android:id="@+id/radio_sex_female"
@@ -178,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/sex_female"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/vom_white" />
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -198,13 +200,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email_title1"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/email_title2"
-                        android:textColor="#ffffff" />
+                        android:textColor="@color/vom_white" />
                 </LinearLayout>
 
                 <EditText
@@ -216,7 +218,7 @@
                     android:hint="@string/email_title2"
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
-                    android:textColorHint="#aaaaaa" />
+                    android:textColorHint="@color/vom_gray" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/password_title1"
-                    android:textColor="#ffffff" />
+                    android:textColor="@color/vom_white" />
 
                 <EditText
                     android:id="@+id/pwd"
@@ -241,7 +243,7 @@
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:padding="8dp"
-                    android:textColorHint="#aaaaaa" />
+                    android:textColorHint="@color/vom_gray" />
 
                 <EditText
                     android:id="@+id/pwd_confirm"
@@ -253,7 +255,7 @@
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:padding="8dp"
-                    android:textColorHint="#aaaaaa" />
+                    android:textColorHint="@color/vom_gray" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
