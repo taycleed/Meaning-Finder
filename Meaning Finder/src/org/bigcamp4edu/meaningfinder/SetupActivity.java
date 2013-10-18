@@ -2,6 +2,9 @@ package org.bigcamp4edu.meaningfinder;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import com.trevorpage.tpsvg.SVGParserRenderer;
+import com.trevorpage.tpsvg.SVGView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -20,12 +23,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-// TODO: 알림 On/Off 기능 추가 구현
 public class SetupActivity extends Activity {
 
 	private SharedPreferences pref;
@@ -97,7 +100,6 @@ public class SetupActivity extends Activity {
 		((CheckBox) findViewById(R.id.checkBox_setting_time1)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO 
 				if(isChecked){
 					one_alarm_wrap.setClickable(true);
 					one_alarm_wrap.setAlpha(1.0f);
@@ -119,7 +121,6 @@ public class SetupActivity extends Activity {
 		((CheckBox) findViewById(R.id.checkBox_setting_time2)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO 
 				if(isChecked){
 					two_alarm_wrap.setClickable(true);
 					two_alarm_wrap.setAlpha(1.0f);
@@ -191,6 +192,24 @@ public class SetupActivity extends Activity {
 				finish();	// Setup 액티비티 닫기
 			}
 		});
+		
+		
+		FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_setting_svgtest);
+		SVGParserRenderer svgRenderer = new SVGParserRenderer(this, R.raw.cancer);
+		
+		for(int i = 1 ; i < 6 ; i++){
+			SVGView svgView = new SVGView(this);
+			svgView.setSVGRenderer(svgRenderer, "num_0" + Integer.toString(i));
+			svgView.setBackgroundColor(0x00999999);
+			if(i != 5){
+			}else{
+				// TODO: add animation
+				// svgView.setAnimation(animation);
+			}
+			
+			fl.addView(svgView);
+		}
+		
 	}
 	
 	@Override
