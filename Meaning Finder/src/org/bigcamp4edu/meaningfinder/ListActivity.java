@@ -141,17 +141,19 @@ public class ListActivity extends Activity {
         	viewHolder holder;
         	 
         	if(convertView == null){
+        		Log.d("VOM List", "convertView == null");
         		LayoutInflater inflater = getLayoutInflater();
         		convertView = inflater.inflate(R.layout.list_item, parent, false);
         		holder 	= new viewHolder();
         		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout);
-        		holder.listQuest	= (TextView) convertView.findViewById(R.id.textViewItem);
-        		holder.listStar		= (ImageView) convertView.findViewById(R.id.imageViewItem);
+        		holder.listStar		= (ImageView) convertView.findViewById(R.id.imageView_list_item);
+        		holder.listQuest	= (TextView) convertView.findViewById(R.id.textView_list_item);
         		holder.listDate		= (TextView) convertView.findViewById(R.id.textView_listItem_date);
         		
         		convertView.setTag(holder);
         	}
         	else{
+        		Log.d("VOM List", "convertView != null");
         		holder	= (viewHolder) convertView.getTag();
         	}
         	

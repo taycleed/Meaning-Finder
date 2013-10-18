@@ -171,9 +171,9 @@ public class StarActivity extends Activity {
         		convertView = inflater.inflate(R.layout.list_item, parent, false);
         		holder 	= new viewHolder();
         		holder.listLinear	= (LinearLayout) convertView.findViewById(R.id.listItemLayout);
-        		holder.listQuestion	= (TextView) convertView.findViewById(R.id.textViewItem);
+        		holder.listQuestion	= (TextView) convertView.findViewById(R.id.textView_list_item);
         		holder.listDate = (TextView) convertView.findViewById(R.id.textView_listItem_date);
-        		holder.listStar = (ImageView) convertView.findViewById(R.id.imageViewItem);
+        		holder.listStar = (ImageView) convertView.findViewById(R.id.imageView_list_item);
         		convertView.setTag(holder);
         	}
         	else{
@@ -209,13 +209,4 @@ public class StarActivity extends Activity {
 			return list.get(arg0).listReqNo;
 		}
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.star, menu);
-        return true;
-    }
-    
 }

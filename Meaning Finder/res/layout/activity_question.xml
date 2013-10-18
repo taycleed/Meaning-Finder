@@ -39,7 +39,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/vom"
                 android:textColor="@color/vom_sky"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/get_star_name_en"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="35dp"
                 android:text="@string/vom_long"
                 android:textColor="@color/vom_gray"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/button_join_submit"
@@ -67,48 +67,63 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:id="@+id/question_title_wrap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:weightSum="1" >
-
-            <ImageView
-                android:id="@+id/question_get_star_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:contentDescription="@string/desc_star_image"
-                android:scaleType="fitXY"
-                android:src="#ff2345"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/question_get_title"
-                android:layout_width="fill_parent"
-                android:layout_height="70dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:textColor="@color/vom_white"
-                android:textSize="15dip" />
-        </LinearLayout>
-
         <ScrollView 
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/get_answer_text"
-                style="@style/VomEditTextStyle"
+            
+
+            <LinearLayout
+                android:id="@+id/question_title_wrap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:inputType="textMultiLine"
-                android:scrollHorizontally="false"
-                android:textCursorDrawable="@null"
-                android:textSize="20sp" />
+                android:orientation="horizontal"
+                android:padding="1dp"
+                android:weightSum="1" >
+
+                <ImageView
+                    android:id="@+id/question_get_star_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:contentDescription="@string/desc_star_image"
+                    android:scaleType="fitXY"
+                    android:src="#ff2345"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/question_get_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="TEST test TEST test TEST test TEST test TEST test TEST test "
+                        android:textColor="@color/vom_white"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/get_answer_text"
+                        style="@style/VomEditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:inputType="textMultiLine"
+                        android:minHeight="10dp"
+                        android:scrollHorizontally="false"
+                        android:text="TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test TEST test "
+                        android:textCursorDrawable="@null"
+                        android:textSize="15sp" >
+
+                        <requestFocus />
+                    </EditText>
+
+                </LinearLayout></LinearLayout>
 
         </ScrollView>
     </LinearLayout>

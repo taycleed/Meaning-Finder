@@ -147,13 +147,4 @@ public class QuestionActivity extends Activity {
 		// 질문을 받아옴.
 		(new QuestionGetterAsync()).execute();
 	}
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.question, menu);
-		return true;
-	}
-
 }
