@@ -181,6 +181,10 @@ public class StarActivity extends Activity {
 				
 				fl.addView(svgView);
 			}
+			
+			//TODO: remove this code after all svg file applied.
+			if(i == 7)
+				break;
 		}       
 	    
 	    siMapper = null;
