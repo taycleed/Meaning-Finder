@@ -7,18 +7,22 @@
 	<rect width="500" height="500"/>
 </g>
 <g id="line_dim">
-	<line opacity="0.25" fill="none" stroke="#FFFFFF" x1="37" y1="183" x2="335.5" y2="236.5"/>
-	<line opacity="0.25" fill="none" stroke="#FFFFFF" x1="335.5" y1="236.5" x2="450" y2="289"/>
-	<line opacity="0.25" fill="none" stroke="#FFFFFF" x1="449.5" y1="288.5" x2="472.5" y2="329.5"/>
+	<line fill="none" stroke="#404040" x1="37" y1="183" x2="335.5" y2="236.5"/>
+	<line fill="none" stroke="#404040" x1="335.5" y1="236.5" x2="450" y2="289"/>
+	<line fill="none" stroke="#404040" x1="449.5" y1="288.5" x2="472.5" y2="329.5"/>
+	<circle fill="#404040" cx="36.833" cy="182.5" r="4.167"/>
+	<circle fill="#404040" cx="335.333" cy="236.5" r="4.167"/>
+	<circle fill="#404040" cx="450.021" cy="289.473" r="4.217"/>
+	<circle fill="#404040" cx="472.283" cy="329.95" r="4.217"/>
 </g>
 <g id="num_01">
 	<g id="star_01">
-		<circle fill="#FFFFFF" cx="36.833" cy="182.5" r="4.167"/>
+		<circle fill="#FFFFFF" cx="36.833" cy="182.5" r="4.583"/>
 	</g>
 </g>
 <g id="num_02">
 	<g id="star_02">
-		<circle fill="#FFFFFF" cx="335.333" cy="236.5" r="4.167"/>
+		<circle fill="#FFFFFF" cx="335.333" cy="236.5" r="4.583"/>
 	</g>
 	<g id="line_02">
 		<line fill="none" stroke="#FFFFFF" x1="37" y1="183" x2="335.5" y2="236.5"/>
@@ -26,10 +30,10 @@
 </g>
 <g id="num_03">
 	<g id="line_03">
-		<line fill="none" stroke="#FFFFFF" x1="335.5" y1="236.5" x2="450" y2="289"/>
+		<line fill="none" stroke="#FFFFFF" x1="333.815" y1="235.333" x2="449.684" y2="288.46"/>
 	</g>
 	<g id="star_03">
-		<circle fill="#FFFFFF" cx="450.333" cy="290" r="4.167"/>
+		<circle fill="#FFFFFF" cx="450.021" cy="289.473" r="4.639"/>
 	</g>
 </g>
 <g id="num_04">
@@ -37,7 +41,7 @@
 		<line fill="none" stroke="#FFFFFF" x1="450.5" y1="290.5" x2="473.5" y2="331.5"/>
 	</g>
 	<g id="star_04">
-		<circle fill="#FFFFFF" cx="472.333" cy="330" r="4.167"/>
+		<circle fill="#FFFFFF" cx="472.283" cy="329.95" r="4.639"/>
 	</g>
 </g>
 </svg>
