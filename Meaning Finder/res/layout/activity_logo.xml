@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/logo" />
+        android:background="@drawable/logo_beta" />
 
     <RelativeLayout
         android:id="@+id/loading_layout"
@@ -34,7 +34,7 @@
         android:id="@+id/loginFormLayout"
         style="@style/LoginFormContainer"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="95dip"
+        android:layout_marginBottom="80dp"
         android:baselineAligned="false"
         android:orientation="vertical"
         android:visibility="visible" >
@@ -74,7 +74,7 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
+            android:layout_marginTop="10dp"
             android:layout_weight="1" >
 
             <EditText
@@ -116,7 +116,6 @@
                 android:layout_height="35dp"
                 android:layout_gravity="left"
                 android:layout_marginRight="5dip"
-                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -130,7 +129,6 @@
                 android:layout_height="35dp"
                 android:layout_gravity="right"
                 android:layout_marginLeft="5dip"
-                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"

@@ -3,8 +3,6 @@ package org.bigcamp4edu.meaningfinder;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import com.trevorpage.tpsvg.SVGParserRenderer;
-import com.trevorpage.tpsvg.SVGView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -23,7 +21,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -192,28 +189,6 @@ public class SetupActivity extends Activity {
 				finish();	// Setup 액티비티 닫기
 			}
 		});
-		
-		
-		FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_setting_svgtest);
-		SVGParserRenderer svgRenderer = new SVGParserRenderer(this, R.raw.cancer);
-		SVGView svgView_dimmed = new SVGView(this);
-		svgView_dimmed.setSVGRenderer(svgRenderer, "line_dim");
-		svgView_dimmed.setBackgroundColor(0x00999999);
-		fl.addView(svgView_dimmed);
-		
-		for(int i = 1 ; i < 6 ; i++){
-			SVGView svgView = new SVGView(this);
-			svgView.setSVGRenderer(svgRenderer, "num_0" + Integer.toString(i));
-			svgView.setBackgroundColor(0x00999999);
-			if(i != 5){
-			}else{
-				// TODO: add animation
-				// svgView.setAnimation(animation);
-			}
-			
-			fl.addView(svgView);
-		}
-		
 	}
 	
 	@Override
