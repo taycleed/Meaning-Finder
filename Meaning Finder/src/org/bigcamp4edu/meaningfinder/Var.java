@@ -73,6 +73,16 @@ public class Var {
 			// No alarm has been set/unset. 
 			// Set default alarm. 
 			SetupActivity.UpdateAlarm(context, 0);
+			
+			pref.edit()
+				.putString("one_alarm", "set")
+				.putInt("one_alarm_hour", 7)
+				.putInt("one_alarm_minute", 0)
+				.putString("two_alarm", "set")
+				.putInt("two_alarm_hour", 23)
+				.putInt("two_alarm_minute", 0)
+				.putBoolean("Vibrate", true)
+				.commit();
 		}
 	}
 }
